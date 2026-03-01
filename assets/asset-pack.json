@@ -1,0 +1,18 @@
+{
+    "section1": {
+        "files": [
+            
+            {
+              "type": "multiatlas",
+              "key": "texture-0",
+              "url": "atlas/textures.json",
+              "path": "assets/atlas"
+            }
+            
+        ]
+    },
+    "meta": {
+        "version": 2,
+        "showAllFilesInBlocks": false
+    }
+}

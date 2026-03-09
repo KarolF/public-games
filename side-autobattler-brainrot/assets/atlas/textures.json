@@ -1,0 +1,120 @@
+{
+  "textures": [
+    {
+      "image": "texture.png",
+      "format": "RGBA8888",
+      "size": {
+        "w": 2048,
+        "h": 2048
+      },
+      "scale": 1,
+      "frames": [
+        {
+          "filename": "side-bg-1.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 889,
+            "h": 1080
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 889,
+            "h": 1080
+          },
+          "frame": {
+            "x": 2,
+            "y": 2,
+            "w": 889,
+            "h": 1080
+          }
+        },
+        {
+          "filename": "side-base-1.png",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 445,
+            "h": 540
+          },
+          "spriteSourceSize": {
+            "x": 14,
+            "y": 21,
+            "w": 418,
+            "h": 502
+          },
+          "frame": {
+            "x": 2,
+            "y": 1086,
+            "w": 418,
+            "h": 502
+          }
+        },
+        {
+          "filename": "side-unit-2.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 137,
+            "h": 270
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 137,
+            "h": 270
+          },
+          "frame": {
+            "x": 2,
+            "y": 1592,
+            "w": 137,
+            "h": 270
+          }
+        },
+        {
+          "filename": "side-unit-3.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 125,
+            "h": 270
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 125,
+            "h": 270
+          },
+          "frame": {
+            "x": 143,
+            "y": 1592,
+            "w": 125,
+            "h": 270
+          }
+        },
+        {
+          "filename": "side-unit-1.png",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 222,
+            "h": 270
+          },
+          "spriteSourceSize": {
+            "x": 19,
+            "y": 8,
+            "w": 192,
+            "h": 254
+          },
+          "frame": {
+            "x": 272,
+            "y": 1592,
+            "w": 192,
+            "h": 254
+          }
+        }
+      ]
+    }
+  ]
+}

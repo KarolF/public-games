@@ -1,0 +1,11 @@
+{
+    "section1": {
+        "files": [
+            { "type": "image", "key": "pigeon", "url": "pigeon.png" },
+            { "type": "image", "key": "background1", "url": "background1.png" },
+            { "type": "image", "key": "rock01", "url": "rock01.png" },
+            { "type": "image", "key": "rock02", "url": "rock02.png" }
+        ]
+    },
+    "meta": { "version": 2 }
+}

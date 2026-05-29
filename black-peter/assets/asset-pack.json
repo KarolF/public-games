@@ -1,0 +1,130 @@
+{
+  "section1": {
+    "files": [
+      {
+        "type": "image",
+        "key": "background",
+        "url": "bacgkround.png"
+      },
+      {
+        "type": "image",
+        "key": "title",
+        "url": "title.png"
+      },
+      {
+        "type": "image",
+        "key": "cover_illustration_black_peter",
+        "url": "cover_illustration1.png"
+      },
+      {
+        "type": "image",
+        "key": "cover_illustration_queen",
+        "url": "cover_illustration2.png"
+      },
+      {
+        "type": "image",
+        "key": "button_play",
+        "url": "button_play.png"
+      },
+      {
+        "type": "image",
+        "key": "button_how_to_play",
+        "url": "button_htp.png"
+      },
+      {
+        "type": "image",
+        "key": "button_settings",
+        "url": "button_settings.png"
+      },
+      {
+        "type": "image",
+        "key": "peter_face_1",
+        "url": "peter_face1.png"
+      },
+      {
+        "type": "image",
+        "key": "peter_face_2",
+        "url": "peter_face2.png"
+      },
+      {
+        "type": "image",
+        "key": "eye",
+        "url": "eye.png"
+      },
+      {
+        "type": "image",
+        "key": "card_back",
+        "url": "cardback.png"
+      },
+      {
+        "type": "image",
+        "key": "card_black_peter",
+        "url": "card_black_peter.png"
+      },
+      {
+        "type": "image",
+        "key": "card_2",
+        "url": "card01.png"
+      },
+      {
+        "type": "image",
+        "key": "card_3",
+        "url": "card02.png"
+      },
+      {
+        "type": "image",
+        "key": "card_4",
+        "url": "card03.png"
+      },
+      {
+        "type": "image",
+        "key": "card_5",
+        "url": "card04.png"
+      },
+      {
+        "type": "image",
+        "key": "card_6",
+        "url": "card05.png"
+      },
+      {
+        "type": "image",
+        "key": "card_7",
+        "url": "card06.png"
+      },
+      {
+        "type": "image",
+        "key": "card_8",
+        "url": "card07.png"
+      },
+      {
+        "type": "image",
+        "key": "card_9",
+        "url": "card08.png"
+      },
+      {
+        "type": "image",
+        "key": "card_10",
+        "url": "card09.png"
+      },
+      {
+        "type": "image",
+        "key": "card_j",
+        "url": "card10.png"
+      },
+      {
+        "type": "image",
+        "key": "card_q",
+        "url": "card11.png"
+      },
+      {
+        "type": "image",
+        "key": "card_k",
+        "url": "card12.png"
+      }
+    ]
+  },
+  "meta": {
+    "version": 2,
+    "showAllFilesInBlocks": false
+  }
+}

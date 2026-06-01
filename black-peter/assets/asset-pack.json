@@ -48,6 +48,16 @@
       },
       {
         "type": "image",
+        "key": "opponent_face_b",
+        "url": "opponent_face_b.png"
+      },
+      {
+        "type": "image",
+        "key": "opponent_face_c",
+        "url": "oppoonent_face_c.png"
+      },
+      {
+        "type": "image",
         "key": "eye",
         "url": "eye.png"
       },

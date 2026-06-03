@@ -130,6 +130,62 @@
         "type": "image",
         "key": "card_k",
         "url": "card12.png"
+      },
+      {
+        "type": "audio",
+        "key": "SND_CARD_CLICK",
+        "url": [
+          "../sounds/chosen_1/twinz_being_removed.ogg",
+          "../sounds/chosen_1/twinz_being_removed.m4a"
+        ]
+      },
+      {
+        "type": "audio",
+        "key": "SND_CARD_PASS",
+        "url": [
+          "../sounds/chosen_1/direction_swoosh_03.ogg",
+          "../sounds/chosen_1/direction_swoosh_03.m4a"
+        ]
+      },
+      {
+        "type": "audio",
+        "key": "SND_PAIR_FOUND",
+        "url": [
+          "../sounds/chosen_1/powerup4.ogg",
+          "../sounds/chosen_1/powerup4.m4a"
+        ]
+      },
+      {
+        "type": "audio",
+        "key": "SND_BLACK_PETER",
+        "url": [
+          "../sounds/chosen_1/super_jump_01.ogg",
+          "../sounds/chosen_1/super_jump_01.m4a"
+        ]
+      },
+      {
+        "type": "audio",
+        "key": "SND_MATCH_WIN",
+        "url": [
+          "../sounds/chosen_1/scoring_04_yay.ogg",
+          "../sounds/chosen_1/scoring_04_yay.m4a"
+        ]
+      },
+      {
+        "type": "audio",
+        "key": "SND_MATCH_LOSE",
+        "url": [
+          "../sounds/chosen_1/super_jump_01.ogg",
+          "../sounds/chosen_1/super_jump_01.m4a"
+        ]
+      },
+      {
+        "type": "audio",
+        "key": "MUSIC_BGM",
+        "url": [
+          "../sounds/music/sunday_morning_plan.ogg",
+          "../sounds/music/sunday_morning_plan.m4a"
+        ]
       }
     ]
   },

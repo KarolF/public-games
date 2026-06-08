@@ -33,8 +33,53 @@
       },
       {
         "type": "image",
+        "key": "htp_arrow",
+        "url": "htp_arrow.png"
+      },
+      {
+        "type": "image",
         "key": "button_settings",
         "url": "button_settings.png"
+      },
+      {
+        "type": "image",
+        "key": "button_menu1",
+        "url": "button_menu1.png"
+      },
+      {
+        "type": "image",
+        "key": "button_next",
+        "url": "button_next.png"
+      },
+      {
+        "type": "image",
+        "key": "game_win_modal",
+        "url": "game_win_modal.png"
+      },
+      {
+        "type": "image",
+        "key": "progress_bar",
+        "url": "progress_bar.png"
+      },
+      {
+        "type": "image",
+        "key": "player_progress_bar",
+        "url": "player_progress_bar.png"
+      },
+      {
+        "type": "image",
+        "key": "opponent_progress_bar1",
+        "url": "opponent_progress_bar1.png"
+      },
+      {
+        "type": "image",
+        "key": "opponent_progress_bar2",
+        "url": "opponent_progress_bar2.png"
+      },
+      {
+        "type": "image",
+        "key": "opponent_progress_bar3",
+        "url": "opponent_progress_bar3.png"
       },
       {
         "type": "image",
@@ -60,6 +105,11 @@
         "type": "image",
         "key": "eye",
         "url": "eye.png"
+      },
+      {
+        "type": "image",
+        "key": "sunglasses",
+        "url": "sunglasses.png"
       },
       {
         "type": "image",

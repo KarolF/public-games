@@ -38,6 +38,16 @@
       },
       {
         "type": "image",
+        "key": "htp_ok",
+        "url": "htp_ok.png"
+      },
+      {
+        "type": "image",
+        "key": "htp_no",
+        "url": "htp_no.png"
+      },
+      {
+        "type": "image",
         "key": "button_settings",
         "url": "button_settings.png"
       },

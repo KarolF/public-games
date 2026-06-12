@@ -1,0 +1,79 @@
+{
+  "pigeon": {
+    "origin": [0.5, 0.5],
+    "boundingRadius": 31,
+    "polygons": [
+      { "vertices": [[-18,-24],[18,-24],[24,4],[12,26],[-12,26],[-24,4]] }
+    ]
+  },
+  "pooShot": {
+    "origin": [0.5, 0.5],
+    "boundingRadius": 12,
+    "polygons": [
+      { "vertices": [[-8,-8],[8,-8],[10,0],[8,8],[-8,8],[-10,0]] }
+    ]
+  },
+  "projectileBullet": {
+    "origin": [0.5, 0.5],
+    "boundingRadius": 18,
+    "polygons": [
+      { "vertices": [[-16,-5],[16,-5],[16,5],[-16,5]] }
+    ]
+  },
+  "projectileRock": {
+    "origin": [0.5, 0.5],
+    "boundingRadius": 17,
+    "polygons": [
+      { "vertices": [[-13,-10],[2,-15],[15,-5],[12,10],[-4,15],[-15,4]] }
+    ]
+  },
+  "structureRockTile": {
+    "origin": [0.5, 0.5],
+    "boundingRadius": 45.3,
+    "polygons": [
+      { "vertices": [[-32,-32],[32,-32],[32,32],[-32,32]] }
+    ]
+  },
+  "enemyHuman": {
+    "origin": [0.5, 0.5],
+    "boundingRadius": 42,
+    "polygons": [
+      { "vertices": [[-20,-34],[20,-34],[24,22],[10,38],[-10,38],[-24,22]] }
+    ]
+  },
+  "enemyUFO": {
+    "origin": [0.5, 0.5],
+    "boundingRadius": 48,
+    "polygons": [
+      { "vertices": [[-46,-10],[-18,-26],[20,-25],[47,-8],[39,14],[6,24],[-34,15]] }
+    ]
+  },
+  "bossCar": {
+    "origin": [0.5, 0.5],
+    "boundingRadius": 86,
+    "polygons": [
+      { "vertices": [[-78,-36],[78,-36],[84,28],[48,42],[-58,42],[-84,20]] }
+    ]
+  },
+  "bossCyberEagle": {
+    "origin": [0.5, 0.5],
+    "boundingRadius": 112,
+    "polygons": [
+      { "vertices": [[-105,-34],[-34,-60],[36,-60],[108,-32],[66,42],[18,70],[-28,66],[-72,36]] }
+    ]
+  },
+  "bossStatue": {
+    "origin": [0.5, 0.5],
+    "boundingRadius": 92,
+    "polygons": [
+      { "vertices": [[-42,-84],[38,-84],[54,-22],[42,78],[-38,78],[-55,-20]] }
+    ]
+  },
+  "xpOrb": {
+    "origin": [0.5, 0.5],
+    "boundingRadius": 10,
+    "polygons": [
+      { "vertices": [[-7,-7],[7,-7],[7,7],[-7,7]] }
+    ]
+  }
+}

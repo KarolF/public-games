@@ -1,17 +1,199 @@
 {
     "section1": {
         "files": [
-            { "type": "multiatlas", "key": "game-atlas", "url": "atlas/textures.json", "path": "assets/atlas/" },
-            { "type": "json", "key": "collision-shapes", "url": "collision-shapes.json" },
-            { "type": "audio", "key": "bird_sound_01", "url": ["sounds/bird_sound_01.ogg", "sounds/bird_sound_01.m4a"] },
-            { "type": "audio", "key": "bird_sound_02", "url": ["sounds/bird_sound_02.ogg", "sounds/bird_sound_02.m4a"] },
-            { "type": "audio", "key": "eagle", "url": ["sounds/eagle.ogg", "sounds/eagle.m4a"] },
-            { "type": "audio", "key": "hit", "url": ["sounds/hit.ogg", "sounds/hit.m4a"] },
-            { "type": "audio", "key": "miss", "url": ["sounds/miss.ogg", "sounds/miss.m4a"] },
-            { "type": "audio", "key": "pigeon_crash", "url": ["sounds/pigeon_crash.ogg", "sounds/pigeon_crash.m4a"] },
-            { "type": "audio", "key": "pigeon_eating", "url": ["sounds/pigeon_eating.ogg", "sounds/pigeon_eating.m4a"] },
-            { "type": "audio", "key": "shoot", "url": ["sounds/shoot.ogg", "sounds/shoot.m4a"] }
+            {
+                "type": "multiatlas",
+                "key": "game-atlas",
+                "url": "atlas/textures.json",
+                "path": "assets/atlas/"
+            },
+            {
+                "type": "json",
+                "key": "collision-shapes",
+                "url": "collision-shapes.json"
+            },
+            {
+                "type": "image",
+                "key": "BG_Blue",
+                "url": "images/BG_Blue.png"
+            },
+            {
+                "type": "image",
+                "key": "Pigeon_Torso",
+                "url": "images/Pigeon_Torso.png"
+            },
+            {
+                "type": "image",
+                "key": "Pigeon_Wing",
+                "url": "images/Pigeon_Wing.png"
+            },
+            {
+                "type": "image",
+                "key": "Structure_Rock_01",
+                "url": "images/Structure_Rock_01.png"
+            },
+            {
+                "type": "image",
+                "key": "Sticker_Grass01",
+                "url": "images/Sticker_Grass01.png"
+            },
+            {
+                "type": "image",
+                "key": "Sticker_Grass02",
+                "url": "images/Sticker_Grass02.png"
+            },
+            {
+                "type": "image",
+                "key": "Sticker_Grass03",
+                "url": "images/Sticker_Grass03.png"
+            },
+            {
+                "type": "image",
+                "key": "Sticker_Grass04",
+                "url": "images/Sticker_Grass04.png"
+            },
+            {
+                "type": "image",
+                "key": "PooShot",
+                "url": "images/PooShot.png"
+            },
+            {
+                "type": "image",
+                "key": "Projectile_Bullet",
+                "url": "images/Projectile_Bullet.png"
+            },
+            {
+                "type": "image",
+                "key": "Projectile_Rock",
+                "url": "images/Projectile_Rock.png"
+            },
+            {
+                "type": "image",
+                "key": "Enemy_Businessman",
+                "url": "images/Enemy_Businessman.png"
+            },
+            {
+                "type": "image",
+                "key": "Enemy_Cop",
+                "url": "images/Enemy_Cop.png"
+            },
+            {
+                "type": "image",
+                "key": "Enemy_Kid",
+                "url": "images/Enemy_Kid.png"
+            },
+            {
+                "type": "image",
+                "key": "Enemy_Lady",
+                "url": "images/Enemy_Lady.png"
+            },
+            {
+                "type": "image",
+                "key": "Enemy_Punk",
+                "url": "images/Enemy_Punk.png"
+            },
+            {
+                "type": "image",
+                "key": "Enemy_Soldier",
+                "url": "images/Enemy_Soldier.png"
+            },
+            {
+                "type": "image",
+                "key": "Enemy_Turist",
+                "url": "images/Enemy_Turist.png"
+            },
+            {
+                "type": "image",
+                "key": "Enemy_UFO",
+                "url": "images/Enemy_UFO.png"
+            },
+            {
+                "type": "image",
+                "key": "Enemy_Worker",
+                "url": "images/Enemy_Worker.png"
+            },
+            {
+                "type": "image",
+                "key": "Boss_Car",
+                "url": "images/Boss_Car.png"
+            },
+            {
+                "type": "image",
+                "key": "Boss_CyberEagle",
+                "url": "images/Boss_CyberEagle.png"
+            },
+            {
+                "type": "image",
+                "key": "Boss_Statue",
+                "url": "images/Boss_Statue.png"
+            },
+            {
+                "type": "audio",
+                "key": "bird_sound_01",
+                "url": [
+                    "sounds/bird_sound_01.ogg",
+                    "sounds/bird_sound_01.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "bird_sound_02",
+                "url": [
+                    "sounds/bird_sound_02.ogg",
+                    "sounds/bird_sound_02.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "eagle",
+                "url": [
+                    "sounds/eagle.ogg",
+                    "sounds/eagle.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "hit",
+                "url": [
+                    "sounds/hit.ogg",
+                    "sounds/hit.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "miss",
+                "url": [
+                    "sounds/miss.ogg",
+                    "sounds/miss.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "pigeon_crash",
+                "url": [
+                    "sounds/pigeon_crash.ogg",
+                    "sounds/pigeon_crash.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "pigeon_eating",
+                "url": [
+                    "sounds/pigeon_eating.ogg",
+                    "sounds/pigeon_eating.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "shoot",
+                "url": [
+                    "sounds/shoot.ogg",
+                    "sounds/shoot.m4a"
+                ]
+            }
         ]
     },
-    "meta": { "version": 2 }
+    "meta": {
+        "version": 2
+    }
 }

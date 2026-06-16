@@ -54,6 +54,46 @@
             },
             {
                 "type": "image",
+                "key": "star",
+                "url": "images/star.png"
+            },
+            {
+                "type": "image",
+                "key": "pixel",
+                "url": "images/pixel.png"
+            },
+            {
+                "type": "image",
+                "key": "poop_mark",
+                "url": "images/poop_mark.png"
+            },
+            {
+                "type": "image",
+                "key": "splash01",
+                "url": "images/splash01.png"
+            },
+            {
+                "type": "image",
+                "key": "splash02",
+                "url": "images/splash02.png"
+            },
+            {
+                "type": "image",
+                "key": "splash03",
+                "url": "images/splash03.png"
+            },
+            {
+                "type": "image",
+                "key": "splash04",
+                "url": "images/splash04.png"
+            },
+            {
+                "type": "image",
+                "key": "splash05",
+                "url": "images/splash05.png"
+            },
+            {
+                "type": "image",
                 "key": "PooShot",
                 "url": "images/PooShot.png"
             },

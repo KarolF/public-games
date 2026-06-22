@@ -34,6 +34,21 @@
             },
             {
                 "type": "image",
+                "key": "SidePigeon_Torso",
+                "url": "images/SidePigeon_Torso.png"
+            },
+            {
+                "type": "image",
+                "key": "SidePigeon_Wing",
+                "url": "images/SidePigeon_Wing.png"
+            },
+            {
+                "type": "image",
+                "key": "Klatka",
+                "url": "images/Klatka.png"
+            },
+            {
+                "type": "image",
                 "key": "Structure_Rock_01",
                 "url": "images/Structure_Rock_01.png"
             },
@@ -84,6 +99,16 @@
             },
             {
                 "type": "image",
+                "key": "UpgradePanel",
+                "url": "images/UpgradePanel.png"
+            },
+            {
+                "type": "image",
+                "key": "LevelUp",
+                "url": "images/LevelUp.png"
+            },
+            {
+                "type": "image",
                 "key": "HPPanel",
                 "url": "images/HPPanel.png"
             },
@@ -99,6 +124,46 @@
             },
             {
                 "type": "image",
+                "key": "Icon_BiggerBoom",
+                "url": "images/Icon_BiggerBoom.png"
+            },
+            {
+                "type": "image",
+                "key": "Icon_BirdSeed",
+                "url": "images/Icon_BirdSeed.png"
+            },
+            {
+                "type": "image",
+                "key": "Icon_FastDrop",
+                "url": "images/Icon_FastDrop.png"
+            },
+            {
+                "type": "image",
+                "key": "Icon_FasterFire",
+                "url": "images/Icon_FasterFire.png"
+            },
+            {
+                "type": "image",
+                "key": "Icon_MultiPoop",
+                "url": "images/Icon_MultiPoop.png"
+            },
+            {
+                "type": "image",
+                "key": "Icon_SpeedUp",
+                "url": "images/Icon_SpeedUp.png"
+            },
+            {
+                "type": "image",
+                "key": "Icon_ToxicPoo",
+                "url": "images/Icon_ToxicPoo.png"
+            },
+            {
+                "type": "image",
+                "key": "Icon_XPMagnet",
+                "url": "images/Icon_XPMagnet.png"
+            },
+            {
+                "type": "image",
                 "key": "LevelBar",
                 "url": "images/LevelBar.png"
             },
@@ -106,6 +171,16 @@
                 "type": "image",
                 "key": "LevelBarSegment",
                 "url": "images/LevelBarSegment.png"
+            },
+            {
+                "type": "image",
+                "key": "hit_effect",
+                "url": "images/hit_effect.png"
+            },
+            {
+                "type": "image",
+                "key": "bomb_icon",
+                "url": "images/bomb_icon.png"
             },
             {
                 "type": "image",
@@ -151,6 +226,41 @@
                 "type": "image",
                 "key": "splash05",
                 "url": "images/splash05.png"
+            },
+            {
+                "type": "spritesheet",
+                "key": "hitanim",
+                "url": "images/hitanim.png",
+                "frameConfig": {
+                    "frameWidth": 64,
+                    "frameHeight": 64,
+                    "endFrame": 7
+                }
+            },
+            {
+                "type": "image",
+                "key": "splash_particle_01",
+                "url": "images/splash_particle_01.png"
+            },
+            {
+                "type": "image",
+                "key": "splash_particle_02",
+                "url": "images/splash_particle_02.png"
+            },
+            {
+                "type": "image",
+                "key": "splash_particle_03",
+                "url": "images/splash_particle_03.png"
+            },
+            {
+                "type": "image",
+                "key": "splash_particle_04",
+                "url": "images/splash_particle_04.png"
+            },
+            {
+                "type": "image",
+                "key": "splash_particle_05",
+                "url": "images/splash_particle_05.png"
             },
             {
                 "type": "image",
@@ -245,6 +355,14 @@
             },
             {
                 "type": "audio",
+                "key": "bird sound_02",
+                "url": [
+                    "sounds/bird sound_02.ogg",
+                    "sounds/bird sound_02.m4a"
+                ]
+            },
+            {
+                "type": "audio",
                 "key": "eagle",
                 "url": [
                     "sounds/eagle.ogg",
@@ -257,6 +375,94 @@
                 "url": [
                     "sounds/hit.ogg",
                     "sounds/hit.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "machinegun_normalciszej",
+                "url": [
+                    "sounds/machinegun_normalciszej.ogg",
+                    "sounds/machinegun_normalciszej.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "machinegun_normal_superbassciszej",
+                "url": [
+                    "sounds/machinegun_normal_superbassciszej.ogg",
+                    "sounds/machinegun_normal_superbassciszej.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "alien hit by bullet",
+                "url": [
+                    "sounds/alien hit by bullet.ogg",
+                    "sounds/alien hit by bullet.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "explosion_02",
+                "url": [
+                    "sounds/explosion_02.ogg",
+                    "sounds/explosion_02.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "Car_Start",
+                "url": [
+                    "sounds/Car_Start.ogg",
+                    "sounds/Car_Start.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "ufo",
+                "url": [
+                    "sounds/ufo.ogg",
+                    "sounds/ufo.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "direction swoosh 01",
+                "url": [
+                    "sounds/direction swoosh 01.ogg",
+                    "sounds/direction swoosh 01.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "direction swoosh 02",
+                "url": [
+                    "sounds/direction swoosh 02.ogg",
+                    "sounds/direction swoosh 02.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "complete_01",
+                "url": [
+                    "sounds/complete_01.ogg",
+                    "sounds/complete_01.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "upgrade_shotgun",
+                "url": [
+                    "sounds/upgrade_shotgun.ogg",
+                    "sounds/upgrade_shotgun.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "alert_mine",
+                "url": [
+                    "sounds/alert_mine.ogg",
+                    "sounds/alert_mine.m4a"
                 ]
             },
             {

@@ -184,6 +184,21 @@
             },
             {
                 "type": "image",
+                "key": "claw",
+                "url": "images/claw.png"
+            },
+            {
+                "type": "image",
+                "key": "beak_top",
+                "url": "images/beak_top.png"
+            },
+            {
+                "type": "image",
+                "key": "beak_bottom",
+                "url": "images/beak_bottom.png"
+            },
+            {
+                "type": "image",
                 "key": "CornerTL",
                 "url": "images/CornerTL.png"
             },

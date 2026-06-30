@@ -159,6 +159,44 @@
       29
     ]
   },
+  "projectileRocket": {
+    "imageKey": "aimed_rocket",
+    "origin": [
+      0.5,
+      0.5
+    ],
+    "boundingRadius": 38,
+    "polygons": [
+      {
+        "vertices": [
+          [
+            -35,
+            -12
+          ],
+          [
+            22,
+            -12
+          ],
+          [
+            36,
+            0
+          ],
+          [
+            22,
+            12
+          ],
+          [
+            -35,
+            12
+          ]
+        ]
+      }
+    ],
+    "editorSize": [
+      74,
+      35
+    ]
+  },
   "structureRockTile": {
     "imageKey": "Structure_Rock_01",
     "origin": [

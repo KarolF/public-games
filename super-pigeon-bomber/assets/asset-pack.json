@@ -74,8 +74,58 @@
             },
             {
                 "type": "image",
+                "key": "Sticker_Bench",
+                "url": "images/Sticker_Bench.png"
+            },
+            {
+                "type": "image",
+                "key": "Sticker_Hydrant",
+                "url": "images/Sticker_Hydrant.png"
+            },
+            {
+                "type": "image",
+                "key": "Sticker_Sign",
+                "url": "images/Sticker_Sign.png"
+            },
+            {
+                "type": "image",
+                "key": "Sticker_Sign_clear",
+                "url": "images/Sticker_Sign_clear.png"
+            },
+            {
+                "type": "image",
+                "key": "Sticker_Sign_arrow",
+                "url": "images/Sticker_Sign_arrow.png"
+            },
+            {
+                "type": "image",
+                "key": "Sticker_Trashcan",
+                "url": "images/Sticker_Trashcan.png"
+            },
+            {
+                "type": "image",
                 "key": "star",
                 "url": "images/star.png"
+            },
+            {
+                "type": "image",
+                "key": "collect_02",
+                "url": "images/collect_02.png"
+            },
+            {
+                "type": "image",
+                "key": "collect_03",
+                "url": "images/collect_03.png"
+            },
+            {
+                "type": "image",
+                "key": "collect_04",
+                "url": "images/collect_04.png"
+            },
+            {
+                "type": "image",
+                "key": "collect_05",
+                "url": "images/collect_05.png"
             },
             {
                 "type": "image",
@@ -106,6 +156,21 @@
                 "type": "image",
                 "key": "LevelUp",
                 "url": "images/LevelUp.png"
+            },
+            {
+                "type": "image",
+                "key": "Bossfight",
+                "url": "images/Bossfight.png"
+            },
+            {
+                "type": "image",
+                "key": "GameOver",
+                "url": "images/GameOver.png"
+            },
+            {
+                "type": "image",
+                "key": "GOStatsPanel",
+                "url": "images/GOStatsPanel.png"
             },
             {
                 "type": "image",
@@ -294,6 +359,11 @@
             },
             {
                 "type": "image",
+                "key": "aimed_rocket",
+                "url": "images/aimed_rocket.png"
+            },
+            {
+                "type": "image",
                 "key": "Enemy_Businessman",
                 "url": "images/Enemy_Businessman.png"
             },
@@ -331,6 +401,16 @@
                 "type": "image",
                 "key": "Enemy_UFO",
                 "url": "images/Enemy_UFO.png"
+            },
+            {
+                "type": "image",
+                "key": "eagle_body",
+                "url": "images/eagle_body.png"
+            },
+            {
+                "type": "image",
+                "key": "eagle_wind",
+                "url": "images/eagle_wind.png"
             },
             {
                 "type": "image",

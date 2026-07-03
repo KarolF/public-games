@@ -19,13 +19,33 @@
             },
             {
                 "type": "image",
+                "key": "BG_fiolet",
+                "url": "images/BG_fiolet.png"
+            },
+            {
+                "type": "image",
                 "key": "Cloud",
                 "url": "images/Cloud.png"
             },
             {
                 "type": "image",
+                "key": "Clouds_SciFiBase",
+                "url": "images/Clouds_SciFiBase.png"
+            },
+            {
+                "type": "image",
                 "key": "Pigeon_Torso",
                 "url": "images/Pigeon_Torso.png"
+            },
+            {
+                "type": "image",
+                "key": "Pigeon_Torso_ninja",
+                "url": "images/Pigeon_Torso_ninja.png"
+            },
+            {
+                "type": "image",
+                "key": "Pigeon_Torso_presidente",
+                "url": "images/Pigeon_Torso_presidente.png"
             },
             {
                 "type": "image",
@@ -51,6 +71,16 @@
                 "type": "image",
                 "key": "Structure_Rock_01",
                 "url": "images/Structure_Rock_01.png"
+            },
+            {
+                "type": "image",
+                "key": "Structure_Base_01",
+                "url": "images/Structure_Base_01.png"
+            },
+            {
+                "type": "image",
+                "key": "Structure_Base_02",
+                "url": "images/Structure_Base_02.png"
             },
             {
                 "type": "image",
@@ -104,6 +134,16 @@
             },
             {
                 "type": "image",
+                "key": "Sticker_SciFiThingy1",
+                "url": "images/Sticker_SciFiThingy1.png"
+            },
+            {
+                "type": "image",
+                "key": "Sticker_SciFiThingy2",
+                "url": "images/Sticker_SciFiThingy2.png"
+            },
+            {
+                "type": "image",
                 "key": "star",
                 "url": "images/star.png"
             },
@@ -146,6 +186,26 @@
                 "type": "image",
                 "key": "Title",
                 "url": "images/Title.png"
+            },
+            {
+                "type": "image",
+                "key": "SelectionPanel",
+                "url": "images/SelectionPanel.png"
+            },
+            {
+                "type": "image",
+                "key": "LevelIcon_Street",
+                "url": "images/LevelIcon_Street.png"
+            },
+            {
+                "type": "image",
+                "key": "LevelIcon_Scifi",
+                "url": "images/LevelIcon_Scifi.png"
+            },
+            {
+                "type": "image",
+                "key": "LevelIcon_Park",
+                "url": "images/LevelIcon_Park.png"
             },
             {
                 "type": "image",
@@ -246,6 +306,21 @@
                 "type": "image",
                 "key": "bomb_icon",
                 "url": "images/bomb_icon.png"
+            },
+            {
+                "type": "image",
+                "key": "fart_particle",
+                "url": "images/fart_particle.png"
+            },
+            {
+                "type": "image",
+                "key": "burp_bubble",
+                "url": "images/burp_bubble.png"
+            },
+            {
+                "type": "image",
+                "key": "Icon_Fart",
+                "url": "images/Icon_Fart.svg"
             },
             {
                 "type": "image",
@@ -590,6 +665,54 @@
                 "url": [
                     "sounds/shoot.ogg",
                     "sounds/shoot.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "burp01",
+                "url": [
+                    "sounds/burp01.ogg",
+                    "sounds/burp01.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "burp02",
+                "url": [
+                    "sounds/burp02.ogg",
+                    "sounds/burp02.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "burp03",
+                "url": [
+                    "sounds/burp03.ogg",
+                    "sounds/burp03.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "fart01",
+                "url": [
+                    "sounds/fart01.ogg",
+                    "sounds/fart01.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "fart02",
+                "url": [
+                    "sounds/fart02.ogg",
+                    "sounds/fart02.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "fart03",
+                "url": [
+                    "sounds/fart03.ogg",
+                    "sounds/fart03.m4a"
                 ]
             }
         ]

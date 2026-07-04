@@ -6,7 +6,7 @@
   "sequences": [
     {
       "id": "A",
-      "value": 32,
+      "value": 16,
       "headDirection": "left",
       "cells": [
         {
@@ -103,7 +103,7 @@
     },
     {
       "id": "D",
-      "value": 32,
+      "value": 16,
       "headDirection": "right",
       "cells": [
         {
@@ -196,7 +196,7 @@
     },
     {
       "id": "G",
-      "value": 32,
+      "value": 8,
       "headDirection": "left",
       "cells": [
         {
@@ -246,7 +246,7 @@
     },
     {
       "id": "I",
-      "value": 32,
+      "value": 16,
       "headDirection": "left",
       "cells": [
         {
@@ -296,7 +296,7 @@
     },
     {
       "id": "K",
-      "value": 32,
+      "value": 8,
       "headDirection": "right",
       "cells": [
         {
@@ -319,7 +319,7 @@
     },
     {
       "id": "L",
-      "value": 32,
+      "value": 8,
       "headDirection": "left",
       "cells": [
         {
@@ -346,7 +346,7 @@
     },
     {
       "id": "M",
-      "value": 32,
+      "value": 8,
       "headDirection": "up",
       "cells": [
         {
@@ -361,7 +361,7 @@
     },
     {
       "id": "N",
-      "value": 32,
+      "value": 16,
       "headDirection": "up",
       "cells": [
         {
@@ -380,7 +380,7 @@
     },
     {
       "id": "O",
-      "value": 32,
+      "value": 8,
       "headDirection": "up",
       "cells": [
         {
@@ -403,7 +403,7 @@
     },
     {
       "id": "P",
-      "value": 32,
+      "value": 16,
       "headDirection": "left",
       "cells": [
         {
@@ -500,7 +500,7 @@
     },
     {
       "id": "S",
-      "value": 32,
+      "value": 8,
       "headDirection": "right",
       "cells": [
         {

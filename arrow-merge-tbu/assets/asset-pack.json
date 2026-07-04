@@ -1,0 +1,272 @@
+{
+  "section1": {
+    "files": [
+      {
+        "type": "image",
+        "key": "background",
+        "url": "background.png"
+      },
+      {
+        "type": "image",
+        "key": "title",
+        "url": "title.png"
+      },
+      {
+        "type": "image",
+        "key": "cell_empty",
+        "url": "cell_empty.png"
+      },
+      {
+        "type": "image",
+        "key": "cell_blocked",
+        "url": "cell_blocked.png"
+      },
+      {
+        "type": "image",
+        "key": "hint_marker",
+        "url": "hint_marker.png"
+      },
+      {
+        "type": "image",
+        "key": "chain_head_up",
+        "url": "chain_head_up.png"
+      },
+      {
+        "type": "image",
+        "key": "chain_head_down",
+        "url": "chain_head_down.png"
+      },
+      {
+        "type": "image",
+        "key": "chain_head_left",
+        "url": "chain_head_left.png"
+      },
+      {
+        "type": "image",
+        "key": "chain_head_right",
+        "url": "chain_head_right.png"
+      },
+      {
+        "type": "image",
+        "key": "chain_tail_straight_h",
+        "url": "chain_tail_straight_h.png"
+      },
+      {
+        "type": "image",
+        "key": "chain_tail_straight_v",
+        "url": "chain_tail_straight_v.png"
+      },
+      {
+        "type": "image",
+        "key": "chain_tail_corner_ul",
+        "url": "chain_tail_corner_ul.png"
+      },
+      {
+        "type": "image",
+        "key": "chain_tail_corner_ur",
+        "url": "chain_tail_corner_ur.png"
+      },
+      {
+        "type": "image",
+        "key": "chain_tail_corner_dl",
+        "url": "chain_tail_corner_dl.png"
+      },
+      {
+        "type": "image",
+        "key": "chain_tail_corner_dr",
+        "url": "chain_tail_corner_dr.png"
+      },
+      {
+        "type": "image",
+        "key": "chain_tail_end_up",
+        "url": "chain_tail_end_up.png"
+      },
+      {
+        "type": "image",
+        "key": "chain_tail_end_down",
+        "url": "chain_tail_end_down.png"
+      },
+      {
+        "type": "image",
+        "key": "chain_tail_end_left",
+        "url": "chain_tail_end_left.png"
+      },
+      {
+        "type": "image",
+        "key": "chain_tail_end_right",
+        "url": "chain_tail_end_right.png"
+      },
+      {
+        "type": "image",
+        "key": "button_restart",
+        "url": "button_restart.png"
+      },
+      {
+        "type": "image",
+        "key": "button_hint",
+        "url": "button_hint.png"
+      },
+      {
+        "type": "image",
+        "key": "button_next",
+        "url": "button_next.png"
+      },
+      {
+        "type": "image",
+        "key": "button_menu",
+        "url": "button_menu.png"
+      },
+      {
+        "type": "image",
+        "key": "button_play",
+        "url": "button_play.png"
+      },
+      {
+        "type": "image",
+        "key": "button_settings",
+        "url": "button_settings.png"
+      },
+      {
+        "type": "image",
+        "key": "heart_full",
+        "url": "heart_full.png"
+      },
+      {
+        "type": "image",
+        "key": "heart_empty",
+        "url": "heart_empty.png"
+      },
+      {
+        "type": "image",
+        "key": "modal_scrim",
+        "url": "modal_scrim.png"
+      },
+      {
+        "type": "image",
+        "key": "modal_win",
+        "url": "modal_win.png"
+      },
+      {
+        "type": "image",
+        "key": "modal_fail",
+        "url": "modal_fail.png"
+      },
+      {
+        "type": "image",
+        "key": "number_badge_2",
+        "url": "number_badge_2.png"
+      },
+      {
+        "type": "image",
+        "key": "number_badge_4",
+        "url": "number_badge_4.png"
+      },
+      {
+        "type": "image",
+        "key": "number_badge_8",
+        "url": "number_badge_8.png"
+      },
+      {
+        "type": "image",
+        "key": "number_badge_16",
+        "url": "number_badge_16.png"
+      },
+      {
+        "type": "image",
+        "key": "number_badge_32",
+        "url": "number_badge_32.png"
+      },
+      {
+        "type": "image",
+        "key": "number_badge_64",
+        "url": "number_badge_64.png"
+      },
+      {
+        "type": "image",
+        "key": "number_badge_128",
+        "url": "number_badge_128.png"
+      },
+      {
+        "type": "image",
+        "key": "number_badge_256",
+        "url": "number_badge_256.png"
+      },
+      {
+        "type": "image",
+        "key": "number_badge_512",
+        "url": "number_badge_512.png"
+      },
+      {
+        "type": "image",
+        "key": "number_badge_1024",
+        "url": "number_badge_1024.png"
+      },
+      {
+        "type": "image",
+        "key": "number_badge_2048",
+        "url": "number_badge_2048.png"
+      },
+      {
+        "type": "image",
+        "key": "number_badge_4096",
+        "url": "number_badge_4096.png"
+      },
+      {
+        "type": "audio",
+        "key": "SND_SELECT",
+        "url": [
+          "../sounds/chosen_1/direction_swoosh_03.ogg",
+          "../sounds/chosen_1/direction_swoosh_03.m4a"
+        ]
+      },
+      {
+        "type": "audio",
+        "key": "SND_MOVE",
+        "url": [
+          "../sounds/chosen_1/direction_swoosh_03.ogg",
+          "../sounds/chosen_1/direction_swoosh_03.m4a"
+        ]
+      },
+      {
+        "type": "audio",
+        "key": "SND_MERGE",
+        "url": [
+          "../sounds/chosen_1/powerup4.ogg",
+          "../sounds/chosen_1/powerup4.m4a"
+        ]
+      },
+      {
+        "type": "audio",
+        "key": "SND_BLOCKED",
+        "url": [
+          "../sounds/chosen_1/super_jump_01.ogg",
+          "../sounds/chosen_1/super_jump_01.m4a"
+        ]
+      },
+      {
+        "type": "audio",
+        "key": "SND_HEART_LOST",
+        "url": [
+          "../sounds/chosen_1/twinz_being_removed.ogg",
+          "../sounds/chosen_1/twinz_being_removed.m4a"
+        ]
+      },
+      {
+        "type": "audio",
+        "key": "SND_WIN",
+        "url": [
+          "../sounds/chosen_1/scoring_04_yay.ogg",
+          "../sounds/chosen_1/scoring_04_yay.m4a"
+        ]
+      },
+      {
+        "type": "audio",
+        "key": "MUSIC_BGM",
+        "url": [
+          "../sounds/music/sunday_morning_plan.ogg",
+          "../sounds/music/sunday_morning_plan.m4a"
+        ]
+      }
+    ]
+  }
+}

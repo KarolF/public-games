@@ -314,13 +314,33 @@
             },
             {
                 "type": "image",
+                "key": "feather",
+                "url": "images/feather.png"
+            },
+            {
+                "type": "image",
                 "key": "burp_bubble",
                 "url": "images/burp_bubble.png"
             },
             {
                 "type": "image",
                 "key": "Icon_Fart",
-                "url": "images/Icon_Fart.svg"
+                "url": "images/Icon_Fart.png"
+            },
+            {
+                "type": "image",
+                "key": "Icon_Burp",
+                "url": "images/Icon_Burp.png"
+            },
+            {
+                "type": "image",
+                "key": "Icon_BombCooldown",
+                "url": "images/Icon_BombCooldown.png"
+            },
+            {
+                "type": "image",
+                "key": "Icon_BombSize",
+                "url": "images/Icon_BombSize.png"
             },
             {
                 "type": "image",
@@ -421,6 +441,16 @@
                 "type": "image",
                 "key": "PooShot",
                 "url": "images/PooShot.png"
+            },
+            {
+                "type": "image",
+                "key": "PooShot02",
+                "url": "images/PooShot02.png"
+            },
+            {
+                "type": "image",
+                "key": "PooShot03",
+                "url": "images/PooShot03.png"
             },
             {
                 "type": "image",
@@ -629,6 +659,14 @@
             },
             {
                 "type": "audio",
+                "key": "cartoon tap_02",
+                "url": [
+                    "sounds/cartoon tap_02.ogg",
+                    "sounds/cartoon tap_02.m4a"
+                ]
+            },
+            {
+                "type": "audio",
                 "key": "alert_mine",
                 "url": [
                     "sounds/alert_mine.ogg",
@@ -665,6 +703,30 @@
                 "url": [
                     "sounds/shoot.ogg",
                     "sounds/shoot.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "shotgun01",
+                "url": [
+                    "sounds/1307/shotgun01.ogg",
+                    "sounds/1307/shotgun01.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "shotgun01a",
+                "url": [
+                    "sounds/1307/shotgun01a.ogg",
+                    "sounds/1307/shotgun01a.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "shotgun01b",
+                "url": [
+                    "sounds/1307/shotgun01b.ogg",
+                    "sounds/1307/shotgun01b.m4a"
                 ]
             },
             {

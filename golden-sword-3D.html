@@ -18,6 +18,8 @@
     html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #080a0e; font-family: Inter, system-ui, sans-serif; }
     canvas { display: block; width: 100%; height: 100%; }
     #hud { position: fixed; inset: 0; pointer-events: none; color: #f2ead8; text-shadow: 0 2px 4px #000; }
+    #damageFlash { position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle at center, rgba(255,90,55,.08) 0%, rgba(190,16,16,.30) 48%, rgba(95,0,0,.78) 100%); mix-blend-mode: screen; pointer-events: none; }
+    #damageFlash::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 95px 28px rgba(255,28,20,.68); }
     .topbar { position: absolute; top: 18px; left: 20px; right: 20px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
     .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,.35); backdrop-filter: blur(8px); }
     #status { width: min(460px, 60vw); padding: 12px 14px; }
@@ -64,6 +66,7 @@
 </head>
 <body>
   <div id="hud">
+    <div id="damageFlash"></div>
     <div class="topbar">
       <div id="status" class="panel">
         <div class="labelrow"><span>Warden</span><span id="healthText">100 / 100</span></div>
@@ -152,6 +155,7 @@
     const particles = [];
     const enemies = [];
     const mounts = [];
+    const medkits = [];
     const props = [];
     const world = new THREE.Group();
     scene.add(world);
@@ -169,6 +173,7 @@
       objective: document.querySelector('#objectiveText'),
       prompt: document.querySelector('#prompt'),
       banner: document.querySelector('#banner'),
+      damageFlash: document.querySelector('#damageFlash'),
       weapons: [...document.querySelectorAll('.weapon')]
     };
 
@@ -185,7 +190,10 @@
       leaf: new THREE.MeshStandardMaterial({ color: 0x294c35, roughness: 1 }),
       moss: new THREE.MeshStandardMaterial({ color: 0x3d5738, roughness: 1 }),
       stone: new THREE.MeshStandardMaterial({ color: 0x616161, roughness: 1 }),
-      ember: new THREE.MeshStandardMaterial({ color: 0xe4562c, emissive: 0xaa240d, emissiveIntensity: 1.5, roughness: .5 })
+      ember: new THREE.MeshStandardMaterial({ color: 0xe4562c, emissive: 0xaa240d, emissiveIntensity: 1.5, roughness: .5 }),
+      royalSteel: new THREE.MeshStandardMaterial({ color: 0x718ca0, metalness: .72, roughness: .25 }),
+      heal: new THREE.MeshStandardMaterial({ color: 0xdce7dc, emissive: 0x15351c, emissiveIntensity: .38, roughness: .65 }),
+      healRed: new THREE.MeshStandardMaterial({ color: 0xc92f36, emissive: 0x5f090d, emissiveIntensity: .85, roughness: .48 })
     };
 
     function mesh(geo, mat, parent, pos = [0,0,0], rot = [0,0,0], scale = [1,1,1]) {
@@ -391,7 +399,33 @@
 
       let cape = null;
       if (!enemy) {
-        cape = box([.09,1.22,.66],mats.red,torso,[-.31,1.54,0],[0,0,.08]);
+        // Layered warden armor: shaped breastplate, backplate, faulds, pauldrons, bracers and greaves.
+        box([.22,.92,.64],mats.royalSteel,torso,[.24,1.68,0],[0,0,-.03]);
+        box([.13,.76,.58],mats.darkSteel,torso,[-.25,1.66,0],[0,0,.02]);
+        box([.27,.12,.68],mats.gold,torso,[.25,1.54,0],[0,0,0]);
+        box([.25,.11,.64],mats.gold,torso,[.23,1.82,0],[0,0,0]);
+        box([.24,.20,.22],mats.gold,torso,[.27,1.67,0],[0,0,Math.PI/4]);
+        box([.36,.13,.74],mats.leather,torso,[0,1.17,0]);
+        box([.18,.20,.20],mats.gold,torso,[.20,1.17,0],[0,0,Math.PI/4]);
+        for (const z of [-.25,0,.25]) box([.24,.50,.17],mats.royalSteel,torso,[.08,.88,z],[0,0,z*.12]);
+
+        for (const arm of [leftArm,rightArm]) {
+          sphere(.225,mats.royalSteel,arm.shoulder,[.02,.01,0],[1.12,.72,1.28],12);
+          box([.20,.34,.28],mats.royalSteel,arm.elbow,[.03,-.29,0],[0,0,0]);
+          box([.21,.12,.30],mats.gold,arm.elbow,[.04,-.17,0]);
+        }
+        for (const leg of [leftLeg,rightLeg]) {
+          box([.22,.36,.25],mats.royalSteel,leg.knee,[.04,-.34,0],[0,0,0]);
+          box([.23,.10,.27],mats.gold,leg.knee,[.05,-.20,0]);
+          box([.26,.22,.42],mats.darkSteel,leg.knee,[.07,-.66,.07],[0,0,-.04]);
+        }
+
+        // Open-faced helmet keeps the player readable while adding a stronger silhouette.
+        cyl(.315,.345,.24,mats.royalSteel,head,[0,.28,0],[0,0,0],12);
+        box([.12,.42,.09],mats.gold,head,[.27,.20,0],[0,0,-.08]);
+        box([.17,.30,.10],mats.royalSteel,head,[.22,.02,-.28],[0,0,.10]);
+        box([.17,.30,.10],mats.royalSteel,head,[.22,.02,.28],[0,0,.10]);
+        cape = box([.09,1.30,.72],mats.red,torso,[-.34,1.50,0],[0,0,.08]);
       } else {
         box([.11,.62,.55],clothMat,torso,[-.28,1.45,0],[0,0,.04]);
       }
@@ -429,7 +463,9 @@
       onGround: true,
       mount: null,
       score: 0,
-      dead: false
+      dead: false,
+      deathTimer: 0,
+      deathSide: -1
     };
     player.root.position.set(-8,0,0);
     world.add(player.root);
@@ -462,7 +498,7 @@
         raider: {hp:46,speed:2.4,damage:9,reach:1.65,cool:.9},
         brute: {hp:92,speed:1.55,damage:17,reach:2.0,cool:1.25},
         lancer: {hp:58,speed:2.0,damage:12,reach:2.7,cool:1.15},
-        boss: {hp:360,speed:1.45,damage:24,reach:2.8,cool:1.0}
+        boss: {hp:240,speed:1.25,damage:14,reach:2.55,cool:1.35}
       }[boss ? 'boss' : type];
       if (type === 'brute' && !boss) root.scale.setScalar(1.18);
       const weaponType = boss || type === 'brute' ? 'axe' : type === 'lancer' ? 'spear' : 'sword';
@@ -471,8 +507,9 @@
         root, type, boss, weapon, weaponType,
         hp:typeStats.hp, maxHp:typeStats.hp,
         speed:typeStats.speed, damage:typeStats.damage, reach:typeStats.reach,
-        cooldown:rand(0,.5), attackTimer:0, activeHit:false,
-        stagger:0, velocity:new THREE.Vector3(), dead:false, aggro: boss ? 30 : 12,
+        cooldown:rand(0,1.0), attackTimer:0, activeHit:false,
+        stagger:0, velocity:new THREE.Vector3(), dead:false, deathTimer:0, deathSide:1, corpseSettled:false,
+        deathYaw:0, deathQuaternion:new THREE.Quaternion(), aggro: boss ? 30 : 12,
         homeX:x
       };
       root.userData.entity = e; enemies.push(e); return e;
@@ -557,6 +594,42 @@
     }
     createMount('wolf',25,-3.4); createMount('boar',73,3.5); createMount('drake',108,-3.6);
 
+
+    function createMedkit(x,z,heal=34) {
+      const root=new THREE.Group(); root.position.set(x,.12,z); world.add(root);
+      const caseGroup=new THREE.Group(); caseGroup.rotation.y=Math.PI/4; root.add(caseGroup);
+      box([.72,.46,.34],mats.heal,caseGroup,[0,.42,0],[0,0,0]);
+      box([.16,.36,.38],mats.healRed,caseGroup,[.37,.42,0]);
+      box([.10,.28,.37],mats.healRed,caseGroup,[.375,.42,0]);
+      box([.25,.09,.10],mats.darkSteel,caseGroup,[0,.72,0]);
+      box([.08,.13,.08],mats.gold,caseGroup,[.17,.42,.19]);
+      const ring=mesh(new THREE.TorusGeometry(.50,.035,7,18),new THREE.MeshBasicMaterial({color:0x83ff9b,transparent:true,opacity:.52,depthWrite:false}),root,[0,.36,0],[Math.PI/2,0,0]);
+      ring.castShadow=false; ring.receiveShadow=false;
+      const m={root,heal,collected:false,baseY:root.position.y,phase:rand(0,Math.PI*2),ring};
+      medkits.push(m); return m;
+    }
+    [[21,2.8],[49,-2.7],[78,2.6],[103,-2.5],[132,2.4]].forEach(([x,z],i)=>createMedkit(x,z,i===4?45:34));
+
+    function updateMedkits(dt) {
+      if(player.dead)return;
+      const carrier=player.mount?player.mount.root:player.root;
+      for(const m of medkits) {
+        if(m.collected) continue;
+        m.root.rotation.y+=dt*.72;
+        m.root.position.y=m.baseY+.10+Math.sin(game.time*3.2+m.phase)*.10;
+        m.ring.rotation.z-=dt*1.8;
+        m.ring.material.opacity=.38+Math.sin(game.time*4+m.phase)*.12;
+        const dx=carrier.position.x-m.root.position.x, dz=carrier.position.z-m.root.position.z;
+        if(dx*dx+dz*dz<1.75*1.75 && player.hp<player.maxHp) {
+          m.collected=true;
+          player.hp=Math.min(player.maxHp,player.hp+m.heal);
+          sparks(m.root.position.clone().add(new THREE.Vector3(0,.55,0)),0x78ff92,16);
+          showBanner(`Medkit +${m.heal}`,.8);
+          world.remove(m.root);
+        }
+      }
+    }
+
     function dust(pos, color=0xbba279, count=6, force=1) {
       for(let i=0;i<count;i++) {
         const mat = new THREE.MeshBasicMaterial({color,transparent:true,opacity:.8,depthWrite:false});
@@ -568,6 +641,56 @@
       }
     }
     function sparks(pos,color=0xffb43c,count=9) { dust(pos,color,count,2.3); }
+
+    function hitShockwave(pos, amount=10) {
+      const mat=new THREE.MeshBasicMaterial({color:0xff3d2e,transparent:true,opacity:.92,side:THREE.DoubleSide,depthWrite:false,blending:THREE.AdditiveBlending});
+      const ring=new THREE.Mesh(new THREE.TorusGeometry(.48,.085,8,30),mat);
+      ring.position.copy(pos);
+      ring.userData.life=.30; ring.userData.maxLife=.30; ring.userData.noGravity=true;
+      ring.userData.baseScale=new THREE.Vector3(1,1,1);
+      scene.add(ring); particles.push(ring);
+      sparks(pos,0xff372c,Math.min(34,18+Math.round(amount*.55)));
+      dust(pos,0xffb08a,10,3.8);
+      game.hitFlash=Math.max(game.hitFlash,.30);
+      game.cameraShake=Math.max(game.cameraShake,.34+Math.min(.18,amount*.008));
+    }
+
+    function weaponTrailLocalPoints(type) {
+      if(type==='sword') return [new THREE.Vector3(0,.30,0),new THREE.Vector3(0,1.45,0)];
+      if(type==='axe') return [new THREE.Vector3(.06,.68,0),new THREE.Vector3(.66,1.16,0)];
+      return [new THREE.Vector3(0,1.28,0),new THREE.Vector3(0,2.14,0)];
+    }
+
+    function resetWeaponTrail(weapon) {
+      if(!weapon)return;
+      weapon.userData.trailBase=null; weapon.userData.trailTip=null;
+    }
+
+    function updateWeaponTrail(weapon,type,phase) {
+      if(!weapon || phase<0){resetWeaponTrail(weapon);return;}
+      const active=type==='spear'?(phase>.16&&phase<.66):type==='axe'?(phase>.27&&phase<.80):(phase>.20&&phase<.78);
+      weapon.updateWorldMatrix(true,false);
+      const [baseLocal,tipLocal]=weaponTrailLocalPoints(type);
+      const base=weapon.localToWorld(baseLocal.clone());
+      const tip=weapon.localToWorld(tipLocal.clone());
+      const prevBase=weapon.userData.trailBase, prevTip=weapon.userData.trailTip;
+      if(active && prevBase && prevTip && (tip.distanceToSquared(prevTip)>.00008 || base.distanceToSquared(prevBase)>.00008)) {
+        const positions=new Float32Array([
+          prevBase.x,prevBase.y,prevBase.z, prevTip.x,prevTip.y,prevTip.z, tip.x,tip.y,tip.z,
+          prevBase.x,prevBase.y,prevBase.z, tip.x,tip.y,tip.z, base.x,base.y,base.z
+        ]);
+        const geo=new THREE.BufferGeometry();
+        geo.setAttribute('position',new THREE.BufferAttribute(positions,3));
+        geo.computeVertexNormals();
+        const color=type==='spear'?0xbde6ff:type==='axe'?0xffc25e:0xffdf83;
+        const mat=new THREE.MeshBasicMaterial({color,transparent:true,opacity:type==='axe'?.62:.76,side:THREE.DoubleSide,depthWrite:false,blending:THREE.AdditiveBlending});
+        const trail=new THREE.Mesh(geo,mat);
+        trail.userData.life=type==='axe'?.13:.10; trail.userData.maxLife=trail.userData.life; trail.userData.noGravity=true; trail.userData.noGrow=true;
+        scene.add(trail); particles.push(trail);
+      }
+      weapon.userData.trailBase=base; weapon.userData.trailTip=tip;
+      if(!active)resetWeaponTrail(weapon);
+    }
 
     function showBanner(text, seconds=1.4) {
       ui.banner.textContent=text; ui.banner.classList.add('show');
@@ -638,6 +761,14 @@
       }
     }
 
+    function killPlayer(sourcePos) {
+      if(player.dead)return;
+      player.hp=0; player.dead=true; player.deathTimer=0;
+      player.deathSide=(sourcePos && sourcePos.x<player.root.position.x)?-1:1;
+      player.velocity.set(player.deathSide*1.8,2.4,0);
+      setTimeout(()=>endGame(false),1100);
+    }
+
     function damagePlayer(amount, sourcePos) {
       if(player.invuln>0 || player.dead) return;
       if(player.mount) {
@@ -664,27 +795,30 @@
         player.velocity.x *= .15;
         player.velocity.z *= .15;
         sparks(player.root.position.clone().add(new THREE.Vector3(player.faceDir.x*.55,1.55,player.faceDir.z*.55)),0xbfe8ff,10);
-        if(player.hp<=0){player.hp=0; player.dead=true; setTimeout(()=>endGame(false),700);}
+        if(player.hp<=0)killPlayer(sourcePos);
         return;
       }
 
       player.hp-=amount; player.invuln=.72;
       player.velocity.x=(player.root.position.x-sourcePos.x>=0?1:-1)*5;
       player.velocity.y=3.2;
-      sparks(player.root.position.clone().add(new THREE.Vector3(0,1.4,0)),0xe35c4d,7);
-      if(player.hp<=0){player.hp=0; player.dead=true; setTimeout(()=>endGame(false),700);}
+      hitShockwave(player.root.position.clone().add(new THREE.Vector3(0,1.45,0)),amount);
+      if(player.hp<=0)killPlayer(sourcePos);
     }
 
     function hitEnemy(e,damage,knock,origin) {
       if(e.dead || e.stagger>0.06)return;
-      e.hp-=damage; e.stagger=e.boss?.22:.34;
+      e.hp-=damage; e.stagger=e.boss?.36:.34;
       e.velocity.x=(e.root.position.x-origin.x>=0?1:-1)*knock;
       sparks(e.root.position.clone().add(new THREE.Vector3(0,e.boss?2.4:1.4,0)),0xffc152,e.boss?12:7);
       if(e.hp<=0) {
-        e.hp=0;e.dead=true;e.velocity.y=4;e.velocity.x*=1.5;
+        e.hp=0; e.dead=true; e.deathTimer=0; e.corpseSettled=false;
+        e.deathSide=(e.root.position.x-origin.x>=0)?-1:1;
+        e.deathYaw=e.root.rotation.y;
+        e.deathQuaternion.copy(makeCorpseQuaternion(e.deathYaw,e.deathSide));
+        e.velocity.x*=.72; e.velocity.z*=.45; e.velocity.y=2.0;
         player.score += e.boss?1000:100;
-        setTimeout(()=>{if(e.root.parent)e.root.parent.remove(e.root);},1200);
-        if(e.boss) setTimeout(()=>endGame(true),850);
+        if(e.boss) setTimeout(()=>endGame(true),1100);
       }
     }
 
@@ -745,8 +879,12 @@
 
     function animateHumanoid(root,dt,{moving=false,speed=0,mounted=false,attackPhase=-1,weapon='sword',combo=1,stagger=0,blocking=false,blockFlash=0}={}){
       const r=root.userData.rig;if(!r)return;
-      const gait=moving&&!mounted?Math.sin(game.time*(10+speed*.65))*.68:0;
-      const bob=moving?(mounted?Math.abs(Math.sin(game.time*12))*.035:Math.abs(Math.sin(game.time*(10+speed*.65)))*.075):0;
+      const walkClock=game.time*(10+speed*.65);
+      const gait=moving&&!mounted?Math.sin(walkClock)*.68:0;
+      const idleClock=game.time*2.15+root.position.x*.13;
+      const breath=!moving&&!mounted?Math.sin(idleClock)*.018:0;
+      const idleShift=!moving&&!mounted?Math.sin(idleClock*.63)*.035:0;
+      const bob=moving?(mounted?Math.abs(Math.sin(game.time*12))*.035:Math.abs(Math.sin(walkClock))*.075):breath;
       const blend=1-Math.pow(.0007,dt);
       const rz=(o,v)=>o.rotation.z=lerp(o.rotation.z,v,blend);
       const rx=(o,v)=>o.rotation.x=lerp(o.rotation.x,v,blend);
@@ -755,23 +893,29 @@
       const segment=(p,a,b)=>smoothStep01(clamp((p-a)/(b-a),0,1));
 
       r.model.position.y=lerp(r.model.position.y,bob,blend);
-      rz(r.torso,stagger?-.12:0); ry(r.torso,0); rz(r.head,stagger?.10:0); ry(r.head,0);
-      rz(r.leftArm,mounted?-.40:-gait*.42);
-      rz(r.rightArm,mounted?-.22:gait*.26);
-      rz(r.leftForearm,mounted?-1.00:-.08-Math.max(0,gait)*.28);
-      rz(r.rightForearm,mounted?-.82:-.12-Math.max(0,-gait)*.22);
-      rx(r.leftArm,0); rx(r.rightArm,0); rx(r.leftForearm,0); rx(r.rightForearm,0);
-      rz(r.leftLeg,mounted?-1.08:gait);
-      rz(r.rightLeg,mounted?-1.08:-gait);
-      rz(r.leftKnee,mounted?1.58:Math.max(0,-gait)*.72);
-      rz(r.rightKnee,mounted?1.58:Math.max(0,gait)*.72);
+      r.model.position.z=lerp(r.model.position.z,idleShift,blend);
+      rz(r.torso,stagger?-.12:(moving?gait*.055:Math.sin(idleClock)*.018));
+      ry(r.torso,moving?-gait*.055:Math.sin(idleClock*.52)*.018);
+      rz(r.head,stagger?.10:(moving?-gait*.035:Math.sin(idleClock*.72)*.012));
+      ry(r.head,moving?gait*.035:Math.sin(idleClock*.45)*.025);
+      rz(r.leftArm,mounted?-.40:(moving?-gait*.42:-.035+Math.sin(idleClock*.82)*.025));
+      rz(r.rightArm,mounted?-.22:(moving?gait*.26:.10+Math.sin(idleClock*.82+.8)*.022));
+      rz(r.leftForearm,mounted?-1.00:(moving?-.08-Math.max(0,gait)*.28:-.10+Math.sin(idleClock*.68)*.018));
+      rz(r.rightForearm,mounted?-.82:(moving?-.12-Math.max(0,-gait)*.22:-.18+Math.sin(idleClock*.68+.5)*.018));
+      rx(r.leftArm,moving?gait*.055:Math.sin(idleClock*.51)*.018);
+      rx(r.rightArm,moving?-gait*.045:Math.sin(idleClock*.51+.6)*.018);
+      rx(r.leftForearm,0); rx(r.rightForearm,0);
+      rz(r.leftLeg,mounted?-1.08:(moving?gait:.035+Math.sin(idleClock*.42)*.012));
+      rz(r.rightLeg,mounted?-1.08:(moving?-gait:-.045-Math.sin(idleClock*.42)*.012));
+      rz(r.leftKnee,mounted?1.58:(moving?Math.max(0,-gait)*.72:.08));
+      rz(r.rightKnee,mounted?1.58:(moving?Math.max(0,gait)*.72:.12));
 
-      // Every weapon rests with its point or head above the wielder's hand.
-      const upright=weapon==='spear'?-.08:.02;
+      // In guard and locomotion, tilt every weapon 30 degrees toward local forward (+X).
+      const upright=-Math.PI/6;
       rz(r.weaponSocket,upright); rx(r.weaponSocket,0); ry(r.weaponSocket,0);
       r.weaponSocket.position.x=lerp(r.weaponSocket.position.x,0,blend);
       r.weaponSocket.position.y=lerp(r.weaponSocket.position.y,-.57,blend);
-      if(r.cape)rx(r.cape,moving?.16:.08);
+      if(r.cape){rx(r.cape,moving?.18+.035*Math.sin(walkClock):.08+Math.sin(idleClock*.55)*.025); ry(r.cape,moving?gait*.035:Math.sin(idleClock*.4)*.018);}
 
       if(blocking && attackPhase<0 && !mounted){
         const impact=blockFlash>0?Math.sin((blockFlash/.16)*Math.PI)*.12:0;
@@ -896,15 +1040,18 @@
     function animateMount(m,dt,moving){
       const r=m.root.userData.rig;if(!r)return;
       const blend=1-Math.pow(.0008,dt);
-      const stride=moving?Math.sin(game.time*(11+m.speed*.6))*.72:0;
-      r.model.position.y=lerp(r.model.position.y,moving?Math.abs(Math.sin(game.time*(11+m.speed*.6)))*.07:0,blend);
+      const mountClock=game.time*(11+m.speed*.6);
+      const idleClock=game.time*1.8+m.root.position.x*.11;
+      const stride=moving?Math.sin(mountClock)*.72:Math.sin(idleClock*.55)*.025;
+      r.model.position.y=lerp(r.model.position.y,moving?Math.abs(Math.sin(mountClock))*.07:Math.sin(idleClock)*.018,blend);
       r.legs.forEach((leg,i)=>{
         const pair=(i===0||i===3)?1:-1;
         leg.hip.rotation.z=lerp(leg.hip.rotation.z,stride*pair,blend);
         leg.knee.rotation.z=lerp(leg.knee.rotation.z,Math.max(0,-stride*pair)*.85,blend);
       });
-      r.headPivot.rotation.z=lerp(r.headPivot.rotation.z,moving?Math.sin(game.time*6)*.035:0,blend);
-      r.tailPivot.rotation.z=lerp(r.tailPivot.rotation.z,Math.sin(game.time*5+m.root.position.x)*.22,blend);
+      r.headPivot.rotation.z=lerp(r.headPivot.rotation.z,moving?Math.sin(game.time*6)*.035:-.025+Math.sin(idleClock*.7)*.045,blend);
+      r.headPivot.rotation.y=lerp(r.headPivot.rotation.y,moving?0:Math.sin(idleClock*.43)*.08,blend);
+      r.tailPivot.rotation.z=lerp(r.tailPivot.rotation.z,Math.sin(game.time*(moving?5:2.6)+m.root.position.x)* (moving?.22:.30),blend);
       r.model.rotation.z=lerp(r.model.rotation.z,0,blend);
       if(m.attackTimer>0){
         const p=1-m.attackTimer/(m.attackDuration||.55);
@@ -914,8 +1061,92 @@
       }
     }
 
+    function easeOutCubic(t){return 1-Math.pow(1-clamp(t,0,1),3);}
+
+    const CORPSE_ROAD_Y=.025;
+    const CORPSE_CLEARANCE=.012;
+    const corpseYawAxis=new THREE.Vector3(0,1,0);
+    const corpseRollAxis=new THREE.Vector3(0,0,1);
+
+    function makeCorpseQuaternion(yaw,side=1){
+      const yawQ=new THREE.Quaternion().setFromAxisAngle(corpseYawAxis,yaw);
+      const rollQ=new THREE.Quaternion().setFromAxisAngle(corpseRollAxis,side*Math.PI/2);
+      return yawQ.multiply(rollQ);
+    }
+
+    function setFlatCorpseRig(root,side=1){
+      const r=root.userData.rig;if(!r)return;
+      r.model.position.set(0,0,0);
+      r.model.rotation.set(0,0,0);
+      r.torso.rotation.set(0,0,0);
+      r.head.rotation.set(.08*side,0,0);
+
+      // Once the root is on its back, local X is vertical. Rotating limbs only around
+      // local X spreads them across the road without lifting any limb off the ground.
+      r.leftArm.rotation.set(.58,0,0);
+      r.rightArm.rotation.set(-.58,0,0);
+      r.leftForearm.rotation.set(.18,0,0);
+      r.rightForearm.rotation.set(-.22,0,0);
+      r.leftLeg.rotation.set(.14,0,0);
+      r.rightLeg.rotation.set(-.14,0,0);
+      r.leftKnee.rotation.set(.08,0,0);
+      r.rightKnee.rotation.set(-.08,0,0);
+      r.weaponSocket.position.set(0,-.57,0);
+      r.weaponSocket.rotation.set(0,0,0);
+      if(r.supportSocket)r.supportSocket.rotation.set(0,0,0);
+      if(r.cape)r.cape.rotation.set(0,0,.08);
+    }
+
+    function settleCorpseFlat(e){
+      e.root.quaternion.copy(e.deathQuaternion);
+      e.root.position.y=0;
+      setFlatCorpseRig(e.root,e.deathSide);
+      resetWeaponTrail(e.weapon);
+
+      // Fit the actual corpse geometry to the road. The weapon is excluded so a long
+      // spear or axe cannot raise the body; its neutral socket pose still leaves it flat.
+      const weaponWasVisible=e.weapon.visible;
+      e.weapon.visible=false;
+      e.root.updateMatrixWorld(true);
+      const bounds=new THREE.Box3().setFromObject(e.root);
+      e.root.position.y=CORPSE_ROAD_Y+CORPSE_CLEARANCE-bounds.min.y;
+      e.weapon.visible=weaponWasVisible;
+      e.root.updateMatrixWorld(true);
+      e.corpseSettled=true;
+    }
+
+    function animateDeathPose(root,dt,t,side=1,boss=false,targetQuaternion=null) {
+      const r=root.userData.rig;if(!r)return;
+      const settle=easeOutCubic(t);
+      const blend=1-Math.pow(.00004,dt);
+      const target=targetQuaternion||makeCorpseQuaternion(root.rotation.y,side);
+      root.quaternion.slerp(target,clamp(blend*(.18+.82*settle),0,1));
+      r.torso.rotation.z=lerp(r.torso.rotation.z,-side*.24,blend);
+      r.head.rotation.z=lerp(r.head.rotation.z,side*.30,blend);
+      r.leftArm.rotation.z=lerp(r.leftArm.rotation.z,-1.15,blend);
+      r.rightArm.rotation.z=lerp(r.rightArm.rotation.z,.82,blend);
+      r.leftForearm.rotation.z=lerp(r.leftForearm.rotation.z,.55,blend);
+      r.rightForearm.rotation.z=lerp(r.rightForearm.rotation.z,-.65,blend);
+      r.leftLeg.rotation.z=lerp(r.leftLeg.rotation.z,.48,blend);
+      r.rightLeg.rotation.z=lerp(r.rightLeg.rotation.z,-.62,blend);
+      r.leftKnee.rotation.z=lerp(r.leftKnee.rotation.z,.72,blend);
+      r.rightKnee.rotation.z=lerp(r.rightKnee.rotation.z,.42,blend);
+      r.weaponSocket.rotation.z=lerp(r.weaponSocket.rotation.z,-1.30,blend);
+      if(r.cape)r.cape.rotation.x=lerp(r.cape.rotation.x,.55,blend);
+    }
+
+    function updatePlayerDeath(dt) {
+      player.deathTimer+=dt;
+      const t=clamp(player.deathTimer/.82,0,1);
+      player.root.position.x+=player.velocity.x*dt;
+      player.velocity.x*=Math.pow(.08,dt);
+      // Raise the root as it rotates around the feet so the horizontal body rests on, not inside, the road.
+      player.root.position.y=lerp(0,.42,smoothStep01(t))+Math.sin(t*Math.PI)*.14;
+      animateDeathPose(player.root,dt,t,player.deathSide,false);
+    }
+
     function updatePlayer(dt) {
-      if(player.dead)return;
+      if(player.dead){updatePlayerDeath(dt);return;}
       player.invuln=Math.max(0,player.invuln-dt);
       player.attackCooldown=Math.max(0,player.attackCooldown-dt);
       player.comboTimer=Math.max(0,player.comboTimer-dt);
@@ -978,6 +1209,7 @@
         player.root.position.y+=(m.type==='boar'?.61:.66)+m.root.userData.rig.model.position.y;
         player.root.rotation.z=m.root.userData.rig.model.rotation.z*.32;
         animateHumanoid(player.root,dt,{moving,mounted:true,speed:baseSpeed,attackPhase:mountAttackPhase,weapon:player.weapon,combo:1});
+        updateWeaponTrail(player.weapons[player.weapon],player.weapon,mountAttackPhase);
       } else if(player.attackTimer>0) {
         const data=WEAPON[player.weapon], elapsed=data.cooldown-player.attackTimer;
         player.attackTimer=Math.max(0,player.attackTimer-dt);
@@ -992,12 +1224,13 @@
           if(player.weapon==='axe'){arc=1.70;dust(player.root.position.clone().addScaledVector(player.faceDir,1.1),0x9d7d4b,13,1.45);}
           if(player.weapon==='spear'&&player.combo===3){damage+=6;reach+=.55;}
           performPlayerHit(damage,reach,arc,knock);
-          slashEffect(player.root.position,player.weapon,player.faceDir,reach,player.combo);
         }
         animateHumanoid(player.root,dt,{moving:false,attackPhase,weapon:player.weapon,combo:player.combo});
+        updateWeaponTrail(player.weapons[player.weapon],player.weapon,attackPhase);
       } else {
         player.root.rotation.z=lerp(player.root.rotation.z,0,1-Math.pow(.001,dt));
         animateHumanoid(player.root,dt,{moving,speed:baseSpeed,weapon:player.weapon,blocking:player.blocking,blockFlash:player.blockFlash});
+        updateWeaponTrail(player.weapons[player.weapon],player.weapon,-1);
       }
 
       for(const m of mounts)if(m!==player.mount&&!m.dead)animateMount(m,dt,false);
@@ -1007,7 +1240,22 @@
       const targetRoot=player.mount?player.mount.root:player.root;
       for(const e of enemies) {
         if(e.dead) {
-          e.velocity.y-=12*dt;e.root.position.addScaledVector(e.velocity,dt);e.root.rotation.z+=dt*2.4;
+          if(!e.corpseSettled){
+            e.deathTimer+=dt;
+            const duration=e.boss?.95:.72;
+            const fallT=clamp(e.deathTimer/duration,0,1);
+            if(fallT<1){
+              e.root.position.x+=e.velocity.x*dt;
+              e.root.position.z+=e.velocity.z*dt;
+              e.velocity.x*=Math.pow(.07,dt); e.velocity.z*=Math.pow(.07,dt);
+            } else {
+              e.velocity.set(0,0,0);
+            }
+            e.root.position.y=lerp(0,e.boss?.50:.34,smoothStep01(fallT))+Math.sin(fallT*Math.PI)*(e.boss?.18:.12);
+            animateDeathPose(e.root,dt,fallT,e.deathSide,e.boss,e.deathQuaternion);
+            resetWeaponTrail(e.weapon);
+            if(fallT>=1)settleCorpseFlat(e);
+          }
           continue;
         }
         e.cooldown=Math.max(0,e.cooldown-dt); e.stagger=Math.max(0,e.stagger-dt);
@@ -1019,8 +1267,9 @@
           e.root.position.x+=e.velocity.x*dt;e.velocity.x*=Math.pow(.03,dt);
         } else if(e.attackTimer>0){
           const prev=e.attackTimer;e.attackTimer=Math.max(0,e.attackTimer-dt);
-          attackPhase=1-e.attackTimer/.68;
-          if(prev>.34&&e.attackTimer<=.34&&!e.activeHit){
+          attackPhase=1-e.attackTimer/(e.boss?.76:.68);
+          const hitMoment=e.boss?.38:.34;
+          if(prev>hitMoment&&e.attackTimer<=hitMoment&&!e.activeHit){
             e.activeHit=true;
             if(dist<e.reach+0.72 && Math.abs(dz)<1.30) damagePlayer(e.damage,e.root.position);
           }
@@ -1029,7 +1278,11 @@
           e.activeHit=false;
           if(dist>e.reach*.82 || Math.abs(dz)>.8){
             const inv=1/(dist||1);e.root.position.x+=dx*inv*e.speed*dt;e.root.position.z+=dz*inv*e.speed*.78*dt;moving=true;
-          } else if(e.cooldown<=0){e.attackTimer=.68;e.cooldown=e.boss?.72:rand(.78,1.14);}
+          } else if(e.cooldown<=0){
+            e.attackTimer=e.boss?.76:.68;
+            // Double the previous cooldowns: every opponent attacks at half the prior frequency.
+            e.cooldown=e.boss?2.70:rand(1.56,2.28);
+          }
         } else {
           e.root.position.x+=Math.sin(game.time*.5+e.homeX)*.15*dt;
         }
@@ -1039,6 +1292,7 @@
           e.root.rotation.y=dampValue(e.root.rotation.y,targetYaw,dt,.00003);
         }
         animateHumanoid(e.root,dt,{moving,speed:e.speed,attackPhase,weapon:e.weaponType,combo:1,stagger:e.stagger});
+        updateWeaponTrail(e.weapon,e.weaponType,attackPhase);
       }
     }
 
@@ -1050,13 +1304,13 @@
         if(p.userData.spin)p.rotation.z+=p.userData.spin*dt;
         p.material.opacity=Math.max(0,p.userData.life/p.userData.maxLife);
         const grow=1+(1-p.material.opacity)*1.15;
-        if(p.userData.baseScale)p.scale.copy(p.userData.baseScale).multiplyScalar(grow);else p.scale.setScalar(grow);
+        if(!p.userData.noGrow){if(p.userData.baseScale)p.scale.copy(p.userData.baseScale).multiplyScalar(grow);else p.scale.setScalar(grow);}
         if(p.userData.life<=0){scene.remove(p);p.geometry.dispose();p.material.dispose();particles.splice(i,1);}
       }
       for(const p of props) if(p.userData.flame) p.children[p.children.length-2].scale.y=.65+Math.sin(game.time*17+p.position.x)*.18;
     }
 
-    const game={running:false,time:0,ended:false,zone:-1};
+    const game={running:false,time:0,ended:false,zone:-1,hitFlash:0,cameraShake:0};
     function livingBefore(x){return enemies.filter(e=>!e.dead&&e.root.position.x<x).length;}
     function updateObjective() {
       const x=(player.mount?player.mount.root:player.root).position.x;
@@ -1074,6 +1328,7 @@
     function updateUI(){
       ui.healthFill.style.transform=`scaleX(${player.hp/player.maxHp})`;
       ui.healthText.textContent=`${Math.ceil(player.hp)} / ${player.maxHp}`;
+      ui.damageFlash.style.opacity=String(clamp(game.hitFlash/.30,0,1));
       if(player.mount){const m=player.mount;ui.mountFill.style.transform=`scaleX(${m.hp/m.maxHp})`;ui.mountText.textContent=`${Math.ceil(m.hp)} / ${m.maxHp}`;ui.mountName.textContent=MOUNT_STATS[m.type].name;}
       const near=!player.mount&&nearestMount(); ui.prompt.classList.toggle('show',!!near); if(near)ui.prompt.textContent=`Press E to mount ${MOUNT_STATS[near.type].name}`;
     }
@@ -1081,10 +1336,12 @@
     function updateCamera(dt){
       const root=player.mount?player.mount.root:player.root;
       const targetX=clamp(root.position.x+2.0,-4,149);
-      camera.position.x=lerp(camera.position.x,targetX,1-Math.pow(.002,dt));
-      camera.position.y=lerp(camera.position.y,7.2+root.position.y*.25,1-Math.pow(.01,dt));
-      camera.position.z=lerp(camera.position.z,17.4+root.position.z*.18,1-Math.pow(.01,dt));
-      camera.lookAt(camera.position.x+1.8,2.0,root.position.z*.28);
+      const shake=game.cameraShake;
+      camera.position.x=lerp(camera.position.x,targetX,1-Math.pow(.002,dt))+(Math.random()-.5)*shake*.44;
+      camera.position.y=lerp(camera.position.y,7.2+root.position.y*.25,1-Math.pow(.01,dt))+(Math.random()-.5)*shake*.30;
+      camera.position.z=lerp(camera.position.z,17.4+root.position.z*.18,1-Math.pow(.01,dt))+(Math.random()-.5)*shake*.36;
+      camera.lookAt(camera.position.x+1.8,2.0+(Math.random()-.5)*shake*.12,root.position.z*.28);
+      game.cameraShake=Math.max(0,game.cameraShake-dt*1.9);
       sun.position.x=camera.position.x-18; sun.target.position.set(camera.position.x,0,0); scene.add(sun.target);
     }
 
@@ -1118,8 +1375,8 @@
 
     function animate(){
       requestAnimationFrame(animate);
-      const dt=Math.min(clock.getDelta(),.033)*GAME_SPEED; game.time+=dt;
-      if(game.running){updatePlayer(dt);updateEnemies(dt);updateObjective();}
+      const dt=Math.min(clock.getDelta(),.033)*GAME_SPEED; game.time+=dt; game.hitFlash=Math.max(0,game.hitFlash-dt);
+      if(game.running){updatePlayer(dt);updateEnemies(dt);updateMedkits(dt);updateObjective();}
       updateParticles(dt);updateUI();updateCamera(dt);
       renderer.render(scene,camera);
     }

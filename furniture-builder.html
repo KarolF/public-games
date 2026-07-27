@@ -1,0 +1,1142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#26221d">
+  <title>Wood Workshop Builder</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --panel: rgba(31, 28, 24, 0.95);
+      --panel-2: rgba(48, 42, 35, 0.97);
+      --border: rgba(255,255,255,.15);
+      --text: #f5f1ea;
+      --muted: #c6bcae;
+      --accent: #d59a55;
+      --danger: #c85c4d;
+      --ok: #70ad74;
+      --button-h: 48px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      width: 100%; height: 100%; margin: 0; overflow: hidden;
+      background: #26221d; color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overscroll-behavior: none;
+    }
+    button, select {
+      min-height: var(--button-h); border: 1px solid var(--border); border-radius: 10px;
+      background: var(--panel-2); color: var(--text); font: inherit; font-weight: 650;
+      padding: 0 14px; -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+    }
+    button:active { transform: translateY(1px); }
+    button:disabled { opacity: .42; }
+    button.primary { background: var(--accent); color: #21170e; border-color: transparent; }
+    button.danger { background: var(--danger); border-color: transparent; }
+    button.active { outline: 2px solid var(--accent); outline-offset: -2px; }
+    #app { position: fixed; inset: 0; display: grid; grid-template-rows: auto 1fr auto; }
+    #viewport { position: relative; min-height: 0; overflow: hidden; }
+    #game-canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+    #topbar {
+      z-index: 5; display: grid; grid-template-columns: minmax(100px,1fr) auto auto auto;
+      gap: 8px; padding: max(8px, env(safe-area-inset-top)) 8px 8px;
+      background: var(--panel); border-bottom: 1px solid var(--border);
+    }
+    #mode-select { width: 100%; }
+    #status { position: absolute; top: 10px; left: 10px; right: 10px; z-index: 3; pointer-events: none; display: flex; justify-content: center; }
+    #status-text {
+      max-width: min(92%,560px); padding: 8px 12px; border-radius: 999px;
+      background: rgba(20,18,16,.84); border: 1px solid var(--border); font-size: 14px; text-align: center;
+    }
+    #selection {
+      position: absolute; left: 10px; bottom: 10px; z-index: 3; padding: 8px 10px;
+      border-radius: 10px; background: rgba(20,18,16,.84); border: 1px solid var(--border);
+      font-size: 14px; color: var(--muted); pointer-events: none;
+    }
+    #bottom-panel {
+      z-index: 5; display: grid; gap: 8px; padding: 8px 8px max(8px, env(safe-area-inset-bottom));
+      background: var(--panel); border-top: 1px solid var(--border);
+    }
+    .tool-row { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 1px; }
+    .tool-row::-webkit-scrollbar { display: none; }
+    .tool-row button { flex: 0 0 auto; }
+    #move-grid { display: grid; grid-template-columns: repeat(6,minmax(46px,1fr)); gap: 6px; }
+    #move-grid button { padding: 0 6px; }
+    #result-card {
+      position: absolute; z-index: 6; left: 50%; top: 50%; width: min(88%,380px);
+      transform: translate(-50%,-50%); background: rgba(29,26,22,.98); border: 1px solid var(--border);
+      border-radius: 16px; padding: 18px; box-shadow: 0 10px 34px rgba(0,0,0,.36);
+    }
+    #result-card[hidden], #craft-overlay[hidden] { display: none; }
+    #result-card h2 { margin: 0 0 8px; font-size: 22px; }
+    #result-card p { margin: 0 0 14px; color: var(--muted); line-height: 1.45; }
+    #result-card button { width: 100%; }
+
+    #craft-overlay {
+      position: fixed; inset: 0; z-index: 20; display: grid; grid-template-rows: auto auto 1fr auto auto;
+      background: #211d18; padding: max(8px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom));
+      gap: 8px;
+    }
+    #craft-header { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: center; }
+    #craft-title { font-size: 18px; font-weight: 750; }
+    #craft-instruction { font-size: 13px; color: var(--muted); margin-top: 2px; line-height: 1.25; }
+    #craft-hud { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .meter { background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px; padding: 8px 10px; font-size: 13px; }
+    .meter strong { float: right; color: var(--accent); }
+    .bar { height: 8px; margin-top: 6px; background: rgba(255,255,255,.1); border-radius: 999px; overflow: hidden; }
+    .bar > span { display: block; height: 100%; width: 0%; background: var(--accent); }
+    #craft-stage { position: relative; min-height: 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: #c79a63; }
+    #craft-canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+    #craft-options, #craft-controls { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+    #craft-options::-webkit-scrollbar, #craft-controls::-webkit-scrollbar { display: none; }
+    #craft-options button, #craft-controls button { flex: 0 0 auto; }
+    #power-btn.powering { background: var(--danger); color: white; }
+    #craft-next { margin-left: auto; }
+
+    @media (max-width: 430px) {
+      :root { --button-h: 46px; }
+      #topbar { gap: 6px; }
+      #topbar button { font-size: 13px; padding: 0 8px; }
+      #mode-select { font-size: 14px; padding: 0 8px; }
+      #move-grid { grid-template-columns: repeat(3,1fr); }
+      #selection { bottom: 8px; max-width: calc(100% - 20px); }
+      #craft-overlay { gap: 6px; }
+      #craft-hud { grid-template-columns: 1fr; }
+      .meter { padding: 6px 9px; }
+    }
+    @media (orientation: landscape) and (max-height: 520px) {
+      :root { --button-h: 42px; }
+      #bottom-panel { grid-template-columns: 1fr 1.1fr; align-items: center; }
+      #move-grid { grid-template-columns: repeat(6,1fr); }
+      #status { top: 6px; }
+      #craft-overlay { grid-template-columns: minmax(0,1fr) 210px; grid-template-rows: auto auto 1fr; }
+      #craft-header, #craft-hud { grid-column: 1 / -1; }
+      #craft-stage { grid-column: 1; grid-row: 3; }
+      #craft-options { grid-column: 2; grid-row: 3; flex-direction: column; }
+      #craft-controls { grid-column: 2; grid-row: 3; align-self: end; flex-direction: column; padding-top: 130px; }
+      #craft-controls button { width: 100%; }
+    }
+  </style>
+  <script type="importmap">
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"}}
+  </script>
+</head>
+<body>
+  <main id="app">
+    <header id="topbar">
+      <select id="mode-select" aria-label="Furniture type">
+        <option value="table">Build table</option>
+        <option value="chair">Build chair</option>
+      </select>
+      <button id="save-btn" type="button">Save</button>
+      <button id="load-btn" type="button">Load</button>
+      <button id="reset-btn" type="button">Reset</button>
+    </header>
+
+    <section id="viewport" aria-label="3D workshop">
+      <canvas id="game-canvas"></canvas>
+      <div id="status"><div id="status-text" aria-live="polite">Craft parts, assemble them, then test the build.</div></div>
+      <div id="selection">Selected: none</div>
+      <section id="result-card" hidden>
+        <h2 id="result-title">Build result</h2>
+        <p id="result-message"></p>
+        <button id="result-close" type="button">Continue editing</button>
+      </section>
+    </section>
+
+    <section id="bottom-panel" aria-label="Build controls">
+      <div id="part-row" class="tool-row"></div>
+      <div id="move-grid">
+        <button data-action="move-x-neg" type="button">X−</button>
+        <button data-action="move-x-pos" type="button">X+</button>
+        <button data-action="move-z-neg" type="button">Z−</button>
+        <button data-action="move-z-pos" type="button">Z+</button>
+        <button data-action="move-y-neg" type="button">Y−</button>
+        <button data-action="move-y-pos" type="button">Y+</button>
+      </div>
+      <div class="tool-row">
+        <button data-action="rotate" type="button">Rotate 90°</button>
+        <button id="router-btn" type="button">Use router</button>
+        <button data-action="duplicate" type="button">Duplicate</button>
+        <button data-action="delete" class="danger" type="button">Delete</button>
+        <button data-action="undo" type="button">Undo</button>
+        <button id="test-btn" class="primary" type="button">Test build</button>
+      </div>
+    </section>
+  </main>
+
+  <section id="craft-overlay" hidden aria-label="Carpenter minigame">
+    <header id="craft-header">
+      <button id="craft-cancel" type="button">Close</button>
+      <div>
+        <div id="craft-title">Workshop tool</div>
+        <div id="craft-instruction">Follow the guide.</div>
+      </div>
+    </header>
+    <div id="craft-hud">
+      <div class="meter">Progress <strong id="craft-progress-text">0%</strong><div class="bar"><span id="craft-progress-bar"></span></div></div>
+      <div class="meter">Estimated quality <strong id="craft-quality-text">100</strong><div class="bar"><span id="craft-quality-bar"></span></div></div>
+    </div>
+    <div id="craft-stage"><canvas id="craft-canvas"></canvas></div>
+    <div id="craft-options"></div>
+    <div id="craft-controls">
+      <button id="tool-btn" type="button" hidden>Fine tool</button>
+      <button id="rotate-work-btn" type="button" hidden>Turn workpiece</button>
+      <button id="power-btn" class="primary" type="button" hidden aria-pressed="false">Start tool</button>
+      <button id="craft-next" class="primary" type="button">Start</button>
+    </div>
+  </section>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    const STORAGE_KEY = 'wood-workshop-mobile-v2';
+    const GRID = 0.25;
+    const MAX_PARTS = 20;
+    const SHAPE_SAMPLES = 96;
+    const PROFILE_SAMPLES = 28;
+
+    const canvas = document.querySelector('#game-canvas');
+    const viewport = document.querySelector('#viewport');
+    const statusText = document.querySelector('#status-text');
+    const selectionText = document.querySelector('#selection');
+    const modeSelect = document.querySelector('#mode-select');
+    const partRow = document.querySelector('#part-row');
+    const testBtn = document.querySelector('#test-btn');
+    const routerBtn = document.querySelector('#router-btn');
+    const resultCard = document.querySelector('#result-card');
+    const resultTitle = document.querySelector('#result-title');
+    const resultMessage = document.querySelector('#result-message');
+
+    const craftOverlay = document.querySelector('#craft-overlay');
+    const craftCanvas = document.querySelector('#craft-canvas');
+    const craftCtx = craftCanvas.getContext('2d');
+    const craftTitle = document.querySelector('#craft-title');
+    const craftInstruction = document.querySelector('#craft-instruction');
+    const craftOptions = document.querySelector('#craft-options');
+    const craftNext = document.querySelector('#craft-next');
+    const toolBtn = document.querySelector('#tool-btn');
+    const rotateWorkBtn = document.querySelector('#rotate-work-btn');
+    const powerBtn = document.querySelector('#power-btn');
+    const craftProgressText = document.querySelector('#craft-progress-text');
+    const craftProgressBar = document.querySelector('#craft-progress-bar');
+    const craftQualityText = document.querySelector('#craft-quality-text');
+    const craftQualityBar = document.querySelector('#craft-quality-bar');
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x837b6e);
+    scene.fog = new THREE.Fog(0x837b6e, 12, 28);
+
+    const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 60);
+    camera.position.set(6.8, 5.5, 7.8);
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    const controls = new OrbitControls(camera, canvas);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.enablePan = false;
+    controls.minDistance = 4;
+    controls.maxDistance = 14;
+    controls.minPolarAngle = 0.38;
+    controls.maxPolarAngle = Math.PI * 0.47;
+    controls.target.set(0, 1.15, 0);
+    controls.touches.ONE = THREE.TOUCH.ROTATE;
+    controls.touches.TWO = THREE.TOUCH.DOLLY_ROTATE;
+
+    scene.add(new THREE.HemisphereLight(0xfff4df, 0x4b453d, 2.2));
+    const sun = new THREE.DirectionalLight(0xffead0, 3.2);
+    sun.position.set(5, 9, 4);
+    sun.castShadow = true;
+    sun.shadow.mapSize.set(1024, 1024);
+    sun.shadow.camera.left = -7; sun.shadow.camera.right = 7; sun.shadow.camera.top = 7; sun.shadow.camera.bottom = -7;
+    scene.add(sun);
+
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(18,18), new THREE.MeshStandardMaterial({ color: 0x5b554c, roughness: .95 }));
+    floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; floor.userData.decorative = true; scene.add(floor);
+    const grid = new THREE.GridHelper(10,40,0xd1b486,0x786d5d);
+    grid.position.y = .006; grid.material.opacity = .42; grid.material.transparent = true; grid.userData.decorative = true; scene.add(grid);
+    const wallMaterial = new THREE.MeshStandardMaterial({ color: 0x6a6257, roughness: 1 });
+    const backWall = new THREE.Mesh(new THREE.BoxGeometry(12,5,.25), wallMaterial);
+    backWall.position.set(0,2.5,-5.5); backWall.receiveShadow = true; backWall.userData.decorative = true; scene.add(backWall);
+    const sideWall = new THREE.Mesh(new THREE.BoxGeometry(.25,5,11), wallMaterial);
+    sideWall.position.set(-6,2.5,0); sideWall.receiveShadow = true; sideWall.userData.decorative = true; scene.add(sideWall);
+    const workshopWood = new THREE.MeshStandardMaterial({ color: 0x5a3420, roughness: .88 });
+    function decorativeBox(size, position) {
+      const mesh = new THREE.Mesh(new THREE.BoxGeometry(...size), workshopWood);
+      mesh.position.set(...position); mesh.castShadow = true; mesh.receiveShadow = true; mesh.userData.decorative = true; scene.add(mesh);
+    }
+    decorativeBox([2.5,.18,.8],[-4.4,1.45,-3.8]);
+    decorativeBox([.18,1.45,.18],[-5.35,.72,-4.05]); decorativeBox([.18,1.45,.18],[-3.45,.72,-4.05]);
+    decorativeBox([.18,1.45,.18],[-5.35,.72,-3.55]); decorativeBox([.18,1.45,.18],[-3.45,.72,-3.55]);
+    decorativeBox([2.3,.12,.45],[3.5,2.75,-5.1]); decorativeBox([2.3,.12,.45],[3.5,1.75,-5.1]);
+
+    const PARTS = {
+      table: [
+        { type: 'tabletop', label: 'Cut tabletop', size: [3,.25,1.75], spawnY: 2 },
+        { type: 'table-leg', label: 'Craft leg', size: [.32,1.85,.32], spawnY: .925 }
+      ],
+      chair: [
+        { type: 'seat', label: 'Cut seat', size: [1.8,.25,1.65], spawnY: 1.5 },
+        { type: 'chair-leg', label: 'Craft leg', size: [.28,1.35,.28], spawnY: .675 },
+        { type: 'backrest', label: 'Add backrest', size: [1.8,1.4,.22], spawnY: 2.25 }
+      ]
+    };
+
+    const woodMaterials = [0x9a5d32,0xaa6b3b,0x83502f,0xb47743].map(color => new THREE.MeshStandardMaterial({ color, roughness: .82, metalness: .02 }));
+    const grooveMaterial = new THREE.LineBasicMaterial({ color: 0x3b2114, transparent: true, opacity: .9 });
+
+    const state = {
+      mode: 'table', parts: [], selectedId: null, nextId: 1, undo: [], testing: false,
+      preTestSnapshot: null, minigame: null
+    };
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+    const selectionBox = new THREE.BoxHelper(undefined, 0xffcf70);
+    selectionBox.visible = false; selectionBox.userData.decorative = true; scene.add(selectionBox);
+
+    function clamp01(v) { return Math.max(0, Math.min(1, v)); }
+    function roundGrid(value) { return Math.round(value / GRID) * GRID; }
+    function deepClone(value) { return JSON.parse(JSON.stringify(value)); }
+    function friendlyType(type) { return type.split('-').map(word => word[0].toUpperCase() + word.slice(1)).join(' '); }
+
+    function samplePolyline(points, count = SHAPE_SAMPLES, closed = true) {
+      const segments = [];
+      let total = 0;
+      const limit = closed ? points.length : points.length - 1;
+      for (let i = 0; i < limit; i++) {
+        const a = points[i], b = points[(i + 1) % points.length];
+        const length = Math.hypot(b.x - a.x, b.y - a.y);
+        segments.push({ a, b, length, start: total }); total += length;
+      }
+      const output = [];
+      for (let i = 0; i < count; i++) {
+        const distance = total * (closed ? i / count : i / (count - 1));
+        let seg = segments[segments.length - 1];
+        for (const candidate of segments) if (distance <= candidate.start + candidate.length) { seg = candidate; break; }
+        const t = seg.length ? (distance - seg.start) / seg.length : 0;
+        output.push({ x: THREE.MathUtils.lerp(seg.a.x, seg.b.x, t), y: THREE.MathUtils.lerp(seg.a.y, seg.b.y, t) });
+      }
+      return output;
+    }
+
+    function normalizedShape(name, count = SHAPE_SAMPLES) {
+      if (name === 'circle') return Array.from({ length: count }, (_,i) => { const a = i / count * Math.PI * 2; return { x: .5*Math.cos(a), y: .5*Math.sin(a) }; });
+      if (name === 'oval') return Array.from({ length: count }, (_,i) => { const a = i / count * Math.PI * 2; return { x: .5*Math.cos(a), y: .42*Math.sin(a) }; });
+      if (name === 'hexagon') return samplePolyline(Array.from({ length: 6 }, (_,i) => { const a = i / 6 * Math.PI * 2; return { x: .5*Math.cos(a), y: .5*Math.sin(a) }; }), count, true);
+      if (name === 'organic') return Array.from({ length: count }, (_,i) => { const a = i / count * Math.PI * 2; const r = .46 + .035*Math.sin(3*a+.4) + .025*Math.sin(5*a); return { x: r*Math.cos(a), y: (.9*r)*Math.sin(a) }; });
+      if (name === 'rounded') {
+        const pts = [];
+        const r = .16;
+        const centers = [[.5-r,.5-r],[-.5+r,.5-r],[-.5+r,-.5+r],[.5-r,-.5+r]];
+        const starts = [0,Math.PI/2,Math.PI,Math.PI*1.5];
+        for (let c=0;c<4;c++) for (let j=0;j<count/4;j++) { const a=starts[c]+j/(count/4)*Math.PI/2; pts.push({x:centers[c][0]+r*Math.cos(a),y:centers[c][1]+r*Math.sin(a)}); }
+        return pts;
+      }
+      return samplePolyline([{x:.5,y:.5},{x:-.5,y:.5},{x:-.5,y:-.5},{x:.5,y:-.5}], count, true);
+    }
+
+    function shapeWithOffsets(name, offsets = []) {
+      const base = normalizedShape(name);
+      return base.map((point,i) => {
+        const prev = base[(i-1+base.length)%base.length], next = base[(i+1)%base.length];
+        const tx = next.x - prev.x, ty = next.y - prev.y;
+        const len = Math.hypot(tx,ty) || 1;
+        const nx = ty/len, ny = -tx/len;
+        const d = Number.isFinite(offsets[i]) ? THREE.MathUtils.clamp(offsets[i],-.07,.07) : 0;
+        return { x: point.x + nx*d, y: point.y + ny*d };
+      });
+    }
+
+    function createTopGeometry(size, craft = {}) {
+      const shapeName = craft.shape || 'rectangle';
+      const points = shapeWithOffsets(shapeName, craft.cutOffsets || []);
+      const shape = new THREE.Shape();
+      points.forEach((p,i) => {
+        const x = p.x * size[0], y = p.y * size[2];
+        if (i === 0) shape.moveTo(x,y); else shape.lineTo(x,y);
+      });
+      shape.closePath();
+      const edgeType = craft.router?.type;
+      const bevel = edgeType === 'rounded-edge' || edgeType === 'bevel';
+      const geometry = new THREE.ExtrudeGeometry(shape, {
+        depth: size[1], steps: 1, curveSegments: 2,
+        bevelEnabled: bevel,
+        bevelSegments: edgeType === 'rounded-edge' ? 3 : 1,
+        bevelSize: bevel ? Math.min(size[1]*.22,.055) : 0,
+        bevelThickness: bevel ? Math.min(size[1]*.2,.05) : 0
+      });
+      geometry.rotateX(Math.PI/2);
+      geometry.translate(0,size[1]/2,0);
+      geometry.computeVertexNormals();
+      geometry.computeBoundingBox();
+      return geometry;
+    }
+
+    function sanitizeLegSize(size) {
+      const safe = Array.isArray(size) ? size.map(Number) : [];
+      return [
+        THREE.MathUtils.clamp(Number.isFinite(safe[0]) ? Math.abs(safe[0]) : .3, .12, 1.2),
+        THREE.MathUtils.clamp(Number.isFinite(safe[1]) ? Math.abs(safe[1]) : 1.4, .35, 3.2),
+        THREE.MathUtils.clamp(Number.isFinite(safe[2]) ? Math.abs(safe[2]) : .3, .12, 1.2)
+      ];
+    }
+
+    function resampleProfile(profile, count = PROFILE_SAMPLES, fallback = .72) {
+      const input = Array.isArray(profile) && profile.length
+        ? profile.map(value => Number.isFinite(Number(value)) ? Number(value) : fallback)
+        : [fallback, fallback];
+      if (input.length === 1) input.push(input[0]);
+      return Array.from({ length: count }, (_,index) => {
+        const position = index / (count - 1) * (input.length - 1);
+        const left = Math.floor(position), right = Math.min(input.length - 1, left + 1);
+        return THREE.MathUtils.lerp(input[left], input[right], position - left);
+      });
+    }
+
+    function sanitizeLegProfile(profile, fallback = .72) {
+      let values = resampleProfile(profile, PROFILE_SAMPLES, fallback)
+        .map(value => THREE.MathUtils.clamp(value, .3, 1));
+      for (let pass = 0; pass < 3; pass++) {
+        values = values.map((value,index,array) => {
+          if (index === 0 || index === array.length - 1) return value;
+          return array[index - 1] * .22 + value * .56 + array[index + 1] * .22;
+        });
+      }
+      for (let index = 1; index < values.length; index++) {
+        values[index] = THREE.MathUtils.clamp(values[index], values[index - 1] - .11, values[index - 1] + .11);
+      }
+      for (let index = values.length - 2; index >= 0; index--) {
+        values[index] = THREE.MathUtils.clamp(values[index], values[index + 1] - .11, values[index + 1] + .11);
+      }
+      values[0] = Math.max(values[0], .42);
+      values[values.length - 1] = Math.max(values[values.length - 1], .42);
+      return values;
+    }
+
+    function geometryIsUsable(geometry, expectedHeight) {
+      const position = geometry?.getAttribute?.('position');
+      if (!position || position.count < 8) return false;
+      for (let index = 0; index < position.array.length; index++) if (!Number.isFinite(position.array[index])) return false;
+      geometry.computeBoundingBox(); geometry.computeBoundingSphere();
+      const box = geometry.boundingBox;
+      if (!box || !Number.isFinite(box.min.y) || !Number.isFinite(box.max.y)) return false;
+      const height = box.max.y - box.min.y;
+      return height > expectedHeight * .92 && height < expectedHeight * 1.08;
+    }
+
+    function createLatheLegGeometry(size, profile) {
+      const safeSize = sanitizeLegSize(size);
+      const values = sanitizeLegProfile(profile, .72);
+      const halfHeight = safeSize[1] / 2;
+      const radialScale = Math.max(.045, Math.min(safeSize[0], safeSize[2]) * .5);
+      const points = [new THREE.Vector2(0, -halfHeight)];
+      values.forEach((radius,index) => points.push(new THREE.Vector2(radialScale * radius, -halfHeight + index / (values.length - 1) * safeSize[1])));
+      points.push(new THREE.Vector2(0, halfHeight));
+      const geometry = new THREE.LatheGeometry(points, 32);
+      geometry.computeVertexNormals(); geometry.computeBoundingBox(); geometry.computeBoundingSphere();
+      if (!geometryIsUsable(geometry, safeSize[1])) {
+        geometry.dispose();
+        const fallback = new THREE.CylinderGeometry(radialScale * .72, radialScale * .72, safeSize[1], 24);
+        fallback.computeVertexNormals(); fallback.computeBoundingBox(); fallback.computeBoundingSphere();
+        return fallback;
+      }
+      return geometry;
+    }
+
+    function createFacetedLegGeometry(size, profile, sides = 8) {
+      const safeSize = sanitizeLegSize(size);
+      const values = sanitizeLegProfile(profile, .76);
+      const safeSides = THREE.MathUtils.clamp(Math.round(Number(sides) || 8), 5, 16);
+      const positions = [], indices = [];
+      for (let i=0;i<values.length;i++) {
+        const y = -safeSize[1]/2 + i/(values.length-1)*safeSize[1];
+        for (let side=0;side<safeSides;side++) {
+          const angle = side/safeSides*Math.PI*2;
+          positions.push(Math.cos(angle)*safeSize[0]*.5*values[i], y, Math.sin(angle)*safeSize[2]*.5*values[i]);
+        }
+      }
+      for (let i=0;i<values.length-1;i++) for (let side=0;side<safeSides;side++) {
+        const a=i*safeSides+side, b=i*safeSides+(side+1)%safeSides, c=(i+1)*safeSides+(side+1)%safeSides, d=(i+1)*safeSides+side;
+        indices.push(a,b,d,b,c,d);
+      }
+      const bottomCenter = positions.length/3; positions.push(0,-safeSize[1]/2,0);
+      const topCenter = positions.length/3; positions.push(0,safeSize[1]/2,0);
+      for (let side=0;side<safeSides;side++) {
+        indices.push(bottomCenter,(side+1)%safeSides,side);
+        const a=(values.length-1)*safeSides+side, b=(values.length-1)*safeSides+(side+1)%safeSides;
+        indices.push(topCenter,a,b);
+      }
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions,3));
+      geometry.setIndex(indices); geometry.computeVertexNormals(); geometry.computeBoundingBox(); geometry.computeBoundingSphere();
+      if (!geometryIsUsable(geometry, safeSize[1])) {
+        geometry.dispose();
+        const fallback = new THREE.BoxGeometry(safeSize[0] * .72, safeSize[1], safeSize[2] * .72);
+        fallback.computeVertexNormals(); fallback.computeBoundingBox(); fallback.computeBoundingSphere();
+        return fallback;
+      }
+      return geometry;
+    }
+
+    function createPartGeometry(type, size, craft = {}) {
+      if (type === 'tabletop' || type === 'seat') return createTopGeometry(size, craft);
+      if (type === 'table-leg' || type === 'chair-leg') {
+        if (craft.method === 'lathe') return createLatheLegGeometry(size, craft.profile);
+        if (craft.method === 'carve') return createFacetedLegGeometry(size, craft.profile, craft.sides || 8);
+      }
+      const geometry = new THREE.BoxGeometry(...size); geometry.computeBoundingBox(); return geometry;
+    }
+
+    function addRouterDecoration(part) {
+      for (const child of [...part.children]) if (child.userData.routerDecoration) {
+        part.remove(child); child.geometry?.dispose();
+      }
+      const router = part.userData.craft?.router;
+      if (!router || !['border-groove','center-groove'].includes(router.type)) return;
+      const size = part.userData.size;
+      let points;
+      if (router.type === 'center-groove') {
+        points = [new THREE.Vector3(-size[0]*.34,size[1]/2+.01,0),new THREE.Vector3(size[0]*.34,size[1]/2+.01,0)];
+      } else {
+        const shape = shapeWithOffsets(part.userData.craft.shape || 'rectangle', part.userData.craft.cutOffsets || []);
+        points = shape.map(p => new THREE.Vector3(p.x*size[0]*.78,size[1]/2+.01,p.y*size[2]*.78));
+      }
+      const geometry = new THREE.BufferGeometry().setFromPoints(points);
+      const line = router.type === 'border-groove' ? new THREE.LineLoop(geometry, grooveMaterial) : new THREE.Line(geometry, grooveMaterial);
+      line.userData.routerDecoration = true; line.raycast = () => {}; part.add(line);
+    }
+
+    function serializeState() {
+      return {
+        mode: state.mode, nextId: state.nextId,
+        parts: state.parts.map(part => ({
+          id: part.userData.id, type: part.userData.type, size: [...part.userData.size],
+          position: part.position.toArray(), rotation: [part.rotation.x,part.rotation.y,part.rotation.z],
+          materialIndex: part.userData.materialIndex, craft: deepClone(part.userData.craft || {})
+        }))
+      };
+    }
+    function snapshotString() { return JSON.stringify(serializeState()); }
+    function pushUndo() { state.undo.push(snapshotString()); if (state.undo.length > 30) state.undo.shift(); }
+    function autosave() { if (!state.testing && !state.minigame) try { localStorage.setItem(`${STORAGE_KEY}:autosave`,snapshotString()); } catch {} }
+
+    function clearParts() {
+      for (const part of state.parts) { scene.remove(part); part.geometry.dispose(); for (const child of part.children) child.geometry?.dispose(); }
+      state.parts.length = 0; setSelected(null);
+    }
+
+    function hydrate(data) {
+      clearParts(); state.mode = data.mode === 'chair' ? 'chair' : 'table'; modeSelect.value = state.mode;
+      state.nextId = Number.isFinite(data.nextId) ? data.nextId : 1;
+      for (const saved of data.parts || []) {
+        if (!Array.isArray(saved.size) || !Array.isArray(saved.position)) continue;
+        createPart(saved.type,{ id:saved.id,size:saved.size,position:saved.position,rotation:saved.rotation,materialIndex:saved.materialIndex,craft:saved.craft,skipHistory:true,skipAutosave:true });
+      }
+      renderPartButtons(); autosave(); setStatus('Build loaded.');
+    }
+
+    function createPart(type, options = {}) {
+      if (state.testing || state.parts.length >= MAX_PARTS) { if (state.parts.length >= MAX_PARTS) setStatus(`Part limit reached (${MAX_PARTS}).`); return null; }
+      const preset = [...PARTS.table,...PARTS.chair].find(item => item.type === type);
+      if (!preset && !options.size) return null;
+      if (!options.skipHistory) pushUndo();
+      const size = options.size || preset.size;
+      const craft = deepClone(options.craft || {});
+      const geometry = createPartGeometry(type,size,craft);
+      const materialIndex = Number.isInteger(options.materialIndex) ? options.materialIndex % woodMaterials.length : state.nextId % woodMaterials.length;
+      const mesh = new THREE.Mesh(geometry,woodMaterials[materialIndex]);
+      const id = options.id || `part-${state.nextId++}`;
+      mesh.userData.id=id; mesh.userData.type=type; mesh.userData.size=[...size]; mesh.userData.materialIndex=materialIndex;
+      mesh.userData.craft=craft; mesh.userData.velocity=new THREE.Vector3(); mesh.userData.angularVelocity=new THREE.Vector3();
+      mesh.castShadow=true; mesh.receiveShadow=true;
+      if (options.position) mesh.position.fromArray(options.position);
+      else {
+        const count=state.parts.filter(part=>part.userData.type===type).length;
+        mesh.position.set(((count%5)-2)*GRID,preset.spawnY,0);
+      }
+      if (Array.isArray(options.rotation)) mesh.rotation.set(...options.rotation);
+      scene.add(mesh); state.parts.push(mesh); addRouterDecoration(mesh); setSelected(id);
+      if (!options.skipAutosave) autosave();
+      const q = Number.isFinite(craft.quality) ? ` Quality ${Math.round(craft.quality)}.` : '';
+      setStatus(`${friendlyType(type)} added.${q}`); return mesh;
+    }
+
+    function rebuildPartGeometry(part) {
+      const oldGeometry = part.geometry;
+      const oldPosition = part.position.clone();
+      const oldRotation = part.rotation.clone();
+      const oldScale = part.scale.clone();
+      const oldBottom = worldBox(part).min.y;
+      const nextGeometry = createPartGeometry(part.userData.type,part.userData.size,part.userData.craft || {});
+      if (!geometryIsUsable(nextGeometry, part.userData.size[1])) {
+        nextGeometry.dispose();
+        setStatus('The generated shape was invalid. Previous geometry restored.');
+        return false;
+      }
+      part.geometry = nextGeometry;
+      part.position.copy(oldPosition); part.rotation.copy(oldRotation); part.scale.copy(oldScale);
+      part.updateMatrixWorld(true);
+      if (oldBottom <= .08) {
+        const newBottom = worldBox(part).min.y;
+        part.position.y += oldBottom - newBottom;
+        part.updateMatrixWorld(true);
+      }
+      oldGeometry.dispose(); addRouterDecoration(part); updateSelectionBox();
+      return true;
+    }
+
+    function getSelected() { return state.parts.find(part=>part.userData.id===state.selectedId) || null; }
+    function setSelected(id) {
+      state.selectedId=id; const selected=getSelected();
+      if (selected) {
+        selectionBox.setFromObject(selected); selectionBox.visible=true;
+        const craft=selected.userData.craft || {}; const q=Number.isFinite(craft.quality)?` · quality ${Math.round(craft.quality)}`:'';
+        selectionText.textContent=`Selected: ${friendlyType(selected.userData.type)}${q}`;
+      } else { selectionBox.visible=false; selectionText.textContent='Selected: none'; }
+      updateControlState();
+    }
+    function updateSelectionBox() { const selected=getSelected(); if (selected && selectionBox.visible) selectionBox.setFromObject(selected); }
+    function setStatus(message) { statusText.textContent=message; }
+
+    function renderPartButtons() {
+      partRow.replaceChildren();
+      for (const preset of PARTS[state.mode]) {
+        const button=document.createElement('button'); button.type='button'; button.textContent=preset.label;
+        button.addEventListener('click',()=> {
+          if (preset.type === 'tabletop' || preset.type === 'seat') startCutMinigame(preset.type,preset.size);
+          else if (preset.type === 'table-leg' || preset.type === 'chair-leg') startLegMenu(preset.type,preset.size);
+          else createPart(preset.type);
+        });
+        partRow.append(button);
+      }
+    }
+
+    function routerEligible(part) { return part && ['tabletop','seat'].includes(part.userData.type); }
+    function updateControlState() {
+      const selected=getSelected(); const disabled=!selected || state.testing || !!state.minigame;
+      document.querySelectorAll('[data-action^="move"], [data-action="rotate"], [data-action="duplicate"], [data-action="delete"]')
+        .forEach(button=>button.disabled=disabled);
+      document.querySelector('[data-action="undo"]').disabled=state.undo.length===0 || state.testing || !!state.minigame;
+      partRow.querySelectorAll('button').forEach(button=>button.disabled=state.testing || !!state.minigame);
+      modeSelect.disabled=state.testing || !!state.minigame;
+      routerBtn.disabled=!routerEligible(selected) || state.testing || !!state.minigame;
+    }
+
+    function clampPartToWorkshop(part) {
+      part.geometry.computeBoundingBox(); const box=part.geometry.boundingBox;
+      const halfW=(box.max.x-box.min.x)/2, halfD=(box.max.z-box.min.z)/2;
+      part.position.x=THREE.MathUtils.clamp(roundGrid(part.position.x),-4.5+halfW,4.5-halfW);
+      part.position.z=THREE.MathUtils.clamp(roundGrid(part.position.z),-4.5+halfD,4.5-halfD);
+      part.position.y=Math.max(-box.min.y,roundGrid(part.position.y));
+    }
+    function editSelected(action) {
+      const part=getSelected(); if (!part || state.testing) return; pushUndo();
+      if (action==='move-x-neg') part.position.x-=GRID; if (action==='move-x-pos') part.position.x+=GRID;
+      if (action==='move-z-neg') part.position.z-=GRID; if (action==='move-z-pos') part.position.z+=GRID;
+      if (action==='move-y-neg') part.position.y-=GRID; if (action==='move-y-pos') part.position.y+=GRID;
+      if (action==='rotate') part.rotation.y+=Math.PI/2;
+      clampPartToWorkshop(part); updateSelectionBox(); autosave(); updateControlState();
+    }
+    function duplicateSelected() {
+      const part=getSelected(); if (!part || state.testing) return;
+      createPart(part.userData.type,{ size:[...part.userData.size],position:[part.position.x+GRID,part.position.y,part.position.z+GRID],rotation:[part.rotation.x,part.rotation.y,part.rotation.z],materialIndex:part.userData.materialIndex,craft:deepClone(part.userData.craft) });
+    }
+    function deleteSelected() {
+      const part=getSelected(); if (!part || state.testing) return; pushUndo(); scene.remove(part); part.geometry.dispose();
+      for (const child of part.children) child.geometry?.dispose(); state.parts.splice(state.parts.indexOf(part),1); setSelected(null); autosave(); setStatus('Part deleted.');
+    }
+    function undo() { if (!state.undo.length || state.testing) return; hydrate(JSON.parse(state.undo.pop())); updateControlState(); setStatus('Last action undone.'); }
+    function resetBuild() { if (state.testing) restoreAfterTest(); if (state.parts.length) pushUndo(); clearParts(); state.nextId=1; autosave(); setStatus('Build cleared.'); updateControlState(); }
+
+    function worldBox(part) { return new THREE.Box3().setFromObject(part); }
+    function floorTouch(part) { return worldBox(part).min.y <= .08; }
+    function belowAndInside(leg,top) {
+      const legBox=worldBox(leg), topBox=worldBox(top), center=new THREE.Vector3(); legBox.getCenter(center);
+      const inside=center.x>=topBox.min.x-.18 && center.x<=topBox.max.x+.18 && center.z>=topBox.min.z-.18 && center.z<=topBox.max.z+.18;
+      return inside && Math.abs(legBox.max.y-topBox.min.y)<=.55 && center.y<topBox.min.y;
+    }
+    function stableSupport(legs,mainPart) {
+      const touching=legs.filter(floorTouch); if (touching.length<3) return false;
+      const xs=touching.map(x=>x.position.x), zs=touching.map(x=>x.position.z), margin=.08;
+      return mainPart.position.x>=Math.min(...xs)+margin && mainPart.position.x<=Math.max(...xs)-margin && mainPart.position.z>=Math.min(...zs)+margin && mainPart.position.z<=Math.max(...zs)-margin;
+    }
+    function validateBuild() {
+      const issues=[];
+      if (state.mode==='table') {
+        const tops=state.parts.filter(p=>p.userData.type==='tabletop'), legs=state.parts.filter(p=>p.userData.type==='table-leg');
+        if (tops.length!==1) issues.push('Use exactly one tabletop.'); if (legs.length<3) issues.push('Add at least three table legs.');
+        if (tops.length===1) {
+          if (legs.filter(l=>belowAndInside(l,tops[0])).length<3) issues.push('Place at least three legs under the tabletop.');
+          if (legs.filter(floorTouch).length<3) issues.push('At least three legs must touch the floor.');
+          if (legs.length>=3 && !stableSupport(legs,tops[0])) issues.push('Spread the legs around the tabletop center.');
+        }
+      } else {
+        const seats=state.parts.filter(p=>p.userData.type==='seat'), legs=state.parts.filter(p=>p.userData.type==='chair-leg'), backs=state.parts.filter(p=>p.userData.type==='backrest');
+        if (seats.length!==1) issues.push('Use exactly one seat.'); if (legs.length<3) issues.push('Add at least three chair legs.'); if (!backs.length) issues.push('Add one backrest.');
+        if (seats.length===1) {
+          if (legs.filter(l=>belowAndInside(l,seats[0])).length<3) issues.push('Place at least three legs under the seat.');
+          if (legs.filter(floorTouch).length<3) issues.push('At least three legs must touch the floor.');
+          if (legs.length>=3 && !stableSupport(legs,seats[0])) issues.push('Spread the legs around the seat center.');
+          if (backs.length) {
+            const seatBox=worldBox(seats[0]);
+            const valid=backs.some(back=>{ const box=worldBox(back); return (back.position.z<=seatBox.min.z+.35 || back.position.z>=seatBox.max.z-.35) && box.max.y>seatBox.max.y+.55 && Math.abs(back.position.x-seats[0].position.x)<1.2; });
+            if (!valid) issues.push('Place the backrest behind and above the seat.');
+          }
+        }
+      }
+      return { valid:issues.length===0,issues };
+    }
+    function beginTest() {
+      if (!state.parts.length || state.testing) { if (!state.parts.length) setStatus('Add parts before testing.'); return; }
+      const result=validateBuild(); state.preTestSnapshot=snapshotString(); state.testing=true; setSelected(null); controls.enabled=false; updateControlState();
+      if (result.valid) {
+        setStatus('Stable build.'); resultTitle.textContent='Build passed';
+        const qualities=state.parts.map(p=>p.userData.craft?.quality).filter(Number.isFinite);
+        const average=qualities.length?Math.round(qualities.reduce((a,b)=>a+b,0)/qualities.length):70;
+        resultMessage.textContent=`The furniture is stable. Average craftsmanship: ${average}/100.`; resultCard.hidden=false;
+      } else {
+        setStatus('Unstable build.'); resultTitle.textContent='Build failed'; resultMessage.textContent=result.issues.join(' ');
+        for (const part of state.parts) {
+          part.userData.velocity.set((Math.random()-.5)*.7,Math.random()*.35,(Math.random()-.5)*.7);
+          part.userData.angularVelocity.set((Math.random()-.5)*2.2,(Math.random()-.5)*1.6,(Math.random()-.5)*2.2);
+        }
+        setTimeout(()=>resultCard.hidden=false,850);
+      }
+    }
+    function restoreAfterTest() {
+      if (!state.preTestSnapshot) return; const snapshot=JSON.parse(state.preTestSnapshot);
+      state.testing=false; state.preTestSnapshot=null; hydrate(snapshot); controls.enabled=true; resultCard.hidden=true; updateControlState(); setStatus('Build restored for editing.');
+    }
+    function saveManual() { if (state.testing) return; try { localStorage.setItem(`${STORAGE_KEY}:manual`,snapshotString()); setStatus('Build saved on this device.'); } catch { setStatus('Saving failed in this browser.'); } }
+    function loadManual() { if (state.testing) return; const saved=localStorage.getItem(`${STORAGE_KEY}:manual`); if (!saved) return setStatus('No saved build found.'); try { pushUndo(); hydrate(JSON.parse(saved)); } catch { setStatus('Saved build could not be loaded.'); } }
+
+    // ----- Carpenter minigames -----
+    function setCraftHud(progress,quality) {
+      const p=Math.round(clamp01(progress)*100), q=Math.round(THREE.MathUtils.clamp(quality,0,100));
+      craftProgressText.textContent=`${p}%`; craftProgressBar.style.width=`${p}%`;
+      craftQualityText.textContent=String(q); craftQualityBar.style.width=`${q}%`;
+    }
+    function setCraftInstruction(title,instruction) { craftTitle.textContent=title; craftInstruction.textContent=instruction; }
+    function showCraftButton(button,show,text) { button.hidden=!show; if (text) button.textContent=text; }
+    function setCraftOptions(items,onSelect,activeValue) {
+      craftOptions.replaceChildren();
+      for (const item of items) {
+        const button=document.createElement('button'); button.type='button'; button.textContent=item.label; button.classList.toggle('active',item.value===activeValue);
+        button.addEventListener('click',()=>onSelect(item.value)); craftOptions.append(button);
+      }
+    }
+    function openCraft(mg) {
+      state.minigame=mg; craftOverlay.hidden=false; controls.enabled=false; updateControlState(); resizeCraftCanvas();
+    }
+    function closeCraft(cancelled=true) {
+      if (cancelled) setStatus('Tool work cancelled.');
+      state.minigame=null; craftOverlay.hidden=true; controls.enabled=!state.testing; powerBtn.classList.remove('powering'); powerBtn.setAttribute('aria-pressed','false'); powerBtn.textContent='Start tool'; updateControlState();
+    }
+    function resizeCraftCanvas() {
+      if (craftOverlay.hidden) return;
+      const rect=craftCanvas.getBoundingClientRect(), dpr=Math.min(devicePixelRatio,2);
+      craftCanvas.width=Math.max(1,Math.floor(rect.width*dpr)); craftCanvas.height=Math.max(1,Math.floor(rect.height*dpr));
+      craftCtx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    function craftPoint(event) { const r=craftCanvas.getBoundingClientRect(); return { x:event.clientX-r.left,y:event.clientY-r.top,t:performance.now() }; }
+    function nearestPointIndex(points,p) {
+      let best=0,bestDist=Infinity;
+      for (let i=0;i<points.length;i++) { const d=Math.hypot(points[i].x-p.x,points[i].y-p.y); if (d<bestDist) { best=i; bestDist=d; } }
+      return { index:best,dist:bestDist };
+    }
+    function smoothOffsets(values,passes=3) {
+      let out=values.map(v=>Number.isFinite(v)?v:0);
+      for (let p=0;p<passes;p++) out=out.map((v,i)=> (out[(i-1+out.length)%out.length]+v*2+out[(i+1)%out.length])/4);
+      return out;
+    }
+    function traceTargetPoint(mg,p,recordErrors=false) {
+      const found=nearestPointIndex(mg.targetPoints,p), n=mg.targetPoints.length;
+      mg.drawPath.push({x:p.x,y:p.y});
+      if (found.dist>62) { if (recordErrors && found.dist>96 && mg.powerOn) { setPower(false); setCraftInstruction('Saw paused','The blade moved too far from the cut line. Reposition, then tap Start saw.'); } updateCraftState(); return; }
+      if (!mg.visited) mg.visited=new Set();
+      for (let d=-2;d<=2;d++) mg.visited.add((found.index+d+n)%n);
+      mg.progress=clamp01(mg.visited.size/n); mg.errorSum+=found.dist; mg.errorCount++; if (mg.progress>=.985 && mg.powerOn) setPower(false);
+      if (recordErrors) {
+        const prev=mg.targetPoints[(found.index-1+n)%n], next=mg.targetPoints[(found.index+1)%n], target=mg.targetPoints[found.index];
+        const tx=next.x-prev.x, ty=next.y-prev.y, len=Math.hypot(tx,ty)||1;
+        const nx=ty/len, ny=-tx/len;
+        mg.cutErrors[found.index]=((p.x-target.x)*nx+(p.y-target.y)*ny)/mg.scale;
+      }
+      updateCraftState();
+    }
+
+    function startCutMinigame(targetType,size) {
+      const mg={ type:'cut',targetType,size:[...size],shape:'rectangle',phase:'trace',progress:0,quality:100,startIndex:null,step:0,errorSum:0,errorCount:0,traceMean:0,cutErrors:Array(SHAPE_SAMPLES).fill(null),drawPath:[],powerOn:false,pointerDown:false,targetPoints:[],scale:1,visited:new Set() };
+      openCraft(mg); configureCutShape('rectangle');
+      setCraftInstruction('Draw and cut the shape','Trace the dashed outline with one finger. Start at the green mark.');
+      setCraftOptions([
+        {value:'rectangle',label:'Rectangle'},{value:'square',label:'Square'},{value:'circle',label:'Circle'},
+        {value:'oval',label:'Oval'},{value:'hexagon',label:'Hexagon'},{value:'rounded',label:'Rounded'},{value:'organic',label:'Organic'}
+      ],configureCutShape,'rectangle');
+      showCraftButton(toolBtn,false); showCraftButton(rotateWorkBtn,false); showCraftButton(powerBtn,false); showCraftButton(craftNext,true,'Start cutting');
+      craftNext.disabled=true; updateCraftState();
+    }
+    function configureCutShape(shape) {
+      const mg=state.minigame; if (!mg || mg.type!=='cut') return;
+      mg.shape=shape; mg.phase='trace'; mg.progress=0; mg.visited=new Set(); mg.errorSum=0; mg.errorCount=0; mg.drawPath=[]; mg.cutErrors=Array(SHAPE_SAMPLES).fill(null);
+      setCraftOptions([
+        {value:'rectangle',label:'Rectangle'},{value:'square',label:'Square'},{value:'circle',label:'Circle'},
+        {value:'oval',label:'Oval'},{value:'hexagon',label:'Hexagon'},{value:'rounded',label:'Rounded'},{value:'organic',label:'Organic'}
+      ],configureCutShape,shape); updateCraftState();
+    }
+    function beginCutPhase() {
+      const mg=state.minigame; if (!mg || mg.type!=='cut') return;
+      mg.traceMean=mg.errorCount?mg.errorSum/mg.errorCount:40; mg.phase='cut'; mg.powerOn=false; mg.progress=0; mg.visited=new Set(); mg.errorSum=0; mg.errorCount=0; mg.drawPath=[];
+      setCraftInstruction('Jigsaw cutting','Tap Start saw, then guide the blade with one finger. Tap Stop saw to pause.');
+      showCraftButton(powerBtn,true,'Start saw'); craftOptions.querySelectorAll('button').forEach(button=>button.disabled=true); craftNext.textContent='Finish piece'; craftNext.disabled=true; updateCraftState();
+    }
+    function finishCut() {
+      const mg=state.minigame; if (!mg || mg.type!=='cut') return;
+      const cutMean=mg.errorCount?mg.errorSum/mg.errorCount:45;
+      const completion=mg.progress;
+      const quality=THREE.MathUtils.clamp(100-mg.traceMean*.7-cutMean*1.15-(1-completion)*45,20,100);
+      const offsets=smoothOffsets(mg.cutErrors.map(v=>THREE.MathUtils.clamp(Number.isFinite(v)?v:0,-.07,.07)));
+      const targetType=mg.targetType,shape=mg.shape;
+      const size=[...mg.size];
+      if (shape==='square' || shape==='circle' || shape==='hexagon') {
+        const diameter=targetType==='seat'?Math.min(size[0],size[2]):Math.min(size[0],2.35);
+        size[0]=diameter; size[2]=diameter;
+      }
+      closeCraft(false); createPart(targetType,{ size,craft:{ method:'cut',shape,cutOffsets:offsets,quality } });
+    }
+
+    function startLegMenu(targetType,size) {
+      const mg={type:'leg-menu',targetType,size:[...size],progress:0,quality:100}; openCraft(mg);
+      setCraftInstruction('Choose a leg tool','Carve a faceted leg by hand or turn a smooth decorative leg on the lathe.');
+      setCraftOptions([{value:'carve',label:'Hand carving'},{value:'lathe',label:'Wood lathe'}],method=> method==='carve'?startCarveMinigame(targetType,size):startLatheMinigame(targetType,size));
+      showCraftButton(toolBtn,false); showCraftButton(rotateWorkBtn,false); showCraftButton(powerBtn,false); showCraftButton(craftNext,false); setCraftHud(0,100);
+    }
+    function targetProfile(style,method) {
+      return Array.from({length:PROFILE_SAMPLES},(_,i)=>{
+        const t=i/(PROFILE_SAMPLES-1);
+        if (method==='carve') {
+          if (style==='tapered') return .78-.22*t;
+          if (style==='octagonal') return .72;
+          if (style==='curved') return .58+.16*Math.sin(Math.PI*t)+.05*Math.sin(3*Math.PI*t);
+          if (style==='rustic') return .68+.05*Math.sin(5*Math.PI*t+.5)+.03*Math.sin(11*Math.PI*t);
+          return .7-.08*Math.cos(4*Math.PI*t);
+        }
+        if (style==='classic') return .53+.18*Math.sin(Math.PI*t)+.08*Math.sin(5*Math.PI*t);
+        if (style==='beaded') return .56+.12*Math.pow(Math.sin(4*Math.PI*t),2);
+        if (style==='vase') return .48+.28*Math.sin(Math.PI*t);
+        return .56+.12*Math.sin(2*Math.PI*t)+.08*Math.sin(6*Math.PI*t);
+      });
+    }
+    function startCarveMinigame(targetType,size) {
+      const style='tapered', target=targetProfile(style,'carve');
+      const mg={type:'carve',targetType,size:[...size],style,tool:'coarse',side:0,progress:0,quality:100,pointerDown:false,target,current:Array.from({length:4},()=>Array(PROFILE_SAMPLES).fill(1)),overcut:0};
+      openCraft(mg); setCraftInstruction('Decorative leg carving','Swipe inward to remove wood. Match the target on all four sides, then sand it smooth.');
+      setCraftOptions([{value:'tapered',label:'Tapered'},{value:'octagonal',label:'Octagonal'},{value:'curved',label:'Curved'},{value:'rustic',label:'Rustic'},{value:'fluted',label:'Fluted'}],configureCarveStyle,style);
+      showCraftButton(toolBtn,true,'Tool: coarse'); showCraftButton(rotateWorkBtn,true,'Turn side 1/4'); showCraftButton(powerBtn,false); showCraftButton(craftNext,true,'Finish leg'); craftNext.disabled=true; updateCraftState();
+    }
+    function configureCarveStyle(style) {
+      const mg=state.minigame; if (!mg || mg.type!=='carve') return;
+      mg.style=style; mg.target=targetProfile(style,'carve'); mg.current=Array.from({length:4},()=>Array(PROFILE_SAMPLES).fill(1)); mg.side=0; mg.overcut=0;
+      setCraftOptions([{value:'tapered',label:'Tapered'},{value:'octagonal',label:'Octagonal'},{value:'curved',label:'Curved'},{value:'rustic',label:'Rustic'},{value:'fluted',label:'Fluted'}],configureCarveStyle,style); updateCraftState();
+    }
+    function finishCarve() {
+      const mg=state.minigame; if (!mg || mg.type!=='carve') return;
+      const profile=Array.from({length:PROFILE_SAMPLES},(_,i)=>mg.current.reduce((sum,side)=>sum+side[i],0)/4);
+      const error=profile.reduce((sum,v,i)=>sum+Math.abs(v-mg.target[i]),0)/PROFILE_SAMPLES;
+      const quality=THREE.MathUtils.clamp(100-error*170-mg.overcut*2,18,100);
+      const safeProfile=sanitizeLegProfile(profile,.76);
+      const craft={method:'carve',style:mg.style,profile:safeProfile,quality,sides:mg.style==='octagonal'?8:mg.style==='fluted'?12:6};
+      const type=mg.targetType,size=mg.size; closeCraft(false); createPart(type,{size,craft});
+    }
+
+    function startLatheMinigame(targetType,size) {
+      const style='classic',target=targetProfile(style,'lathe');
+      const mg={type:'lathe',targetType,size:[...size],style,target,current:Array(PROFILE_SAMPLES).fill(1),progress:0,quality:100,pointerDown:false,powerOn:false,error:0,lastMove:performance.now()};
+      openCraft(mg); setCraftInstruction('Wood lathe','Tap Start lathe, then guide the chisel with one finger. Tap Stop lathe to pause.');
+      setCraftOptions([{value:'classic',label:'Classic'},{value:'beaded',label:'Beaded'},{value:'vase',label:'Vase'},{value:'spindle',label:'Spindle'}],configureLatheStyle,style);
+      showCraftButton(toolBtn,false); showCraftButton(rotateWorkBtn,false); showCraftButton(powerBtn,true,'Start lathe'); showCraftButton(craftNext,true,'Finish leg'); craftNext.disabled=true; updateCraftState();
+    }
+    function configureLatheStyle(style) {
+      const mg=state.minigame; if (!mg || mg.type!=='lathe') return;
+      mg.style=style; mg.target=targetProfile(style,'lathe'); mg.current=Array(PROFILE_SAMPLES).fill(1); mg.error=0; mg.powerOn=false; refreshPowerButton();
+      setCraftOptions([{value:'classic',label:'Classic'},{value:'beaded',label:'Beaded'},{value:'vase',label:'Vase'},{value:'spindle',label:'Spindle'}],configureLatheStyle,style); updateCraftState();
+    }
+    function finishLathe() {
+      const mg=state.minigame; if (!mg || mg.type!=='lathe') return;
+      const error=mg.current.reduce((sum,v,i)=>sum+Math.abs(v-mg.target[i]),0)/PROFILE_SAMPLES;
+      const over=mg.current.filter((v,i)=>v<mg.target[i]-.045).length;
+      const quality=THREE.MathUtils.clamp(100-error*175-over*1.5,18,100);
+      const safeProfile=sanitizeLegProfile(mg.current,.72);
+      const craft={method:'lathe',style:mg.style,profile:safeProfile,quality}; const type=mg.targetType,size=mg.size;
+      closeCraft(false); createPart(type,{size,craft});
+    }
+
+    function startRouterMinigame(part) {
+      if (!routerEligible(part)) return;
+      const mg={type:'router',partId:part.userData.id,operation:'rounded-edge',progress:0,quality:100,startIndex:null,step:0,errorSum:0,errorCount:0,speedPenalty:0,powerOn:false,pointerDown:false,drawPath:[],targetPoints:[],scale:1,lastPointer:null,lastMove:performance.now(),openPath:false,visited:new Set()};
+      openCraft(mg); setCraftInstruction('Hand router','Tap Start router, then follow the guide with one finger. Tap Stop router to pause.');
+      setCraftOptions([{value:'rounded-edge',label:'Round edge'},{value:'bevel',label:'Bevel'},{value:'border-groove',label:'Border groove'},{value:'center-groove',label:'Center groove'}],configureRouterOperation,'rounded-edge');
+      showCraftButton(toolBtn,false); showCraftButton(rotateWorkBtn,false); showCraftButton(powerBtn,true,'Start router'); showCraftButton(craftNext,true,'Apply router work'); craftNext.disabled=true; updateCraftState();
+    }
+    function configureRouterOperation(operation) {
+      const mg=state.minigame; if (!mg || mg.type!=='router') return;
+      mg.operation=operation; mg.progress=0; mg.powerOn=false; refreshPowerButton(); mg.visited=new Set(); mg.errorSum=0; mg.errorCount=0; mg.speedPenalty=0; mg.drawPath=[]; mg.lastPointer=null; mg.openPath=operation==='center-groove';
+      setCraftOptions([{value:'rounded-edge',label:'Round edge'},{value:'bevel',label:'Bevel'},{value:'border-groove',label:'Border groove'},{value:'center-groove',label:'Center groove'}],configureRouterOperation,operation); updateCraftState();
+    }
+    function finishRouter() {
+      const mg=state.minigame; if (!mg || mg.type!=='router') return; const part=state.parts.find(p=>p.userData.id===mg.partId); if (!part) return closeCraft();
+      const mean=mg.errorCount?mg.errorSum/mg.errorCount:40;
+      const quality=THREE.MathUtils.clamp(100-mean*1.35-mg.speedPenalty-(1-mg.progress)*35,18,100);
+      pushUndo(); part.userData.craft=part.userData.craft || {}; part.userData.craft.router={type:mg.operation,quality};
+      part.userData.craft.quality=Number.isFinite(part.userData.craft.quality)?Math.round((part.userData.craft.quality+quality)/2):quality;
+      rebuildPartGeometry(part); closeCraft(false); setSelected(part.userData.id); autosave(); setStatus(`Router work applied. Quality ${Math.round(quality)}.`);
+    }
+
+    function updateCraftState() {
+      const mg=state.minigame; if (!mg) return;
+      if (mg.type==='cut') {
+        const mean=mg.errorCount?mg.errorSum/mg.errorCount:0;
+        mg.quality=THREE.MathUtils.clamp(100-mean*1.3,20,100); craftNext.disabled=mg.progress<.82;
+      } else if (mg.type==='carve') {
+        let remaining=0,total=0,over=0;
+        for (const side of mg.current) for (let i=0;i<side.length;i++) { const range=1-mg.target[i]; total+=range; remaining+=Math.max(0,side[i]-mg.target[i]); if (side[i]<mg.target[i]-.045) over++; }
+        mg.progress=clamp01(1-remaining/Math.max(.001,total)); mg.overcut=over; mg.quality=THREE.MathUtils.clamp(100-over*1.8-(1-mg.progress)*25,20,100); craftNext.disabled=mg.progress<.55;
+        rotateWorkBtn.textContent=`Turn side ${mg.side+1}/4`;
+      } else if (mg.type==='lathe') {
+        const total=mg.current.reduce((sum,v,i)=>sum+(1-mg.target[i]),0), remaining=mg.current.reduce((sum,v,i)=>sum+Math.max(0,v-mg.target[i]),0);
+        mg.progress=clamp01(1-remaining/Math.max(.001,total)); const over=mg.current.filter((v,i)=>v<mg.target[i]-.045).length;
+        mg.quality=THREE.MathUtils.clamp(100-over*2-(1-mg.progress)*20,20,100); craftNext.disabled=mg.progress<.6; if (mg.progress>=.985 && mg.powerOn) setPower(false);
+      } else if (mg.type==='router') {
+        const mean=mg.errorCount?mg.errorSum/mg.errorCount:0;
+        mg.quality=THREE.MathUtils.clamp(100-mean*1.35-mg.speedPenalty-(1-mg.progress)*20,20,100); craftNext.disabled=mg.progress<.78;
+      }
+      setCraftHud(mg.progress||0,mg.quality??100);
+    }
+
+    function workpieceLayout() {
+      const w=craftCanvas.clientWidth,h=craftCanvas.clientHeight;
+      return {w,h,cx:w/2,y0:34,y1:h-28,maxR:Math.min(w*.34,145)};
+    }
+    function carveAtPoint(mg,p) {
+      const l=workpieceLayout(); if (p.y<l.y0 || p.y>l.y1) return;
+      const t=clamp01((l.y1-p.y)/(l.y1-l.y0)), band=Math.round(t*(PROFILE_SAMPLES-1));
+      const radius=clamp01(Math.abs(p.x-l.cx)/l.maxR); if (radius>=mg.current[mg.side][band]) return;
+      const reach=mg.tool==='coarse'?2:1;
+      for (let j=Math.max(0,band-reach);j<=Math.min(PROFILE_SAMPLES-1,band+reach);j++) {
+        const blend=1-Math.abs(j-band)/(reach+1);
+        const safeMinimum=Math.max(.3,mg.target[j]-(mg.tool==='coarse'?.085:.05));
+        const requested=THREE.MathUtils.lerp(mg.current[mg.side][j],radius,blend*(mg.tool==='coarse'?.8:.55));
+        const desired=Math.max(safeMinimum,requested);
+        mg.current[mg.side][j]=Math.min(mg.current[mg.side][j],desired);
+      }
+      updateCraftState();
+    }
+    function latheAtPoint(mg,p) {
+      if (!mg.powerOn) return; const l=workpieceLayout(); if (p.y<l.y0 || p.y>l.y1) return;
+      const band=Math.round(clamp01((l.y1-p.y)/(l.y1-l.y0))*(PROFILE_SAMPLES-1)); const radius=clamp01(Math.abs(p.x-l.cx)/l.maxR);
+      for (let j=Math.max(0,band-1);j<=Math.min(PROFILE_SAMPLES-1,band+1);j++) {
+        const safeMinimum=Math.max(.3,mg.target[j]-.065);
+        const requested=THREE.MathUtils.lerp(mg.current[j],radius,.65);
+        mg.current[j]=Math.min(mg.current[j],Math.max(safeMinimum,requested));
+      }
+      mg.lastMove=performance.now(); updateCraftState();
+    }
+    function routerTrack(mg,p) {
+      if (!mg.powerOn || !mg.targetPoints.length) return;
+      const found=nearestPointIndex(mg.targetPoints,p), n=mg.targetPoints.length;
+      mg.drawPath.push({x:p.x,y:p.y});
+      if (found.dist>58) { mg.speedPenalty+=.08; if (found.dist>92 && mg.powerOn) { setPower(false); setCraftInstruction('Tool paused','The router left the safe path. Reposition, then tap Start router.'); } updateCraftState(); return; }
+      if (!mg.visited) mg.visited=new Set();
+      for (let d=-2;d<=2;d++) {
+        const index=mg.openPath?THREE.MathUtils.clamp(found.index+d,0,n-1):(found.index+d+n)%n;
+        mg.visited.add(index);
+      }
+      mg.progress=clamp01(mg.visited.size/n); if (mg.progress>=.985 && mg.powerOn) setPower(false);
+      if (mg.lastPointer) {
+        const dt=Math.max(1,p.t-mg.lastPointer.t), speed=Math.hypot(p.x-mg.lastPointer.x,p.y-mg.lastPointer.y)/dt*1000;
+        if (speed>520) mg.speedPenalty+=.18; else if (speed<28) mg.speedPenalty+=.12;
+      }
+      mg.lastPointer=p; mg.lastMove=p.t; mg.errorSum+=found.dist; mg.errorCount++; updateCraftState();
+    }
+
+    function canvasTargetPointsForShape(shapeName,scaleFactor=1) {
+      const w=craftCanvas.clientWidth,h=craftCanvas.clientHeight,scale=Math.min(w*.74,h*.7)*scaleFactor;
+      const cx=w/2,cy=h/2+6; return { points:normalizedShape(shapeName).map(p=>({x:cx+p.x*scale,y:cy+p.y*scale})),scale };
+    }
+    function buildRouterTarget(mg) {
+      const part=state.parts.find(p=>p.userData.id===mg.partId); if (!part) return;
+      const shape=part.userData.craft?.shape || 'rectangle';
+      if (mg.operation==='center-groove') {
+        const w=craftCanvas.clientWidth,h=craftCanvas.clientHeight;
+        mg.targetPoints=Array.from({length:80},(_,i)=>({x:w*.22+i/79*w*.56,y:h*.52})); mg.scale=w*.56;
+      } else {
+        const factor=mg.operation==='border-groove'?.72:1;
+        const built=canvasTargetPointsForShape(shape,factor); mg.targetPoints=built.points; mg.scale=built.scale;
+      }
+    }
+
+    function drawBoardBackground(ctx,w,h) {
+      ctx.fillStyle='#b47a42'; ctx.fillRect(0,0,w,h);
+      ctx.strokeStyle='rgba(79,43,22,.22)'; ctx.lineWidth=2;
+      for (let y=16;y<h;y+=24) { ctx.beginPath(); ctx.moveTo(0,y+Math.sin(y)*3); ctx.bezierCurveTo(w*.35,y-5,w*.65,y+6,w,y); ctx.stroke(); }
+    }
+    function drawPath(ctx,points,color,width=3,dash=[]) {
+      if (!points.length) return; ctx.save(); ctx.strokeStyle=color; ctx.lineWidth=width; ctx.setLineDash(dash); ctx.beginPath(); ctx.moveTo(points[0].x,points[0].y);
+      for (let i=1;i<points.length;i++) ctx.lineTo(points[i].x,points[i].y); ctx.stroke(); ctx.restore();
+    }
+    function drawCutMinigame(mg) {
+      const w=craftCanvas.clientWidth,h=craftCanvas.clientHeight; drawBoardBackground(craftCtx,w,h);
+      const built=canvasTargetPointsForShape(mg.shape,1); mg.targetPoints=built.points; mg.scale=built.scale;
+      drawPath(craftCtx,mg.targetPoints,'rgba(41,30,21,.85)',3,[9,7]);
+      drawPath(craftCtx,mg.drawPath,mg.phase==='trace'?'#f4e6c9':'#5b1e15',mg.phase==='trace'?3:5);
+      const start=mg.targetPoints[0]; craftCtx.fillStyle='#5caa61'; craftCtx.beginPath(); craftCtx.arc(start.x,start.y,9,0,Math.PI*2); craftCtx.fill();
+      if (mg.phase==='cut') {
+        craftCtx.fillStyle='rgba(20,18,16,.8)'; craftCtx.fillRect(10,10,150,30); craftCtx.fillStyle='#fff'; craftCtx.font='14px system-ui'; craftCtx.fillText(mg.powerOn?'Saw running · follow line':'Tap Start saw',20,30);
+      }
+    }
+    function drawProfileWorkpiece(mg,now,lathe=false) {
+      const l=workpieceLayout(); drawBoardBackground(craftCtx,l.w,l.h);
+      const current=lathe?mg.current:mg.current[mg.side];
+      craftCtx.fillStyle='#9b6136'; craftCtx.beginPath();
+      for (let i=0;i<PROFILE_SAMPLES;i++) { const y=l.y1-i/(PROFILE_SAMPLES-1)*(l.y1-l.y0),x=l.cx-current[i]*l.maxR; if (i===0) craftCtx.moveTo(x,y); else craftCtx.lineTo(x,y); }
+      for (let i=PROFILE_SAMPLES-1;i>=0;i--) { const y=l.y1-i/(PROFILE_SAMPLES-1)*(l.y1-l.y0),x=l.cx+current[i]*l.maxR; craftCtx.lineTo(x,y); }
+      craftCtx.closePath(); craftCtx.fill();
+      if (lathe) {
+        craftCtx.strokeStyle='rgba(255,235,202,.24)'; craftCtx.lineWidth=2;
+        for (let i=0;i<10;i++) { const y=l.y0+(i/10*(l.y1-l.y0)+(now*.12)%((l.y1-l.y0)/10))%(l.y1-l.y0); craftCtx.beginPath(); craftCtx.moveTo(l.cx-l.maxR,y); craftCtx.lineTo(l.cx+l.maxR,y); craftCtx.stroke(); }
+      }
+      const left=[],right=[];
+      for (let i=0;i<PROFILE_SAMPLES;i++) { const y=l.y1-i/(PROFILE_SAMPLES-1)*(l.y1-l.y0); left.push({x:l.cx-mg.target[i]*l.maxR,y}); right.push({x:l.cx+mg.target[i]*l.maxR,y}); }
+      drawPath(craftCtx,left,'#ffe8a6',3,[7,6]); drawPath(craftCtx,right,'#ffe8a6',3,[7,6]);
+      craftCtx.fillStyle='rgba(25,20,16,.72)'; craftCtx.fillRect(10,10,lathe?185:150,30); craftCtx.fillStyle='#fff'; craftCtx.font='14px system-ui';
+      craftCtx.fillText(lathe?(mg.powerOn?'Lathe running · move chisel':'Tap Start lathe'):`Side ${mg.side+1}/4 · ${mg.tool}`,20,30);
+    }
+    function drawRouterMinigame(mg) {
+      const w=craftCanvas.clientWidth,h=craftCanvas.clientHeight; drawBoardBackground(craftCtx,w,h); buildRouterTarget(mg);
+      drawPath(craftCtx,mg.targetPoints,'#fff0ad',8,[10,7]); drawPath(craftCtx,mg.drawPath,'#4d2415',6);
+      if (mg.targetPoints.length) { const p=mg.targetPoints[0]; craftCtx.fillStyle='#5caa61'; craftCtx.beginPath(); craftCtx.arc(p.x,p.y,9,0,Math.PI*2); craftCtx.fill(); }
+      craftCtx.fillStyle='rgba(25,20,16,.74)'; craftCtx.fillRect(10,10,205,30); craftCtx.fillStyle='#fff'; craftCtx.font='14px system-ui'; craftCtx.fillText(mg.powerOn?'Router running · stay centered':'Tap Start router',20,30);
+    }
+    function drawMinigame(now) {
+      const mg=state.minigame; if (!mg || craftOverlay.hidden) return;
+      craftCtx.clearRect(0,0,craftCanvas.clientWidth,craftCanvas.clientHeight);
+      if (mg.type==='cut') drawCutMinigame(mg);
+      else if (mg.type==='carve') drawProfileWorkpiece(mg,now,false);
+      else if (mg.type==='lathe') drawProfileWorkpiece(mg,now,true);
+      else if (mg.type==='router') {
+        if (mg.powerOn && performance.now()-mg.lastMove>300) { mg.speedPenalty+=.012; updateCraftState(); }
+        drawRouterMinigame(mg);
+      } else {
+        drawBoardBackground(craftCtx,craftCanvas.clientWidth,craftCanvas.clientHeight);
+        craftCtx.fillStyle='rgba(30,22,16,.72)'; craftCtx.fillRect(20,craftCanvas.clientHeight*.35,craftCanvas.clientWidth-40,90);
+        craftCtx.fillStyle='#fff'; craftCtx.font='18px system-ui'; craftCtx.textAlign='center'; craftCtx.fillText('Choose a tool below',craftCanvas.clientWidth/2,craftCanvas.clientHeight*.35+50); craftCtx.textAlign='start';
+      }
+    }
+
+    craftCanvas.addEventListener('pointerdown',event=>{
+      const mg=state.minigame; if (!mg) return; mg.pointerDown=true; craftCanvas.setPointerCapture(event.pointerId); const p=craftPoint(event);
+      if (mg.type==='cut' && (mg.phase==='trace' || mg.powerOn)) traceTargetPoint(mg,p,mg.phase==='cut');
+      else if (mg.type==='carve') carveAtPoint(mg,p);
+      else if (mg.type==='lathe') latheAtPoint(mg,p);
+      else if (mg.type==='router') routerTrack(mg,p);
+    });
+    craftCanvas.addEventListener('pointermove',event=>{
+      const mg=state.minigame; if (!mg || !mg.pointerDown) return; const p=craftPoint(event);
+      if (mg.type==='cut' && (mg.phase==='trace' || mg.powerOn)) traceTargetPoint(mg,p,mg.phase==='cut');
+      else if (mg.type==='carve') carveAtPoint(mg,p);
+      else if (mg.type==='lathe') latheAtPoint(mg,p);
+      else if (mg.type==='router') routerTrack(mg,p);
+    });
+    function releaseCraftPointer() { if (state.minigame) state.minigame.pointerDown=false; }
+    craftCanvas.addEventListener('pointerup',releaseCraftPointer); craftCanvas.addEventListener('pointercancel',releaseCraftPointer);
+
+    function poweredToolName(mg) {
+      if (mg?.type === 'cut') return 'saw';
+      if (mg?.type === 'lathe') return 'lathe';
+      if (mg?.type === 'router') return 'router';
+      return 'tool';
+    }
+    function refreshPowerButton() {
+      const mg=state.minigame, running=!!mg?.powerOn, name=poweredToolName(mg);
+      powerBtn.classList.toggle('powering',running);
+      powerBtn.textContent=`${running?'Stop':'Start'} ${name}`;
+      powerBtn.setAttribute('aria-pressed',String(running));
+    }
+    function setPower(on) {
+      const mg=state.minigame; if (!mg || !['cut','lathe','router'].includes(mg.type)) return;
+      mg.powerOn=!!on; refreshPowerButton();
+      if (mg.powerOn) { mg.lastMove=performance.now(); if (navigator.vibrate) navigator.vibrate(18); }
+    }
+    powerBtn.addEventListener('click',event=>{
+      event.preventDefault();
+      const mg=state.minigame; if (!mg || !['cut','lathe','router'].includes(mg.type)) return;
+      setPower(!mg.powerOn);
+    });
+    toolBtn.addEventListener('click',()=>{ const mg=state.minigame; if (!mg || mg.type!=='carve') return; mg.tool=mg.tool==='coarse'?'fine':'coarse'; toolBtn.textContent=`Tool: ${mg.tool}`; });
+    rotateWorkBtn.addEventListener('click',()=>{ const mg=state.minigame; if (!mg || mg.type!=='carve') return; mg.side=(mg.side+1)%4; updateCraftState(); if (navigator.vibrate) navigator.vibrate(10); });
+    craftNext.addEventListener('click',()=>{
+      const mg=state.minigame; if (!mg) return;
+      if (mg.type==='cut') { if (mg.phase==='trace') beginCutPhase(); else finishCut(); }
+      else if (mg.type==='carve') finishCarve(); else if (mg.type==='lathe') finishLathe(); else if (mg.type==='router') finishRouter();
+    });
+    document.querySelector('#craft-cancel').addEventListener('click',()=>closeCraft(true));
+
+    modeSelect.addEventListener('change',()=>{
+      if (state.testing) return; if (state.parts.length) pushUndo(); clearParts(); state.mode=modeSelect.value; state.nextId=1; renderPartButtons(); autosave(); setStatus(`Started a new ${state.mode} build.`);
+    });
+    document.querySelector('#save-btn').addEventListener('click',saveManual);
+    document.querySelector('#load-btn').addEventListener('click',loadManual);
+    document.querySelector('#reset-btn').addEventListener('click',resetBuild);
+    testBtn.addEventListener('click',beginTest);
+    routerBtn.addEventListener('click',()=>startRouterMinigame(getSelected()));
+    document.querySelector('#result-close').addEventListener('click',restoreAfterTest);
+    document.querySelectorAll('[data-action]').forEach(button=>button.addEventListener('click',()=>{
+      const action=button.dataset.action;
+      if (action.startsWith('move-') || action==='rotate') editSelected(action);
+      if (action==='duplicate') duplicateSelected(); if (action==='delete') deleteSelected(); if (action==='undo') undo();
+    }));
+
+    let pointerStart=null;
+    canvas.addEventListener('pointerdown',event=>{ pointerStart={x:event.clientX,y:event.clientY,time:performance.now()}; });
+    canvas.addEventListener('pointerup',event=>{
+      if (!pointerStart || state.testing || state.minigame) return;
+      const distance=Math.hypot(event.clientX-pointerStart.x,event.clientY-pointerStart.y), duration=performance.now()-pointerStart.time; pointerStart=null;
+      if (distance>9 || duration>420) return;
+      const rect=canvas.getBoundingClientRect(); pointer.x=((event.clientX-rect.left)/rect.width)*2-1; pointer.y=-((event.clientY-rect.top)/rect.height)*2+1;
+      raycaster.setFromCamera(pointer,camera); const hits=raycaster.intersectObjects(state.parts,true).filter(hit=>state.parts.includes(hit.object) || state.parts.includes(hit.object.parent));
+      const object=hits.length?(state.parts.includes(hits[0].object)?hits[0].object:hits[0].object.parent):null; setSelected(object?.userData.id || null);
+    });
+    canvas.addEventListener('contextmenu',event=>event.preventDefault());
+
+    function resize() {
+      const width=Math.max(1,viewport.clientWidth),height=Math.max(1,viewport.clientHeight); renderer.setSize(width,height,false); camera.aspect=width/height; camera.updateProjectionMatrix(); resizeCraftCanvas();
+    }
+    new ResizeObserver(resize).observe(viewport); window.addEventListener('orientationchange',()=>setTimeout(resize,120));
+
+    let previousTime=performance.now();
+    function animate(now) {
+      const dt=Math.min((now-previousTime)/1000,.033); previousTime=now;
+      if (state.testing && !resultTitle.textContent.includes('passed')) {
+        for (const part of state.parts) {
+          part.geometry.computeBoundingBox(); const floorY=-part.geometry.boundingBox.min.y;
+          part.userData.velocity.y-=5.8*dt; part.position.addScaledVector(part.userData.velocity,dt);
+          part.rotation.x+=part.userData.angularVelocity.x*dt; part.rotation.y+=part.userData.angularVelocity.y*dt; part.rotation.z+=part.userData.angularVelocity.z*dt;
+          if (part.position.y<floorY) { part.position.y=floorY; part.userData.velocity.y*=-.22; part.userData.velocity.x*=.86; part.userData.velocity.z*=.86; part.userData.angularVelocity.multiplyScalar(.9); }
+        }
+      }
+      controls.update(); updateSelectionBox(); renderer.render(scene,camera); drawMinigame(now); requestAnimationFrame(animate);
+    }
+
+    renderPartButtons(); resize(); updateControlState();
+    const autosaved=localStorage.getItem(`${STORAGE_KEY}:autosave`);
+    if (autosaved) try { hydrate(JSON.parse(autosaved)); setStatus('Previous session restored.'); } catch (error) { console.warn('Autosave restore failed:',error); }
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>

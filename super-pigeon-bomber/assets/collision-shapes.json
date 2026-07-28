@@ -319,6 +319,94 @@
       74.15
     ]
   },
+  "enemyDrone": {
+    "imageKey": "Drone",
+    "origin": [
+      0.5,
+      0.5
+    ],
+    "boundingRadius": 44,
+    "polygons": [
+      {
+        "vertices": [
+          [
+            -39,
+            -10
+          ],
+          [
+            -24,
+            -21
+          ],
+          [
+            23,
+            -20
+          ],
+          [
+            40,
+            -8
+          ],
+          [
+            34,
+            14
+          ],
+          [
+            -30,
+            18
+          ]
+        ]
+      }
+    ],
+    "editorSize": [
+      88,
+      48
+    ]
+  },
+  "enemyPoliceHelicopter": {
+    "imageKey": "PoliceHelicopter",
+    "origin": [
+      0.5,
+      0.5
+    ],
+    "boundingRadius": 78,
+    "polygons": [
+      {
+        "vertices": [
+          [
+            -69,
+            -10
+          ],
+          [
+            -42,
+            -31
+          ],
+          [
+            28,
+            -30
+          ],
+          [
+            61,
+            -14
+          ],
+          [
+            68,
+            8
+          ],
+          [
+            42,
+            21
+          ],
+          [
+            -57,
+            22
+          ]
+        ]
+      }
+    ],
+    "editorSize": [
+      144,
+      79.2
+    ]
+  },
   "bossCar": {
     "imageKey": "Boss_Car",
     "origin": [

@@ -19,6 +19,11 @@
             },
             {
                 "type": "image",
+                "key": "BG_Park",
+                "url": "images/BG_Park.png"
+            },
+            {
+                "type": "image",
                 "key": "BG_fiolet",
                 "url": "images/BG_fiolet.png"
             },
@@ -44,6 +49,11 @@
             },
             {
                 "type": "image",
+                "key": "NinjaPigeon_Torso",
+                "url": "images/NinjaPigeon_Torso.png"
+            },
+            {
+                "type": "image",
                 "key": "Pigeon_Torso_presidente",
                 "url": "images/Pigeon_Torso_presidente.png"
             },
@@ -51,6 +61,11 @@
                 "type": "image",
                 "key": "Pigeon_Wing",
                 "url": "images/Pigeon_Wing.png"
+            },
+            {
+                "type": "image",
+                "key": "NinjaPigeon_Wing",
+                "url": "images/NinjaPigeon_Wing.png"
             },
             {
                 "type": "image",
@@ -144,6 +159,31 @@
             },
             {
                 "type": "image",
+                "key": "ParkBushes",
+                "url": "images/ParkBushes.png"
+            },
+            {
+                "type": "image",
+                "key": "ParkLamp",
+                "url": "images/ParkLamp.png"
+            },
+            {
+                "type": "image",
+                "key": "Tree_01",
+                "url": "images/Tree_01.png"
+            },
+            {
+                "type": "image",
+                "key": "Tree_02",
+                "url": "images/Tree_02.png"
+            },
+            {
+                "type": "image",
+                "key": "Tree_03",
+                "url": "images/Tree_03.png"
+            },
+            {
+                "type": "image",
                 "key": "star",
                 "url": "images/star.png"
             },
@@ -181,6 +221,11 @@
                 "type": "image",
                 "key": "Btn_Play",
                 "url": "images/Btn_Play.png"
+            },
+            {
+                "type": "image",
+                "key": "Btn_Settings",
+                "url": "images/Btn_Settings.png"
             },
             {
                 "type": "image",
@@ -314,6 +359,11 @@
             },
             {
                 "type": "image",
+                "key": "PierdSmoke",
+                "url": "images/PierdSmoke.png"
+            },
+            {
+                "type": "image",
                 "key": "feather",
                 "url": "images/feather.png"
             },
@@ -324,6 +374,11 @@
             },
             {
                 "type": "image",
+                "key": "BekBubble",
+                "url": "images/BekBubble.png"
+            },
+            {
+                "type": "image",
                 "key": "Icon_Fart",
                 "url": "images/Icon_Fart.png"
             },
@@ -331,6 +386,16 @@
                 "type": "image",
                 "key": "Icon_Burp",
                 "url": "images/Icon_Burp.png"
+            },
+            {
+                "type": "image",
+                "key": "Icon_Pierd",
+                "url": "images/Icon_Pierd.png"
+            },
+            {
+                "type": "image",
+                "key": "Icon_Bek",
+                "url": "images/Icon_Bek.png"
             },
             {
                 "type": "image",
@@ -459,6 +524,11 @@
             },
             {
                 "type": "image",
+                "key": "UFOPixelShot",
+                "url": "images/UFOPixelShot.png"
+            },
+            {
+                "type": "image",
                 "key": "Projectile_Rock",
                 "url": "images/Projectile_Rock.png"
             },
@@ -471,6 +541,16 @@
                 "type": "image",
                 "key": "Enemy_Businessman",
                 "url": "images/Enemy_Businessman.png"
+            },
+            {
+                "type": "image",
+                "key": "AlienWithoutAGun",
+                "url": "images/AlienWithoutAGun.png"
+            },
+            {
+                "type": "image",
+                "key": "AlienWithAGun",
+                "url": "images/AlienWithAGun.png"
             },
             {
                 "type": "image",
@@ -506,6 +586,16 @@
                 "type": "image",
                 "key": "Enemy_UFO",
                 "url": "images/Enemy_UFO.png"
+            },
+            {
+                "type": "image",
+                "key": "Drone",
+                "url": "images/Drone.png"
+            },
+            {
+                "type": "image",
+                "key": "PoliceHelicopter",
+                "url": "images/PoliceHelicopter.png"
             },
             {
                 "type": "image",

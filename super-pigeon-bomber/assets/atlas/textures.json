@@ -1212,7 +1212,7 @@
       "image": "texture-1.png",
       "format": "RGBA8888",
       "size": {
-        "w": 2039,
+        "w": 2047,
         "h": 2048
       },
       "scale": 1,
@@ -2058,6 +2058,27 @@
           }
         },
         {
+          "filename": "Coin",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 52,
+            "h": 56
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 52,
+            "h": 56
+          },
+          "frame": {
+            "x": 896,
+            "y": 1225,
+            "w": 52,
+            "h": 56
+          }
+        },
+        {
           "filename": "LevelUp",
           "rotated": false,
           "trimmed": false,
@@ -2072,7 +2093,7 @@
             "h": 55
           },
           "frame": {
-            "x": 896,
+            "x": 960,
             "y": 1225,
             "w": 382,
             "h": 55
@@ -2261,7 +2282,7 @@
             "h": 86
           },
           "frame": {
-            "x": 1344,
+            "x": 1354,
             "y": 1193,
             "w": 57,
             "h": 86
@@ -2282,7 +2303,7 @@
             "h": 84
           },
           "frame": {
-            "x": 1413,
+            "x": 1423,
             "y": 1193,
             "w": 58,
             "h": 84
@@ -2303,10 +2324,52 @@
             "h": 620
           },
           "frame": {
-            "x": 1483,
+            "x": 1493,
             "y": 1193,
             "w": 521,
             "h": 620
+          }
+        },
+        {
+          "filename": "HTPIcon_WSAD",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 136,
+            "h": 95
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 136,
+            "h": 95
+          },
+          "frame": {
+            "x": 1344,
+            "y": 1646,
+            "w": 136,
+            "h": 95
+          }
+        },
+        {
+          "filename": "LevelBar",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 136,
+            "h": 50
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 136,
+            "h": 50
+          },
+          "frame": {
+            "x": 1344,
+            "y": 1753,
+            "w": 136,
+            "h": 50
           }
         },
         {
@@ -2325,93 +2388,51 @@
           },
           "frame": {
             "x": 1344,
-            "y": 1646,
+            "y": 1815,
             "w": 123,
             "h": 115
           }
         },
         {
-          "filename": "Enemy_UFO",
+          "filename": "Sticker_Camera",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 123,
-            "h": 95
+            "w": 104,
+            "h": 100
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 123,
-            "h": 95
+            "w": 104,
+            "h": 100
           },
           "frame": {
             "x": 1344,
-            "y": 1773,
-            "w": 123,
-            "h": 95
+            "y": 1942,
+            "w": 104,
+            "h": 100
           }
         },
         {
-          "filename": "BattleDroid_Turret",
+          "filename": "PoliceHelicopter",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 166,
-            "h": 152
+            "w": 180,
+            "h": 99
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 166,
-            "h": 152
+            "w": 180,
+            "h": 99
           },
           "frame": {
-            "x": 1344,
-            "y": 1880,
-            "w": 166,
-            "h": 152
-          }
-        },
-        {
-          "filename": "feather",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 52,
-            "h": 39
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 52,
-            "h": 39
-          },
-          "frame": {
-            "x": 1479,
-            "y": 1825,
-            "w": 52,
-            "h": 39
-          }
-        },
-        {
-          "filename": "Klatka",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 106,
-            "h": 166
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 106,
-            "h": 166
-          },
-          "frame": {
-            "x": 1522,
-            "y": 1876,
-            "w": 106,
-            "h": 166
+            "x": 1460,
+            "y": 1942,
+            "w": 180,
+            "h": 99
           }
         },
         {
@@ -2429,115 +2450,136 @@
             "h": 104
           },
           "frame": {
-            "x": 1640,
-            "y": 1876,
+            "x": 1652,
+            "y": 1825,
             "w": 389,
             "h": 104
           }
         },
         {
-          "filename": "LevelBar",
+          "filename": "AlienWithAGun",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 136,
-            "h": 50
+            "w": 109,
+            "h": 97
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 136,
-            "h": 50
+            "w": 109,
+            "h": 97
           },
           "frame": {
-            "x": 1640,
-            "y": 1992,
-            "w": 136,
-            "h": 50
+            "x": 1652,
+            "y": 1941,
+            "w": 109,
+            "h": 97
           }
         },
         {
-          "filename": "burp_bubble",
+          "filename": "Enemy_UFO",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 55,
-            "h": 50
+            "w": 123,
+            "h": 95
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 55,
-            "h": 50
+            "w": 123,
+            "h": 95
           },
           "frame": {
-            "x": 1788,
-            "y": 1992,
-            "w": 55,
-            "h": 50
+            "x": 1773,
+            "y": 1941,
+            "w": 123,
+            "h": 95
           }
         },
         {
-          "filename": "burp_particle",
+          "filename": "collect_05",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 55,
-            "h": 50
+            "w": 100,
+            "h": 94
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 55,
-            "h": 50
+            "w": 100,
+            "h": 94
           },
           "frame": {
-            "x": 1855,
-            "y": 1992,
-            "w": 55,
-            "h": 50
+            "x": 1908,
+            "y": 1941,
+            "w": 100,
+            "h": 94
           }
         },
         {
-          "filename": "fart_particle",
+          "filename": "Enemy_Lady",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 55,
-            "h": 50
+            "w": 97,
+            "h": 89
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 55,
-            "h": 50
+            "w": 97,
+            "h": 89
           },
           "frame": {
-            "x": 1922,
-            "y": 1992,
-            "w": 55,
-            "h": 50
+            "x": 1479,
+            "y": 1825,
+            "w": 97,
+            "h": 89
           }
         },
         {
-          "filename": "splash_particle_05",
+          "filename": "feather",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 55,
-            "h": 50
+            "w": 52,
+            "h": 39
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 55,
-            "h": 50
+            "w": 52,
+            "h": 39
           },
           "frame": {
-            "x": 1855,
-            "y": 1992,
-            "w": 55,
-            "h": 50
+            "x": 1588,
+            "y": 1825,
+            "w": 52,
+            "h": 39
+          }
+        },
+        {
+          "filename": "PooShot03",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 50,
+            "h": 53
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 50,
+            "h": 53
+          },
+          "frame": {
+            "x": 1588,
+            "y": 1876,
+            "w": 50,
+            "h": 53
           }
         }
       ]
@@ -2546,7 +2588,7 @@
       "image": "texture-2.png",
       "format": "RGBA8888",
       "size": {
-        "w": 2048,
+        "w": 2047,
         "h": 2041
       },
       "scale": 1,
@@ -2783,108 +2825,24 @@
           }
         },
         {
-          "filename": "aimed_rocket",
+          "filename": "Btn_DoubleCoins",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 419,
-            "h": 200
+            "w": 428,
+            "h": 114
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 419,
-            "h": 200
+            "w": 428,
+            "h": 114
           },
           "frame": {
             "x": 1604,
-            "y": 1068,
-            "w": 419,
-            "h": 200
-          }
-        },
-        {
-          "filename": "Clouds_SciFiBase",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 287,
-            "h": 254
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 287,
-            "h": 254
-          },
-          "frame": {
-            "x": 940,
-            "y": 1280,
-            "w": 287,
-            "h": 254
-          }
-        },
-        {
-          "filename": "claw",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 350,
-            "h": 319
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 319
-          },
-          "frame": {
-            "x": 1239,
-            "y": 1068,
-            "w": 350,
-            "h": 319
-          }
-        },
-        {
-          "filename": "bomb_icon",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 187,
-            "h": 193
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 187,
-            "h": 193
-          },
-          "frame": {
-            "x": 940,
-            "y": 1068,
-            "w": 187,
-            "h": 193
-          }
-        },
-        {
-          "filename": "LevelIcon_Street",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 120,
-            "h": 131
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 120,
-            "h": 131
-          },
-          "frame": {
-            "x": 1239,
-            "y": 1399,
-            "w": 120,
-            "h": 131
+            "y": 1891,
+            "w": 428,
+            "h": 114
           }
         },
         {
@@ -2902,10 +2860,31 @@
             "h": 320
           },
           "frame": {
-            "x": 1294,
-            "y": 1542,
+            "x": 940,
+            "y": 1068,
             "w": 481,
             "h": 320
+          }
+        },
+        {
+          "filename": "LevelIcon_Street",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 120,
+            "h": 131
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 120,
+            "h": 131
+          },
+          "frame": {
+            "x": 940,
+            "y": 1400,
+            "w": 120,
+            "h": 131
           }
         },
         {
@@ -2923,8 +2902,8 @@
             "h": 131
           },
           "frame": {
-            "x": 1371,
-            "y": 1399,
+            "x": 1072,
+            "y": 1400,
             "w": 119,
             "h": 131
           }
@@ -2944,73 +2923,346 @@
             "h": 131
           },
           "frame": {
-            "x": 1502,
-            "y": 1399,
+            "x": 1203,
+            "y": 1400,
             "w": 119,
             "h": 131
           }
         },
         {
-          "filename": "beak_bottom",
+          "filename": "claw",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 304,
-            "h": 248
+            "w": 350,
+            "h": 319
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 304,
-            "h": 248
+            "w": 350,
+            "h": 319
           },
           "frame": {
-            "x": 1633,
-            "y": 1280,
-            "w": 304,
-            "h": 248
+            "x": 1294,
+            "y": 1543,
+            "w": 350,
+            "h": 319
           }
         },
         {
-          "filename": "Icon_XPMagnet",
+          "filename": "Sticker_Sign",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 93,
-            "h": 73
+            "w": 63,
+            "h": 128
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 93,
-            "h": 73
+            "w": 63,
+            "h": 128
           },
           "frame": {
-            "x": 1949,
-            "y": 1280,
-            "w": 93,
-            "h": 73
+            "x": 1334,
+            "y": 1400,
+            "w": 63,
+            "h": 128
           }
         },
         {
-          "filename": "rock01",
+          "filename": "Sticker_Sign_clear",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 253,
+            "w": 63,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 63,
+            "h": 128
+          },
+          "frame": {
+            "x": 1409,
+            "y": 1400,
+            "w": 63,
+            "h": 128
+          }
+        },
+        {
+          "filename": "GOStatsPanel",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 369,
             "h": 225
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 253,
+            "w": 369,
             "h": 225
           },
           "frame": {
-            "x": 1787,
-            "y": 1540,
-            "w": 253,
+            "x": 1656,
+            "y": 6,
+            "w": 369,
             "h": 225
+          }
+        },
+        {
+          "filename": "Btn_Continue",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 334,
+            "h": 111
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 334,
+            "h": 111
+          },
+          "frame": {
+            "x": 1310,
+            "y": 6,
+            "w": 334,
+            "h": 111
+          }
+        },
+        {
+          "filename": "Btn_Revive",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 330,
+            "h": 102
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 330,
+            "h": 102
+          },
+          "frame": {
+            "x": 1310,
+            "y": 129,
+            "w": 330,
+            "h": 102
+          }
+        },
+        {
+          "filename": "StoryPanel_Regular",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 521,
+            "h": 311
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 521,
+            "h": 311
+          },
+          "frame": {
+            "x": 1484,
+            "y": 243,
+            "w": 521,
+            "h": 311
+          }
+        },
+        {
+          "filename": "HPPanel",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 139,
+            "h": 48
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 139,
+            "h": 48
+          },
+          "frame": {
+            "x": 1310,
+            "y": 243,
+            "w": 139,
+            "h": 48
+          }
+        },
+        {
+          "filename": "CoinPanel",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 138,
+            "h": 49
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 138,
+            "h": 49
+          },
+          "frame": {
+            "x": 1310,
+            "y": 303,
+            "w": 138,
+            "h": 49
+          }
+        },
+        {
+          "filename": "eagle_body",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 120,
+            "h": 123
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 120,
+            "h": 123
+          },
+          "frame": {
+            "x": 1310,
+            "y": 364,
+            "w": 120,
+            "h": 123
+          }
+        },
+        {
+          "filename": "CaptainPigeon_Torso",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 120,
+            "h": 120
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 120,
+            "h": 120
+          },
+          "frame": {
+            "x": 1310,
+            "y": 499,
+            "w": 120,
+            "h": 120
+          }
+        },
+        {
+          "filename": "WorldBar",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 514,
+            "h": 72
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 514,
+            "h": 72
+          },
+          "frame": {
+            "x": 1484,
+            "y": 566,
+            "w": 514,
+            "h": 72
+          }
+        },
+        {
+          "filename": "CaptainPigeon_Wing",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 120,
+            "h": 120
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 120,
+            "h": 120
+          },
+          "frame": {
+            "x": 1310,
+            "y": 631,
+            "w": 120,
+            "h": 120
+          }
+        },
+        {
+          "filename": "Clouds_SciFiBase",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 287,
+            "h": 254
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 287,
+            "h": 254
+          },
+          "frame": {
+            "x": 1310,
+            "y": 763,
+            "w": 287,
+            "h": 254
+          }
+        },
+        {
+          "filename": "aimed_rocket",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 419,
+            "h": 200
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 419,
+            "h": 200
+          },
+          "frame": {
+            "x": 1609,
+            "y": 650,
+            "w": 419,
+            "h": 200
+          }
+        },
+        {
+          "filename": "WorldLocked",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 62,
+            "h": 77
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 62,
+            "h": 77
+          },
+          "frame": {
+            "x": 1442,
+            "y": 650,
+            "w": 62,
+            "h": 77
           }
         },
         {
@@ -3028,10 +3280,31 @@
             "h": 64
           },
           "frame": {
-            "x": 1139,
-            "y": 1068,
+            "x": 1516,
+            "y": 650,
             "w": 64,
             "h": 64
+          }
+        },
+        {
+          "filename": "beak_bottom",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 304,
+            "h": 248
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 304,
+            "h": 248
+          },
+          "frame": {
+            "x": 1656,
+            "y": 862,
+            "w": 304,
+            "h": 248
           }
         },
         {
@@ -3049,8 +3322,8 @@
             "h": 64
           },
           "frame": {
-            "x": 1139,
-            "y": 1144,
+            "x": 1972,
+            "y": 862,
             "w": 64,
             "h": 64
           }
@@ -3070,346 +3343,10 @@
             "h": 64
           },
           "frame": {
-            "x": 1949,
-            "y": 1365,
+            "x": 1972,
+            "y": 938,
             "w": 64,
             "h": 64
-          }
-        },
-        {
-          "filename": "WorldLocked",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 62,
-            "h": 77
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 62,
-            "h": 77
-          },
-          "frame": {
-            "x": 1949,
-            "y": 1441,
-            "w": 62,
-            "h": 77
-          }
-        },
-        {
-          "filename": "Sticker_Sign",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 63,
-            "h": 128
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 63,
-            "h": 128
-          },
-          "frame": {
-            "x": 1604,
-            "y": 1874,
-            "w": 63,
-            "h": 128
-          }
-        },
-        {
-          "filename": "Btn_Continue",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 334,
-            "h": 111
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 334,
-            "h": 111
-          },
-          "frame": {
-            "x": 1679,
-            "y": 1874,
-            "w": 334,
-            "h": 111
-          }
-        },
-        {
-          "filename": "Icon_BiggerBoom",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 106,
-            "h": 71
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 106,
-            "h": 71
-          },
-          "frame": {
-            "x": 1787,
-            "y": 1777,
-            "w": 106,
-            "h": 71
-          }
-        },
-        {
-          "filename": "Icon_HealSidekicks",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 118,
-            "h": 55
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 118,
-            "h": 55
-          },
-          "frame": {
-            "x": 1905,
-            "y": 1777,
-            "w": 118,
-            "h": 55
-          }
-        },
-        {
-          "filename": "StoryPanel_Regular",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 521,
-            "h": 311
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 521,
-            "h": 311
-          },
-          "frame": {
-            "x": 1310,
-            "y": 6,
-            "w": 521,
-            "h": 311
-          }
-        },
-        {
-          "filename": "AdCoinsForWatchingAd",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 198,
-            "h": 67
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 198,
-            "h": 67
-          },
-          "frame": {
-            "x": 1843,
-            "y": 6,
-            "w": 198,
-            "h": 67
-          }
-        },
-        {
-          "filename": "Boss_Car",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 185,
-            "h": 110
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 185,
-            "h": 110
-          },
-          "frame": {
-            "x": 1843,
-            "y": 85,
-            "w": 185,
-            "h": 110
-          }
-        },
-        {
-          "filename": "CoinBagPanel",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 182,
-            "h": 55
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 182,
-            "h": 55
-          },
-          "frame": {
-            "x": 1843,
-            "y": 207,
-            "w": 182,
-            "h": 55
-          }
-        },
-        {
-          "filename": "PoliceHelicopter",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 180,
-            "h": 99
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 180,
-            "h": 99
-          },
-          "frame": {
-            "x": 1843,
-            "y": 274,
-            "w": 180,
-            "h": 99
-          }
-        },
-        {
-          "filename": "WorldBar",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 514,
-            "h": 72
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 514,
-            "h": 72
-          },
-          "frame": {
-            "x": 1310,
-            "y": 329,
-            "w": 514,
-            "h": 72
-          }
-        },
-        {
-          "filename": "HPPanel",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 139,
-            "h": 48
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 139,
-            "h": 48
-          },
-          "frame": {
-            "x": 1836,
-            "y": 385,
-            "w": 139,
-            "h": 48
-          }
-        },
-        {
-          "filename": "PooShot03",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 50,
-            "h": 53
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 50,
-            "h": 53
-          },
-          "frame": {
-            "x": 1987,
-            "y": 385,
-            "w": 50,
-            "h": 53
-          }
-        },
-        {
-          "filename": "GOStatsPanel",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 369,
-            "h": 225
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 369,
-            "h": 225
-          },
-          "frame": {
-            "x": 1310,
-            "y": 413,
-            "w": 369,
-            "h": 225
-          }
-        },
-        {
-          "filename": "eagle_body",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 120,
-            "h": 123
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 120,
-            "h": 123
-          },
-          "frame": {
-            "x": 1691,
-            "y": 413,
-            "w": 120,
-            "h": 123
-          }
-        },
-        {
-          "filename": "CoinPanel",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 138,
-            "h": 49
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 138,
-            "h": 49
-          },
-          "frame": {
-            "x": 1823,
-            "y": 445,
-            "w": 138,
-            "h": 49
           }
         },
         {
@@ -3427,52 +3364,10 @@
             "h": 64
           },
           "frame": {
-            "x": 1973,
-            "y": 450,
+            "x": 1972,
+            "y": 1014,
             "w": 64,
             "h": 64
-          }
-        },
-        {
-          "filename": "HTPIcon_WSAD",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 136,
-            "h": 95
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 136,
-            "h": 95
-          },
-          "frame": {
-            "x": 1823,
-            "y": 506,
-            "w": 136,
-            "h": 95
-          }
-        },
-        {
-          "filename": "CaptainPigeon_Torso",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 120,
-            "h": 120
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 120,
-            "h": 120
-          },
-          "frame": {
-            "x": 1691,
-            "y": 548,
-            "w": 120,
-            "h": 120
           }
         },
         {
@@ -3490,178 +3385,73 @@
             "h": 64
           },
           "frame": {
-            "x": 1971,
-            "y": 526,
+            "x": 1972,
+            "y": 1090,
             "w": 64,
             "h": 64
           }
         },
         {
-          "filename": "Structure_Base_01",
+          "filename": "AdCoinsForWatchingAd",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 64,
-            "h": 64
+            "w": 198,
+            "h": 67
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 64,
-            "h": 64
+            "w": 198,
+            "h": 67
           },
           "frame": {
-            "x": 1971,
-            "y": 602,
-            "w": 64,
-            "h": 64
+            "x": 1433,
+            "y": 1029,
+            "w": 198,
+            "h": 67
           }
         },
         {
-          "filename": "CaptainPigeon_Wing",
+          "filename": "bomb_icon",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 120,
-            "h": 120
+            "w": 187,
+            "h": 193
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 120,
-            "h": 120
+            "w": 187,
+            "h": 193
           },
           "frame": {
-            "x": 1823,
-            "y": 613,
-            "w": 120,
-            "h": 120
+            "x": 1433,
+            "y": 1108,
+            "w": 187,
+            "h": 193
           }
         },
         {
-          "filename": "Structure_Base_02",
+          "filename": "Icon_XPMagnet",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 64,
-            "h": 64
+            "w": 93,
+            "h": 73
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 64,
-            "h": 64
+            "w": 93,
+            "h": 73
           },
           "frame": {
-            "x": 1955,
-            "y": 678,
-            "w": 64,
-            "h": 64
-          }
-        },
-        {
-          "filename": "Sticker_Sign_clear",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 63,
-            "h": 128
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 63,
-            "h": 128
-          },
-          "frame": {
-            "x": 1310,
-            "y": 754,
-            "w": 63,
-            "h": 128
-          }
-        },
-        {
-          "filename": "Enemy_Lady",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 97,
-            "h": 89
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 97,
-            "h": 89
-          },
-          "frame": {
-            "x": 1310,
-            "y": 650,
-            "w": 97,
-            "h": 89
-          }
-        },
-        {
-          "filename": "ZnacznikDoBossa",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 57,
-            "h": 53
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 57,
-            "h": 53
-          },
-          "frame": {
-            "x": 1419,
-            "y": 680,
-            "w": 57,
-            "h": 53
-          }
-        },
-        {
-          "filename": "BattleDroid_ArmElement",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 105,
-            "h": 66
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 105,
-            "h": 66
-          },
-          "frame": {
-            "x": 1488,
-            "y": 650,
-            "w": 105,
-            "h": 66
-          }
-        },
-        {
-          "filename": "Structure_Forest01",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 64,
-            "h": 64
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 64,
-            "h": 64
-          },
-          "frame": {
-            "x": 1605,
-            "y": 650,
-            "w": 64,
-            "h": 64
+            "x": 1433,
+            "y": 1313,
+            "w": 93,
+            "h": 73
           }
         },
         {
@@ -3679,136 +3469,52 @@
             "h": 120
           },
           "frame": {
-            "x": 1681,
-            "y": 680,
+            "x": 1484,
+            "y": 1398,
             "w": 120,
             "h": 120
           }
         },
         {
-          "filename": "Structure_Forest02",
+          "filename": "Icon_BiggerBoom",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 64,
-            "h": 64
+            "w": 106,
+            "h": 71
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 64,
-            "h": 64
+            "w": 106,
+            "h": 71
           },
           "frame": {
-            "x": 1605,
-            "y": 726,
-            "w": 64,
-            "h": 64
+            "x": 1538,
+            "y": 1313,
+            "w": 106,
+            "h": 71
           }
         },
         {
-          "filename": "Sticker_Camera",
+          "filename": "Klatka",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 104,
-            "h": 100
+            "w": 106,
+            "h": 166
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 104,
-            "h": 100
+            "w": 106,
+            "h": 166
           },
           "frame": {
-            "x": 1488,
-            "y": 728,
-            "w": 104,
-            "h": 100
-          }
-        },
-        {
-          "filename": "Structure_Rock_01",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 64,
-            "h": 64
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 64,
-            "h": 64
-          },
-          "frame": {
-            "x": 1604,
-            "y": 802,
-            "w": 64,
-            "h": 64
-          }
-        },
-        {
-          "filename": "PooShot05",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 50,
-            "h": 53
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 50,
-            "h": 53
-          },
-          "frame": {
-            "x": 1419,
-            "y": 745,
-            "w": 50,
-            "h": 53
-          }
-        },
-        {
-          "filename": "PooShot02",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 50,
-            "h": 52
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 50,
-            "h": 52
-          },
-          "frame": {
-            "x": 1419,
-            "y": 810,
-            "w": 50,
-            "h": 52
-          }
-        },
-        {
-          "filename": "AlienWithAGun",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 109,
-            "h": 97
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 109,
-            "h": 97
-          },
-          "frame": {
-            "x": 1481,
-            "y": 840,
-            "w": 109,
-            "h": 97
+            "x": 1632,
+            "y": 1122,
+            "w": 106,
+            "h": 166
           }
         },
         {
@@ -3826,10 +3532,31 @@
             "h": 120
           },
           "frame": {
-            "x": 1813,
-            "y": 745,
+            "x": 1616,
+            "y": 1396,
             "w": 120,
             "h": 120
+          }
+        },
+        {
+          "filename": "BattleDroid_ArmElement",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 105,
+            "h": 66
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 105,
+            "h": 66
+          },
+          "frame": {
+            "x": 1656,
+            "y": 1300,
+            "w": 105,
+            "h": 66
           }
         },
         {
@@ -3847,115 +3574,31 @@
             "h": 120
           },
           "frame": {
-            "x": 1680,
-            "y": 812,
+            "x": 1750,
+            "y": 1166,
             "w": 120,
             "h": 120
           }
         },
         {
-          "filename": "Icon_MultiPoop",
+          "filename": "Boss_Car",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 95,
-            "h": 66
+            "w": 185,
+            "h": 110
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 95,
-            "h": 66
+            "w": 185,
+            "h": 110
           },
           "frame": {
-            "x": 1945,
-            "y": 754,
-            "w": 95,
-            "h": 66
-          }
-        },
-        {
-          "filename": "Star_Lvl2",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 63,
-            "h": 65
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 63,
-            "h": 65
-          },
-          "frame": {
-            "x": 1602,
-            "y": 878,
-            "w": 63,
-            "h": 65
-          }
-        },
-        {
-          "filename": "collect_05",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 100,
-            "h": 94
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 100,
-            "h": 94
-          },
-          "frame": {
-            "x": 1310,
-            "y": 955,
-            "w": 100,
-            "h": 94
-          }
-        },
-        {
-          "filename": "Sticker_SecondScreen",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 62,
-            "h": 65
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 62,
-            "h": 65
-          },
-          "frame": {
-            "x": 1385,
-            "y": 874,
-            "w": 62,
-            "h": 65
-          }
-        },
-        {
-          "filename": "BarrierTile",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 62,
-            "h": 64
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 62,
-            "h": 64
-          },
-          "frame": {
-            "x": 1945,
-            "y": 832,
-            "w": 62,
-            "h": 64
+            "x": 1773,
+            "y": 1298,
+            "w": 185,
+            "h": 110
           }
         },
         {
@@ -3973,44 +3616,159 @@
             "h": 120
           },
           "frame": {
-            "x": 1812,
-            "y": 877,
+            "x": 1882,
+            "y": 1166,
             "w": 120,
             "h": 120
           }
         },
         {
-          "filename": "PooShot04",
+          "filename": "Structure_Base_01",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 50,
-            "h": 51
+            "w": 64,
+            "h": 64
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 50,
-            "h": 51
+            "w": 64,
+            "h": 64
           },
           "frame": {
-            "x": 1944,
-            "y": 908,
-            "w": 50,
-            "h": 51
+            "x": 1970,
+            "y": 1298,
+            "w": 64,
+            "h": 64
           }
-        }
-      ]
-    },
-    {
-      "image": "texture-3.png",
-      "format": "RGBA8888",
-      "size": {
-        "w": 132,
-        "h": 1181
-      },
-      "scale": 1,
-      "frames": [
+        },
+        {
+          "filename": "Structure_Base_02",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 64,
+            "h": 64
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "frame": {
+            "x": 1970,
+            "y": 1374,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "filename": "CoinBagPanel",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 182,
+            "h": 55
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 182,
+            "h": 55
+          },
+          "frame": {
+            "x": 1748,
+            "y": 1420,
+            "w": 182,
+            "h": 55
+          }
+        },
+        {
+          "filename": "Icon_MultiPoop",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 95,
+            "h": 66
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 95,
+            "h": 66
+          },
+          "frame": {
+            "x": 1942,
+            "y": 1450,
+            "w": 95,
+            "h": 66
+          }
+        },
+        {
+          "filename": "BattleDroid_Turret",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 166,
+            "h": 152
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 166,
+            "h": 152
+          },
+          "frame": {
+            "x": 1748,
+            "y": 1487,
+            "w": 166,
+            "h": 152
+          }
+        },
+        {
+          "filename": "HTPIcon_Bomb",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 115,
+            "h": 113
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 115,
+            "h": 113
+          },
+          "frame": {
+            "x": 1926,
+            "y": 1528,
+            "w": 115,
+            "h": 113
+          }
+        },
+        {
+          "filename": "rock01",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 253,
+            "h": 225
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 253,
+            "h": 225
+          },
+          "frame": {
+            "x": 1656,
+            "y": 1653,
+            "w": 253,
+            "h": 225
+          }
+        },
         {
           "filename": "Pigeon_Torso_presidente",
           "rotated": false,
@@ -4026,12 +3784,65 @@
             "h": 120
           },
           "frame": {
-            "x": 6,
-            "y": 6,
+            "x": 1921,
+            "y": 1653,
             "w": 120,
             "h": 120
           }
         },
+        {
+          "filename": "Icon_HealSidekicks",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 118,
+            "h": 55
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 118,
+            "h": 55
+          },
+          "frame": {
+            "x": 1921,
+            "y": 1785,
+            "w": 118,
+            "h": 55
+          }
+        },
+        {
+          "filename": "Structure_Forest01",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 64,
+            "h": 64
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "frame": {
+            "x": 1656,
+            "y": 1528,
+            "w": 64,
+            "h": 64
+          }
+        }
+      ]
+    },
+    {
+      "image": "texture-3.png",
+      "format": "RGBA8888",
+      "size": {
+        "w": 218,
+        "h": 1408
+      },
+      "scale": 1,
+      "frames": [
         {
           "filename": "Pigeon_Wing",
           "rotated": false,
@@ -4048,7 +3859,7 @@
           },
           "frame": {
             "x": 6,
-            "y": 138,
+            "y": 6,
             "w": 120,
             "h": 120
           }
@@ -4069,7 +3880,7 @@
           },
           "frame": {
             "x": 6,
-            "y": 270,
+            "y": 138,
             "w": 120,
             "h": 120
           }
@@ -4090,7 +3901,7 @@
           },
           "frame": {
             "x": 6,
-            "y": 402,
+            "y": 270,
             "w": 120,
             "h": 120
           }
@@ -4111,7 +3922,7 @@
           },
           "frame": {
             "x": 6,
-            "y": 534,
+            "y": 402,
             "w": 120,
             "h": 120
           }
@@ -4132,7 +3943,7 @@
           },
           "frame": {
             "x": 6,
-            "y": 666,
+            "y": 534,
             "w": 120,
             "h": 120
           }
@@ -4153,7 +3964,7 @@
           },
           "frame": {
             "x": 6,
-            "y": 798,
+            "y": 666,
             "w": 120,
             "h": 120
           }
@@ -4174,30 +3985,282 @@
           },
           "frame": {
             "x": 6,
-            "y": 930,
+            "y": 798,
             "w": 120,
             "h": 120
           }
         },
         {
-          "filename": "HTPIcon_Bomb",
+          "filename": "Star_Lvl2",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 115,
-            "h": 113
+            "w": 63,
+            "h": 65
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 115,
-            "h": 113
+            "w": 63,
+            "h": 65
           },
           "frame": {
             "x": 6,
-            "y": 1062,
-            "w": 115,
-            "h": 113
+            "y": 930,
+            "w": 63,
+            "h": 65
+          }
+        },
+        {
+          "filename": "Sticker_SecondScreen",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 62,
+            "h": 65
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 62,
+            "h": 65
+          },
+          "frame": {
+            "x": 6,
+            "y": 1007,
+            "w": 62,
+            "h": 65
+          }
+        },
+        {
+          "filename": "Structure_Forest02",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 64,
+            "h": 64
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "frame": {
+            "x": 6,
+            "y": 1084,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "filename": "Structure_Rock_01",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 64,
+            "h": 64
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "frame": {
+            "x": 80,
+            "y": 1007,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "filename": "BarrierTile",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 62,
+            "h": 64
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 62,
+            "h": 64
+          },
+          "frame": {
+            "x": 81,
+            "y": 930,
+            "w": 62,
+            "h": 64
+          }
+        },
+        {
+          "filename": "ZnacznikDoBossa",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 57,
+            "h": 53
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 57,
+            "h": 53
+          },
+          "frame": {
+            "x": 155,
+            "y": 930,
+            "w": 57,
+            "h": 53
+          }
+        },
+        {
+          "filename": "PooShot05",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 50,
+            "h": 53
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 50,
+            "h": 53
+          },
+          "frame": {
+            "x": 6,
+            "y": 1160,
+            "w": 50,
+            "h": 53
+          }
+        },
+        {
+          "filename": "PooShot02",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 50,
+            "h": 52
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 50,
+            "h": 52
+          },
+          "frame": {
+            "x": 6,
+            "y": 1225,
+            "w": 50,
+            "h": 52
+          }
+        },
+        {
+          "filename": "PooShot04",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 50,
+            "h": 51
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 50,
+            "h": 51
+          },
+          "frame": {
+            "x": 6,
+            "y": 1289,
+            "w": 50,
+            "h": 51
+          }
+        },
+        {
+          "filename": "burp_bubble",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 55,
+            "h": 50
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 55,
+            "h": 50
+          },
+          "frame": {
+            "x": 6,
+            "y": 1352,
+            "w": 55,
+            "h": 50
+          }
+        },
+        {
+          "filename": "burp_particle",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 55,
+            "h": 50
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 55,
+            "h": 50
+          },
+          "frame": {
+            "x": 68,
+            "y": 1160,
+            "w": 55,
+            "h": 50
+          }
+        },
+        {
+          "filename": "fart_particle",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 55,
+            "h": 50
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 55,
+            "h": 50
+          },
+          "frame": {
+            "x": 82,
+            "y": 1083,
+            "w": 55,
+            "h": 50
+          }
+        },
+        {
+          "filename": "splash_particle_05",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 55,
+            "h": 50
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 55,
+            "h": 50
+          },
+          "frame": {
+            "x": 68,
+            "y": 1160,
+            "w": 55,
+            "h": 50
           }
         }
       ]

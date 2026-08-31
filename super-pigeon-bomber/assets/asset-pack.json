@@ -14,6 +14,30 @@
             },
             {
                 "type": "audio",
+                "key": "MSC_SuperPigeon",
+                "url": [
+                    "sounds/MSC_SuperPigeon.ogg",
+                    "sounds/MSC_SuperPigeon.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "MSC_LevelCleared",
+                "url": [
+                    "sounds/MSC_LevelCleared.ogg",
+                    "sounds/MSC_LevelCleared.m4a"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "MSC_SuperPigeon_BossFight",
+                "url": [
+                    "sounds/MSC_SuperPigeon_BossFight.ogg",
+                    "sounds/MSC_SuperPigeon_BossFight.m4a"
+                ]
+            },
+            {
+                "type": "audio",
                 "key": "bird_sound_01",
                 "url": [
                     "sounds/bird_sound_01.ogg",
@@ -138,14 +162,6 @@
                 "url": [
                     "sounds/cartoon tap_02.ogg",
                     "sounds/cartoon tap_02.m4a"
-                ]
-            },
-            {
-                "type": "audio",
-                "key": "alert_mine",
-                "url": [
-                    "sounds/alert_mine.ogg",
-                    "sounds/alert_mine.m4a"
                 ]
             },
             {

@@ -38,22 +38,6 @@
             },
             {
                 "type": "audio",
-                "key": "bird_sound_01",
-                "url": [
-                    "sounds/bird_sound_01.ogg",
-                    "sounds/bird_sound_01.m4a"
-                ]
-            },
-            {
-                "type": "audio",
-                "key": "bird_sound_02",
-                "url": [
-                    "sounds/bird_sound_02.ogg",
-                    "sounds/bird_sound_02.m4a"
-                ]
-            },
-            {
-                "type": "audio",
                 "key": "bird sound_02",
                 "url": [
                     "sounds/bird sound_02.ogg",
@@ -190,14 +174,6 @@
             },
             {
                 "type": "audio",
-                "key": "shoot",
-                "url": [
-                    "sounds/shoot.ogg",
-                    "sounds/shoot.m4a"
-                ]
-            },
-            {
-                "type": "audio",
                 "key": "shotgun01",
                 "url": [
                     "sounds/1307/shotgun01.ogg",
@@ -218,54 +194,6 @@
                 "url": [
                     "sounds/1307/shotgun01b.ogg",
                     "sounds/1307/shotgun01b.m4a"
-                ]
-            },
-            {
-                "type": "audio",
-                "key": "burp01",
-                "url": [
-                    "sounds/burp01.ogg",
-                    "sounds/burp01.m4a"
-                ]
-            },
-            {
-                "type": "audio",
-                "key": "burp02",
-                "url": [
-                    "sounds/burp02.ogg",
-                    "sounds/burp02.m4a"
-                ]
-            },
-            {
-                "type": "audio",
-                "key": "burp03",
-                "url": [
-                    "sounds/burp03.ogg",
-                    "sounds/burp03.m4a"
-                ]
-            },
-            {
-                "type": "audio",
-                "key": "fart01",
-                "url": [
-                    "sounds/fart01.ogg",
-                    "sounds/fart01.m4a"
-                ]
-            },
-            {
-                "type": "audio",
-                "key": "fart02",
-                "url": [
-                    "sounds/fart02.ogg",
-                    "sounds/fart02.m4a"
-                ]
-            },
-            {
-                "type": "audio",
-                "key": "fart03",
-                "url": [
-                    "sounds/fart03.ogg",
-                    "sounds/fart03.m4a"
                 ]
             },
             {

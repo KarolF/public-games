@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101813" />
+    <title></title>
+    <script type="module" crossorigin src="./assets/index-0l1ExInp.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CfbIowof.css">
+  </head>
+  <body>
+    <main id="game" aria-label="">
+      <canvas id="game-canvas"></canvas>
+      <section id="hud" class="hud" aria-label="">
+        <p id="operation-name" class="eyebrow"></p>
+        <h1><span id="game-title-first"></span><br /><span id="game-title-second"></span></h1>
+        <div class="hud-stats">
+          <span id="mission-status"></span>
+          <span id="health-status"></span>
+          <span id="score-status"></span>
+          <span id="weapon-status"></span>
+        </div>
+        <p id="event-status" class="event-status" role="status"></p>
+      </section>
+      <button id="pause-button" class="pause-button" type="button" aria-label="" hidden></button>
+      <button id="camera-button" class="camera-button" type="button" aria-label="" hidden></button>
+      <section id="touch-controls" class="touch-controls" aria-label="">
+        <div id="move-stick" class="stick" data-stick="move" aria-label="">
+          <span class="stick-knob"></span>
+          <span id="move-caption" class="stick-caption"></span>
+        </div>
+        <div id="aim-stick" class="stick aim-stick" data-stick="aim" aria-label="">
+          <span class="stick-knob"></span>
+          <span id="aim-caption" class="stick-caption"></span>
+        </div>
+      </section>
+      <div id="weapon-buttons" class="weapon-buttons" aria-label="">
+        <button id="rifle-button" data-weapon="0" type="button"></button>
+        <button id="shotgun-button" data-weapon="1" type="button"></button>
+        <button id="rocket-button" data-weapon="2" type="button"></button>
+      </div>
+      <section id="start-screen" class="game-screen" aria-label="">
+        <div class="screen-card">
+          <p id="start-operation-name" class="eyebrow"></p>
+          <h2 id="start-heading"></h2>
+          <p id="start-description"></p>
+          <button id="start-button" type="button"></button>
+        </div>
+      </section>
+      <section id="pause-screen" class="game-screen" aria-label="" hidden>
+        <div class="screen-card">
+          <h2 id="pause-heading"></h2>
+          <button id="resume-button" type="button"></button>
+          <button id="pause-restart-button" type="button"></button>
+        </div>
+      </section>
+      <section id="end-screen" class="game-screen" aria-label="" hidden>
+        <div class="screen-card">
+          <h2 id="end-title"></h2>
+          <p id="end-message"></p>
+          <p id="end-stats"></p>
+          <button id="restart-button" type="button"></button>
+        </div>
+      </section>
+      <div id="rotate-screen" class="game-screen rotate-screen" hidden></div>
+    </main>
+  </body>
+</html>

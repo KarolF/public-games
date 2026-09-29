@@ -1,0 +1,53 @@
+{
+  "assets": {
+    "broadTree": { "path": "trees/broad-canopy-shade-tree.glb", "targetHeight": 8 },
+    "broadleafTree": { "path": "trees/broadleaf-oak.glb", "targetHeight": 9 },
+    "pineTree": { "path": "trees/tall-pine-tree.glb", "targetHeight": 10 },
+    "chainFence": { "path": "chain-link-fence.glb", "targetHeight": 2.1 },
+    "palisade": { "path": "palisade.glb", "targetHeight": 2.8 },
+    "fieldRadio": { "path": "field-radio.glb", "targetHeight": 3.6 },
+    "oilDrum": { "path": "oil-drum.glb", "targetHeight": 1.1 },
+    "crate": { "path": "crate.glb", "targetHeight": 2.2 },
+    "shed": { "path": "shed.glb", "targetHeight": 4.2 }
+  },
+  "obstacleAssetScales": {
+    "barrel": 1.2
+  },
+  "levels": {
+    "jungle-front": [
+      { "id": "jungle-tree-west", "kind": "broadTree", "x": -29, "y": 0, "z": -25, "scale": 1, "rotationY": 0.2 },
+      { "id": "jungle-tree-east", "kind": "broadleafTree", "x": 30, "y": 0, "z": -7, "scale": 0.9, "rotationY": -0.4 },
+      { "id": "jungle-tree-west-2", "kind": "broadleafTree", "x": -31, "y": 0, "z": 28, "scale": 0.85, "rotationY": -0.2 },
+      { "id": "jungle-tree-east-2", "kind": "broadTree", "x": 32, "y": 0, "z": 24, "scale": 0.95, "rotationY": 0.35 },
+      { "id": "jungle-radio", "kind": "fieldRadio", "x": 13.5, "y": 0, "z": 12, "scale": 1, "rotationY": 0.35 },
+      { "id": "jungle-crate", "kind": "crate", "x": -12.5, "y": 0, "z": -17, "scale": 1, "rotationY": 0.18 }
+    ],
+    "desert-refinery": [
+      { "id": "desert-shed", "kind": "shed", "x": -30, "y": 0, "z": -18, "scale": 1, "rotationY": 0.08 },
+      { "id": "desert-tree-west", "kind": "broadTree", "x": -29, "y": 0, "z": 30, "scale": 0.8, "rotationY": 0.25 },
+      { "id": "desert-tree-east", "kind": "broadleafTree", "x": 30, "y": 0, "z": -29, "scale": 0.75, "rotationY": -0.3 },
+      { "id": "desert-tree-west-2", "kind": "broadleafTree", "x": -32, "y": 0, "z": -3, "scale": 0.7, "rotationY": 0.15 },
+      { "id": "desert-tree-east-2", "kind": "broadTree", "x": 32, "y": 0, "z": 12, "scale": 0.78, "rotationY": -0.18 },
+      { "id": "desert-drum-west", "kind": "oilDrum", "x": 25, "y": 0, "z": 18, "scale": 1, "rotationY": 0.3 },
+      { "id": "desert-drum-east", "kind": "oilDrum", "x": 27, "y": 0, "z": 20, "scale": 0.9, "rotationY": -0.2 },
+      { "id": "desert-palisade", "kind": "palisade", "x": -21, "y": 0, "z": 8, "scale": 1, "rotationY": 1.5707963267948966 },
+      { "id": "desert-crate", "kind": "crate", "x": 15, "y": 0, "z": -25, "scale": 1, "rotationY": -0.25 },
+      { "id": "desert-radio", "kind": "fieldRadio", "x": -13, "y": 0, "z": 23, "scale": 1, "rotationY": -0.2 }
+    ],
+    "frozen-fortress": [
+      { "id": "frozen-tree-west", "kind": "pineTree", "x": -29, "y": 0, "z": -23, "scale": 0.9, "rotationY": 0.2 },
+      { "id": "frozen-tree-east", "kind": "pineTree", "x": 30, "y": 0, "z": 15, "scale": 0.8, "rotationY": -0.2 },
+      { "id": "frozen-tree-west-2", "kind": "pineTree", "x": -31, "y": 0, "z": 27, "scale": 0.78, "rotationY": 0.28 },
+      { "id": "frozen-tree-east-2", "kind": "pineTree", "x": 32, "y": 0, "z": -30, "scale": 0.85, "rotationY": -0.28 },
+      { "id": "frozen-palisade", "kind": "palisade", "x": 21, "y": 0, "z": -8, "scale": 0.9, "rotationY": 1.5707963267948966 },
+      { "id": "frozen-fence", "kind": "chainFence", "x": -20.2, "y": 0, "z": 20, "scale": 0.9, "rotationY": 0 },
+      { "id": "frozen-crate", "kind": "crate", "x": 13, "y": 0, "z": 23, "scale": 1, "rotationY": 0.3 }
+    ]
+  },
+  "jungleBorder": {
+    "x": 19.5,
+    "runCount": 17,
+    "rotationY": 1.5707963267948966,
+    "scale": 1
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "initialLevel": "jungle-front",
+  "world": {
+    "segmentCount": 12,
+    "activeSegmentsBehind": 1,
+    "activeSegmentsAhead": 2,
+    "segmentLength": 80
+  },
+  "player": {
+    "speed": 15.75,
+    "radius": 0.8,
+    "minX": -17.8,
+    "maxX": 17.8,
+    "minZ": -870,
+    "maxZ": 70,
+    "bossThreshold": 0.86
+  },
+  "combat": {
+    "barrelExplosionRadius": 1.8,
+    "pickupDistance": 1.55,
+    "enemyProjectileLifeSeconds": 4,
+    "enemyProjectileRadius": 0.25,
+    "obstacleExplosionRadius": 0.9,
+    "rocketImpactRadius": 4.2
+  },
+  "mission": {
+    "waveCount": 18,
+    "maxWave": 17,
+    "initialSpawnCountMultiplier": 0.7,
+    "maxEnemies": 13,
+    "spawnBatchSize": 2,
+    "spawnDelaySeconds": 0.16,
+    "bossTransitionSeconds": 2.35
+  },
+  "rules": {
+    "minDirectionLength": 0.001,
+    "playerInitialX": 0,
+    "playerInitialZ": 57,
+    "playerInitialHealth": 100,
+    "pickupExpirySeconds": 22,
+    "healthPickupAmount": 35,
+    "weaponPickupScore": 250,
+    "enemyContactDistance": 0.2,
+    "enemySeenDistance": 31,
+    "enemyRetireDistance": 19,
+    "bossDistance": 42,
+    "bossSpawnMargin": 6,
+    "shotgunPelletCount": 12,
+    "shotgunSpread": 0.16,
+    "shotgunMuzzleLateralJitter": 0.18,
+    "shotgunMuzzleForwardJitter": 0.12,
+    "shotgunPelletDelaySeconds": 0.05,
+    "pickupHealthChance": 0.62,
+    "pickupSpawnChance": 0.12,
+    "cratePickupChance": 0.55,
+    "crateHealthChance": 0.7,
+    "playerInvulnerableSeconds": 0.32,
+    "levelInvulnerableSeconds": 1,
+    "rocketExpiredRadius": 3.2,
+    "rocketExpiredDamageScale": 0.8,
+    "turretWaveInterval": 3,
+    "turretSpawnOffset": 42,
+    "turretSpawnX": 14,
+    "spawnOffsetMinimum": 31,
+    "spawnOffsetVariance": 18,
+    "spawnXRange": 31,
+    "desertOpeningCount": 2,
+    "desertRaiderThreshold": 0.72,
+    "desertSniperThreshold": 0.48,
+    "desertSniperUpperThreshold": 0.73,
+    "desertBomberThreshold": 0.92,
+    "jungleOpeningCount": 2,
+    "jungleGunnerThreshold": 0.56,
+    "jungleHeavyThreshold": 0.82,
+    "frozenOpeningCount": 2,
+    "frozenOpeningDroneThreshold": 0.6,
+    "frozenDroneThreshold": 0.36,
+    "frozenSniperThreshold": 0.62,
+    "frozenShieldThreshold": 0.84,
+    "waveEnemyCountBase": 3,
+    "waveEnemyCountStep": 2,
+    "waveEnemyCountCap": 14,
+    "waveEnemyCountScale": 2,
+    "enemyXMargin": 0.5,
+    "enemyApproachRetreatRatio": 0.62,
+    "enemyRetreatSpeed": -0.5,
+    "rocketDamageFalloff": 0.55,
+    "playerMaxHealth": 100,
+    "playerAcceleration": 12,
+    "distanceEpsilon": 0.001,
+    "enemyStrafeFrequency": 1.2,
+    "enemyStrafeAmplitude": 0.38
+  },  "levels": {
+    "jungle-front": {
+      "next": "desert-refinery",
+      "enemyHealthMultiplier": 0.5,
+      "bonus": 1500,
+      "boss": "boss_tank",
+      "enemyPool": "jungle",
+      "obstacleKinds": ["rock", "tree", "crate"]
+    },
+    "desert-refinery": {
+      "next": "frozen-fortress",
+      "enemyHealthMultiplier": 1,
+      "bonus": 3000,
+      "boss": "boss_crawler",
+      "enemyPool": "desert",
+      "obstacleKinds": ["wall", "barrel", "wreck", "roadblock", "bunker", "crate", "rock"]
+    },
+    "frozen-fortress": {
+      "bonus": 0,
+      "enemyHealthMultiplier": 1,
+      "boss": "boss_mech",
+      "enemyPool": "frozen",
+      "obstacleKinds": ["rock", "wall", "wreck", "bunker", "crate"]
+    }
+  },
+  "obstacles": {
+    "tree": { "health": 0, "radius": 1.15 },
+    "rock": { "health": 0, "radius": 1.3 },
+    "crate": { "health": 35, "radius": 1.3 },
+    "wall": { "health": 0, "radius": 1.8 },
+    "barrel": { "health": 40, "radius": 1.7 },
+    "wreck": { "health": 0, "radius": 2.4 },
+    "roadblock": { "health": 0, "radius": 1.5 },
+    "bunker": { "health": 0, "radius": 2.3 }
+  },
+  "enemies": {
+    "grunt": { "health": 30, "speed": 3.2, "range": 11, "cooldown": 2.7, "damage": 8, "score": 100, "radius": 0.78, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "jungle", "count": 1, "aimSpread": 0.28, "spreadStep": 0.08, "projectileSpeed": 14.4 } },
+    "gunner": { "health": 42, "speed": 2.6, "range": 16, "cooldown": 1.44, "damage": 8, "score": 160, "radius": 0.78, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "jungle", "count": 1, "aimSpread": 0.28, "spreadStep": 0.08, "projectileSpeed": 14.4 } },
+    "heavy": { "health": 100, "healthMultiplier": 2, "speed": 1.8, "speedMultiplier": 0.7, "range": 13, "cooldown": 2.3, "damage": 11, "score": 300, "radius": 1.05, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "jungle", "count": 2, "aimSpread": 0.28, "spreadStep": 0.08, "projectileSpeed": 14.4 } },
+    "turret": { "health": 125, "speed": 0, "range": 22, "cooldown": 1.9, "damage": 8, "score": 450, "radius": 1.25, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "jungle", "count": 1, "aimSpread": 0.28, "spreadStep": 0.08, "projectileSpeed": 14.4 } },
+    "boss_tank": { "health": 390, "speed": 1.15, "range": 18, "cooldown": 1.44, "damage": 13, "score": 4000, "radius": 3.3, "fireRange": 35, "contactDamage": 20, "attack": { "pattern": "fan", "count": 3, "aimSpread": 0.05, "spreadStep": 0.15, "projectileSpeed": 18 } },
+    "raider": { "health": 34, "healthMultiplier": 2, "speed": 3.9, "speedMultiplier": 0.7, "range": 9, "cooldown": 2, "damage": 8, "score": 130, "radius": 0.78, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 15.6 } },
+    "sniper": { "health": 34, "healthMultiplier": 0.7, "speed": 7.875, "speedMultiplier": 2, "fullSpeedMovement": true, "range": 22, "cooldown": 3.1, "damage": 12, "score": 230, "radius": 0.78, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 20.4 } },
+    "bomber": { "health": 70, "speed": 2.35, "range": 14, "cooldown": 2.7, "damage": 9, "score": 280, "radius": 0.92, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "fan", "count": 3, "aimSpread": 0.14, "spreadStep": 0.12, "projectileSpeed": 13.2 } },
+    "boss_crawler": { "health": 920, "speed": 0.95, "range": 23, "cooldown": 1.84, "damage": 13, "score": 5000, "radius": 3.3, "fireRange": 35, "contactDamage": 20, "attack": { "pattern": "fan", "count": 5, "aimSpread": 0.05, "spreadStep": 0.11, "projectileSpeed": 15.6 } },
+    "drone": { "health": 45, "speed": 4.1, "range": 15, "cooldown": 1.76, "damage": 8, "score": 240, "radius": 0.86, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 18 } },
+    "shield": { "health": 145, "speed": 1.65, "range": 9, "cooldown": 2.7, "damage": 8, "score": 380, "radius": 1.1, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 14.4 } },
+    "boss_mech": { "health": 1100, "speed": 1.35, "range": 18, "cooldown": 1.28, "damage": 15, "score": 6500, "radius": 3.5, "fireRange": 35, "contactDamage": 20, "attack": { "pattern": "fan", "count": 4, "aimSpread": 0.05, "spreadStep": 0.18, "projectileSpeed": 21.6 } }
+  },
+  "desertAttackOverrides": {
+    "heavy": { "pattern": "fan", "count": 2, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 14.4 },
+    "turret": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 16.8 }
+  },
+  "frozenAttackOverrides": {
+    "drone": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 18 },
+    "sniper": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 20.4 },
+    "shield": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 14.4 },
+    "heavy": { "pattern": "fan", "count": 2, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 14.4 },
+    "turret": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 16.8 }
+  },
+  "weapons": {
+    "rifle": { "cooldown": 0.105, "damage": 15, "life": 1.4, "radius": 0.24, "speed": 62 },
+    "shotgun": { "cooldown": 0.62, "damage": 7, "life": 1.45, "radius": 0.24, "speed": 52 },
+    "rocket": { "cooldown": 1.05, "damage": 80, "life": 3.4, "radius": 0.38, "speed": 36 }
+  }
+}

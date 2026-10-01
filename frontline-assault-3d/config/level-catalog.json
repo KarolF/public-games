@@ -16,6 +16,7 @@
     "bossThreshold": 0.86
   },
   "combat": {
+    "barrelExplosionDamage": 35,
     "barrelExplosionRadius": 1.8,
     "pickupDistance": 1.55,
     "enemyProjectileLifeSeconds": 4,
@@ -89,30 +90,54 @@
     "playerAcceleration": 12,
     "distanceEpsilon": 0.001,
     "enemyStrafeFrequency": 1.2,
-    "enemyStrafeAmplitude": 0.38
+    "enemyStrafeAmplitude": 0.38,
+    "hardAimLeadSeconds": 0.22,
+    "hardStrafeAmplitudeMultiplier": 1.7,
+    "hardDodgeDistance": 2.4,
+    "hardDodgeCooldown": 0.45,
+    "hardDodgeLookaheadSeconds": 0.8
   },  "levels": {
     "jungle-front": {
       "next": "desert-refinery",
       "enemyHealthMultiplier": 0.5,
+      "hardEnemyHealthMultiplier": 3,
+      "hardBossHealthMultiplier": 10,
       "bonus": 1500,
       "boss": "boss_tank",
       "enemyPool": "jungle",
-      "obstacleKinds": ["rock", "tree", "crate"]
+      "obstacleKinds": ["rock", "tree", "crate", "barrel"],
+      "blockingObstacles": [
+        { "kind": "roadblock", "segment": 0, "x": -7, "z": 23 },
+        { "kind": "roadblock", "segment": 0, "x": 7, "z": 2 },
+        { "kind": "crate", "segment": 1, "x": 0, "z": -15 }
+      ]
     },
     "desert-refinery": {
       "next": "frozen-fortress",
       "enemyHealthMultiplier": 1,
+      "hardEnemyHealthMultiplier": 1,
+      "hardBossHealthMultiplier": 1,
       "bonus": 3000,
       "boss": "boss_crawler",
       "enemyPool": "desert",
-      "obstacleKinds": ["wall", "barrel", "wreck", "roadblock", "bunker", "crate", "rock"]
+      "obstacleKinds": ["wall", "barrel", "wreck", "roadblock", "bunker", "crate", "rock"],
+      "blockingObstacles": [
+        { "kind": "roadblock", "segment": 0, "x": 8, "z": 18 },
+        { "kind": "wreck", "segment": 1, "x": -8, "z": -12 }
+      ]
     },
     "frozen-fortress": {
       "bonus": 0,
       "enemyHealthMultiplier": 1,
+      "hardEnemyHealthMultiplier": 1,
+      "hardBossHealthMultiplier": 1,
       "boss": "boss_mech",
       "enemyPool": "frozen",
-      "obstacleKinds": ["rock", "wall", "wreck", "bunker", "crate"]
+      "obstacleKinds": ["rock", "wall", "wreck", "bunker", "crate"],
+      "blockingObstacles": [
+        { "kind": "wall", "segment": 0, "x": 6, "z": 16 },
+        { "kind": "bunker", "segment": 1, "x": -7, "z": -8 }
+      ]
     }
   },
   "obstacles": {
@@ -128,26 +153,26 @@
   "enemies": {
     "grunt": { "health": 30, "speed": 3.2, "range": 11, "cooldown": 2.7, "damage": 8, "score": 100, "radius": 0.78, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "jungle", "count": 1, "aimSpread": 0.28, "spreadStep": 0.08, "projectileSpeed": 14.4 } },
     "gunner": { "health": 42, "speed": 2.6, "range": 16, "cooldown": 1.44, "damage": 8, "score": 160, "radius": 0.78, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "jungle", "count": 1, "aimSpread": 0.28, "spreadStep": 0.08, "projectileSpeed": 14.4 } },
-    "heavy": { "health": 100, "healthMultiplier": 2, "speed": 1.8, "speedMultiplier": 0.7, "range": 13, "cooldown": 2.3, "damage": 11, "score": 300, "radius": 1.05, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "jungle", "count": 2, "aimSpread": 0.28, "spreadStep": 0.08, "projectileSpeed": 14.4 } },
+    "heavy": { "health": 100, "healthMultiplier": 2, "speed": 1.8, "speedMultiplier": 0.7, "range": 13, "cooldown": 2.3, "damage": 11, "score": 300, "radius": 1.05, "fireRange": 29, "contactDamage": 10, "attack": { "attackType": "shotgun", "pattern": "jungle", "count": 4, "aimSpread": 0.22, "spreadStep": 0.08, "projectileSpeed": 14.4 } },
     "turret": { "health": 125, "speed": 0, "range": 22, "cooldown": 1.9, "damage": 8, "score": 450, "radius": 1.25, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "jungle", "count": 1, "aimSpread": 0.28, "spreadStep": 0.08, "projectileSpeed": 14.4 } },
     "boss_tank": { "health": 390, "speed": 1.15, "range": 18, "cooldown": 1.44, "damage": 13, "score": 4000, "radius": 3.3, "fireRange": 35, "contactDamage": 20, "attack": { "pattern": "fan", "count": 3, "aimSpread": 0.05, "spreadStep": 0.15, "projectileSpeed": 18 } },
-    "raider": { "health": 34, "healthMultiplier": 2, "speed": 3.9, "speedMultiplier": 0.7, "range": 9, "cooldown": 2, "damage": 8, "score": 130, "radius": 0.78, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 15.6 } },
+    "raider": { "health": 34, "healthMultiplier": 2, "speed": 3.9, "speedMultiplier": 0.7, "range": 3.6, "cooldown": 1.4, "damage": 16, "score": 130, "radius": 0.78, "fireRange": 3.6, "contactDamage": 10, "attack": { "attackType": "club", "pattern": "fan", "count": 1, "aimSpread": 0, "spreadStep": 0, "projectileSpeed": 0 } },
     "sniper": { "health": 34, "healthMultiplier": 0.7, "speed": 7.875, "speedMultiplier": 2, "fullSpeedMovement": true, "range": 22, "cooldown": 3.1, "damage": 12, "score": 230, "radius": 0.78, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 20.4 } },
-    "bomber": { "health": 70, "speed": 2.35, "range": 14, "cooldown": 2.7, "damage": 9, "score": 280, "radius": 0.92, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "fan", "count": 3, "aimSpread": 0.14, "spreadStep": 0.12, "projectileSpeed": 13.2 } },
+    "bomber": { "health": 70, "speed": 2.35, "range": 14, "cooldown": 2.7, "damage": 9, "score": 280, "radius": 0.92, "fireRange": 29, "contactDamage": 10, "attack": { "attackType": "grenade", "pattern": "fan", "count": 1, "aimSpread": 0.08, "spreadStep": 0.12, "projectileSpeed": 13.2, "explosionRadius": 3.8 } },
     "boss_crawler": { "health": 920, "speed": 0.95, "range": 23, "cooldown": 1.84, "damage": 13, "score": 5000, "radius": 3.3, "fireRange": 35, "contactDamage": 20, "attack": { "pattern": "fan", "count": 5, "aimSpread": 0.05, "spreadStep": 0.11, "projectileSpeed": 15.6 } },
     "drone": { "health": 45, "speed": 4.1, "range": 15, "cooldown": 1.76, "damage": 8, "score": 240, "radius": 0.86, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 18 } },
     "shield": { "health": 145, "speed": 1.65, "range": 9, "cooldown": 2.7, "damage": 8, "score": 380, "radius": 1.1, "fireRange": 29, "contactDamage": 10, "attack": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 14.4 } },
     "boss_mech": { "health": 1100, "speed": 1.35, "range": 18, "cooldown": 1.28, "damage": 15, "score": 6500, "radius": 3.5, "fireRange": 35, "contactDamage": 20, "attack": { "pattern": "fan", "count": 4, "aimSpread": 0.05, "spreadStep": 0.18, "projectileSpeed": 21.6 } }
   },
   "desertAttackOverrides": {
-    "heavy": { "pattern": "fan", "count": 2, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 14.4 },
+    "heavy": { "attackType": "shotgun", "pattern": "fan", "count": 2, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 14.4 },
     "turret": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 16.8 }
   },
   "frozenAttackOverrides": {
     "drone": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 18 },
     "sniper": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 20.4 },
     "shield": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 14.4 },
-    "heavy": { "pattern": "fan", "count": 2, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 14.4 },
+    "heavy": { "attackType": "shotgun", "pattern": "fan", "count": 2, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 14.4 },
     "turret": { "pattern": "fan", "count": 1, "aimSpread": 0.14, "spreadStep": 0.08, "projectileSpeed": 16.8 }
   },
   "weapons": {

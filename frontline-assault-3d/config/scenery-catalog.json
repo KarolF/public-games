@@ -8,10 +8,34 @@
     "fieldRadio": { "path": "field-radio.glb", "targetHeight": 3.6 },
     "oilDrum": { "path": "oil-drum.glb", "targetHeight": 1.1 },
     "crate": { "path": "crate.glb", "targetHeight": 2.2 },
-    "shed": { "path": "shed.glb", "targetHeight": 4.2 }
+    "shed": { "path": "shed.glb", "targetHeight": 4.2 },
+    "v2BroadCanopyTree": { "path": "v2/broad-canopy-shade-tree-e7c4a2.glb", "targetHeight": 8 },
+    "v2CampusLampPost": { "path": "v2/campus-lamp-post-579291.glb", "targetHeight": 5 },
+    "v2ColumnarShrub": { "path": "v2/columnar-evergreen-shrub-35a00b.glb", "targetHeight": 2.8 },
+    "v2FirewoodStack": { "path": "v2/firewood-stack-810f49.glb", "targetHeight": 1.2 },
+    "v2FreightCrate": { "path": "v2/freight-crate-and-sack-f49cbb.glb", "targetHeight": 1.6 },
+    "v2MediumRock": { "path": "v2/medium-rock-e08405.glb", "targetHeight": 1.2 },
+    "v2MossPatch": { "path": "v2/moss-patch-3ecaf4.glb", "targetHeight": 0.25 },
+    "v2OrnamentalTree": { "path": "v2/ornamental-front-yard-tree-c6781a.glb", "targetHeight": 6 },
+    "v2RoundPathStone": { "path": "v2/round-path-stone-4130f3.glb", "targetHeight": 0.2 },
+    "v2SaguaroCactus": { "path": "v2/saguaro-cactus-6b27eb.glb", "targetHeight": 5 },
+    "v2SlabPathStone": { "path": "v2/slab-path-stone-e526f7.glb", "targetHeight": 0.2 },
+    "v2TreeStump": { "path": "v2/tree-stump-ec3f48.glb", "targetHeight": 0.9 },
+    "v2TrimmedShrub": { "path": "v2/trimmed-foundation-shrub-616ce0.glb", "targetHeight": 1.8 },
+    "v2WoodenPalisade": { "path": "v2/wooden-palisade-d4f4db.glb", "targetHeight": 2.8 },
+    "v2YoungPine": { "path": "v2/young-pine-0d7695.glb", "targetHeight": 7 }
+  },
+  "obstacleAssetKinds": {
+    "barrel": "oilDrum",
+    "rock": "v2MediumRock",
+    "crate": "v2FreightCrate",
+    "roadblock": "v2WoodenPalisade"
   },
   "obstacleAssetScales": {
-    "barrel": 1.2
+    "barrel": 1.2,
+    "rock": 1,
+    "crate": 1,
+    "roadblock": 0.6
   },
   "levels": {
     "jungle-front": [
@@ -20,7 +44,19 @@
       { "id": "jungle-tree-west-2", "kind": "broadleafTree", "x": -31, "y": 0, "z": 28, "scale": 0.85, "rotationY": -0.2 },
       { "id": "jungle-tree-east-2", "kind": "broadTree", "x": 32, "y": 0, "z": 24, "scale": 0.95, "rotationY": 0.35 },
       { "id": "jungle-radio", "kind": "fieldRadio", "x": 13.5, "y": 0, "z": 12, "scale": 1, "rotationY": 0.35 },
-      { "id": "jungle-crate", "kind": "crate", "x": -12.5, "y": 0, "z": -17, "scale": 1, "rotationY": 0.18 }
+      { "id": "jungle-crate", "kind": "crate", "x": -12.5, "y": 0, "z": -17, "scale": 1, "rotationY": 0.18 },
+      { "id": "jungle-side-tree-west-0", "kind": "v2BroadCanopyTree", "x": -28, "y": 0, "z": 22, "scale": 1.15, "rotationY": 0.15, "segment": 0 },
+      { "id": "jungle-side-tree-east-0", "kind": "v2OrnamentalTree", "x": 28, "y": 0, "z": 18, "scale": 1.1, "rotationY": -0.2, "segment": 0 },
+      { "id": "jungle-side-lamp-0", "kind": "v2CampusLampPost", "x": -25, "y": 0, "z": 7, "scale": 0.95, "rotationY": 0.1, "segment": 0 },
+      { "id": "jungle-side-pine-west-1", "kind": "v2YoungPine", "x": -29, "y": 0, "z": 24, "scale": 1.05, "rotationY": 0.2, "segment": 1 },
+      { "id": "jungle-side-shrub-east-1", "kind": "v2ColumnarShrub", "x": 27, "y": 0, "z": 2, "scale": 1.1, "rotationY": -0.15, "segment": 1 },
+      { "id": "jungle-side-firewood-east-1", "kind": "v2FirewoodStack", "x": 25, "y": 0, "z": -20, "scale": 1.1, "rotationY": 0.3, "segment": 1 },
+      { "id": "jungle-side-tree-west-2", "kind": "v2BroadCanopyTree", "x": -29, "y": 0, "z": 20, "scale": 1.1, "rotationY": -0.15, "segment": 2 },
+      { "id": "jungle-side-tree-east-2", "kind": "v2OrnamentalTree", "x": 30, "y": 0, "z": -18, "scale": 1.05, "rotationY": 0.2, "segment": 2 },
+      { "id": "jungle-side-palisade-west-2", "kind": "v2WoodenPalisade", "x": -25, "y": 0, "z": -4, "scale": 0.65, "rotationY": 1.5707963267948966, "segment": 2 },
+      { "id": "jungle-side-pine-east-3", "kind": "v2YoungPine", "x": 29, "y": 0, "z": 24, "scale": 1.1, "rotationY": -0.15, "segment": 3 },
+      { "id": "jungle-side-shrub-west-3", "kind": "v2TrimmedShrub", "x": -25, "y": 0, "z": -10, "scale": 1.15, "rotationY": 0.2, "segment": 3 },
+      { "id": "jungle-side-stump-east-3", "kind": "v2TreeStump", "x": 26, "y": 0, "z": -24, "scale": 1.2, "rotationY": -0.2, "segment": 3 }
     ],
     "desert-refinery": [
       { "id": "desert-shed", "kind": "shed", "x": -30, "y": 0, "z": -18, "scale": 1, "rotationY": 0.08 },

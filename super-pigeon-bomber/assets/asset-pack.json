@@ -1,6 +1,23 @@
 {
     "section1": {
         "files": [
+            { "type": "image", "key": "Chest_Closed", "url": "ui/Chest_Closed.png" },
+            { "type": "image", "key": "Chest_Open", "url": "ui/Chest_Open.png" },
+            { "type": "image", "key": "Btn_Info", "url": "ui/Btn_Info.png" },
+            { "type": "image", "key": "Btn_Yes", "url": "ui/Btn_Yes.png" },
+            { "type": "image", "key": "Btn_No", "url": "ui/Btn_No.png" },
+            { "type": "image", "key": "DirectionArrow", "url": "ui/DirectionArrow.png" },
+            { "type": "image", "key": "Icon_KillsV2", "url": "ui/Icon_KillsV2.png" },
+            {
+                "type": "image",
+                "key": "Btn_Custom",
+                "url": "ui/Btn_Custom.png"
+            },
+            {
+                "type": "image",
+                "key": "Btn_CustomActionForAd",
+                "url": "ui/Btn_CustomActionForAd.png"
+            },
             {
                 "type": "multiatlas",
                 "key": "game-atlas",

@@ -1,6 +1,8 @@
 {
     "section1": {
         "files": [
+            { "type": "image", "key": "Btn_RegularMode", "url": "ui/Btn_RegularMode.png" },
+            { "type": "image", "key": "Btn_EndlessMode", "url": "ui/Btn_EndlessMode.png" },
             { "type": "image", "key": "Chest_Closed", "url": "ui/Chest_Closed.png" },
             { "type": "image", "key": "Chest_Open", "url": "ui/Chest_Open.png" },
             { "type": "image", "key": "Btn_Info", "url": "ui/Btn_Info.png" },

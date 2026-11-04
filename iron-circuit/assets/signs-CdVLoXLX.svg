@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="1024" viewBox="0 0 2048 1024">
+  <rect width="2048" height="1024" fill="#143f40"/>
+  <g fill="none" stroke="#b9a572" stroke-width="3">
+    <path d="M40 28H2008V228H40Z M40 284H2008V484H40Z M40 540H2008V740H40Z M40 796H2008V996H40Z"/>
+  </g>
+  <g fill="#f4ecd8" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700">
+    <text x="1024" y="165" font-size="112" letter-spacing="18">FRESH MARKET</text>
+    <text x="1024" y="420" font-size="104" letter-spacing="24">PANTRY</text>
+    <text x="1024" y="676" font-size="104" letter-spacing="24">CHILLED</text>
+    <text x="1024" y="932" font-size="96" letter-spacing="16">FRESH PRODUCE</text>
+  </g>
+</svg>

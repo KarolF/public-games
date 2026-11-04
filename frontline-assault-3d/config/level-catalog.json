@@ -44,6 +44,7 @@
     "enemyContactDistance": 0.2,
     "enemySeenDistance": 31,
     "enemyRetireDistance": 19,
+    "enemyMaxSpeed": 7.875,
     "bossDistance": 42,
     "bossSpawnMargin": 6,
     "shotgunPelletCount": 12,
@@ -95,8 +96,25 @@
     "hardStrafeAmplitudeMultiplier": 1.7,
     "hardDodgeDistance": 2.4,
     "hardDodgeCooldown": 0.45,
-    "hardDodgeLookaheadSeconds": 0.8
-  },  "levels": {
+    "hardDodgeLookaheadSeconds": 0.8,
+    "hardEnemySpeedMultiplier": 1.5,
+    "hardEnemyFireRateMultiplier": 1.5,
+    "hardEnemyProjectileSpeedMultiplier": 1.5,
+    "hardCoverDecisionInterval": 0.25,
+    "hardCoverMaxDistance": 18,
+    "hardCoverPeekDistance": 0.9,
+    "hardCoverTimeoutSeconds": 4,
+    "hardCoverSearchLimit": 24,
+    "hardCoverExposureSeconds": 0.7,
+    "hardCoverRepositionAngleDot": 0.72,
+    "hardFlankDistance": 8,
+    "hardFlankTimeoutSeconds": 5,
+    "hardRetreatHealthRatio": 0.35,
+    "hardRetreatDistance": 7,
+    "hardRetreatDurationSeconds": 3,
+    "hardRetreatCooldownSeconds": 8
+  },
+  "levels": {
     "jungle-front": {
       "next": "desert-refinery",
       "enemyHealthMultiplier": 0.5,
@@ -105,6 +123,10 @@
       "bonus": 1500,
       "boss": "boss_tank",
       "enemyPool": "jungle",
+      "hardOpeningPair": { "pressure": "grunt", "flank": "gunner" },
+      "encounterSchedule": [
+        { "wave": 0, "slot": 2, "kind": "bomber" }
+      ],
       "obstacleKinds": ["rock", "tree", "crate", "barrel"],
       "blockingObstacles": [
         { "kind": "roadblock", "segment": 0, "x": -7, "z": 23 },
@@ -120,10 +142,10 @@
       "bonus": 3000,
       "boss": "boss_crawler",
       "enemyPool": "desert",
-      "obstacleKinds": ["wall", "barrel", "wreck", "roadblock", "bunker", "crate", "rock"],
+      "obstacleKinds": ["rock", "barrel", "roadblock", "crate"],
       "blockingObstacles": [
         { "kind": "roadblock", "segment": 0, "x": 8, "z": 18 },
-        { "kind": "wreck", "segment": 1, "x": -8, "z": -12 }
+        { "kind": "rock", "segment": 1, "x": -8, "z": -12 }
       ]
     },
     "frozen-fortress": {
@@ -133,10 +155,10 @@
       "hardBossHealthMultiplier": 1,
       "boss": "boss_mech",
       "enemyPool": "frozen",
-      "obstacleKinds": ["rock", "wall", "wreck", "bunker", "crate"],
+      "obstacleKinds": ["rock", "crate"],
       "blockingObstacles": [
-        { "kind": "wall", "segment": 0, "x": 6, "z": 16 },
-        { "kind": "bunker", "segment": 1, "x": -7, "z": -8 }
+        { "kind": "rock", "segment": 0, "x": 6, "z": 16 },
+        { "kind": "rock", "segment": 1, "x": -7, "z": -8 }
       ]
     }
   },

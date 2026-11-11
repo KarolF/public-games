@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Room Planner door marker</title>
+    <style>
+      @page { size: A4 portrait; margin: 5mm; }
+      body { margin: 0; padding: 1rem; color: #111; background: #fff; font: 16px/1.4 system-ui, sans-serif; }
+      main { max-width: 200mm; margin: auto; }
+      h1 { margin: 0 0 0.5rem; font-size: 1.5rem; }
+      p { margin: 0 0 0.5rem; }
+      .top { text-align: center; font-weight: bold; }
+      .tag { display: block; width: 100%; height: auto; }
+      .ruler { display: block; width: 62mm; max-width: 100%; margin: 0 auto 0.5rem; }
+      @media print {
+        body { padding: 0; font-size: 10pt; }
+        h1 { font-size: 14pt; }
+        main { width: 200mm; }
+        .screen-only { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Room Planner door marker</h1>
+      <p>Print on A4 at 100% or Actual size. Turn off Fit to page.</p>
+      <p>Tape the sheet flat in the plane of the doorway with the arrow pointing up. Keep the full black square and white border visible.</p>
+      <p class="screen-only"><button type="button" onclick="window.print()">Print marker</button></p>
+      <div class="top">↑ TOP</div>
+      <!--
+        AprilRobotics tag36h11 ID 0. Each cell is 20 mm on the printed sheet.
+
+        BSD 2-Clause License
+
+        Copyright (c) 2013-2016, The Regents of The University of Michigan.
+        All rights reserved.
+
+        Redistribution and use in source and binary forms, with or without
+        modification, are permitted provided that the following conditions are met:
+
+        1. Redistributions of source code must retain the above copyright notice, this
+           list of conditions and the following disclaimer.
+
+        2. Redistributions in binary form must reproduce the above copyright notice,
+           this list of conditions and the following disclaimer in the documentation
+           and/or other materials provided with the distribution.
+
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+        AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+        IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+        DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+        FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+        DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+        SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+        CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+        OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+        OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+      -->
+      <svg class="tag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" role="img" aria-label="AprilTag 36h11 ID 0 with white border" shape-rendering="crispEdges">
+        <rect width="10" height="10" fill="#fff" />
+        <rect x="1" y="1" width="8" height="8" fill="#000" />
+        <path fill="#fff" d="M2 2h2v1h-2z M5 2h1v1h-1z M7 2h1v1h-1z M3 3h3v1h-3z M7 3h1v1h-1z M3 4h2v1h-2z M2 5h1v1h-1z M4 5h1v1h-1z M3 6h1v1h-1z M5 6h2v1h-2z M5 7h1v1h-1z" />
+      </svg>
+      <svg class="ruler" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62 11" role="img" aria-label="50 mm print scale check">
+        <path d="M6 0v5 M6 2.5h50 M56 0v5" fill="none" stroke="#000" stroke-width="0.35" />
+        <text x="31" y="10" text-anchor="middle" font-size="3.2">50 mm</text>
+      </svg>
+      <p>Check the ruler line measures 50 mm between the ticks and the black square is 160 mm on each side before using the marker.</p>
+      <p class="screen-only"><a href="https://github.com/AprilRobotics/apriltag-imgs/blob/master/tag36h11/tag36_11_00000.png">AprilRobotics marker source</a></p>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Room Planner · Camera tracking</title>
+    <script type="module" crossorigin src="../assets/doorTracking-CM9bMbYM.js"></script>
+    <link rel="modulepreload" crossorigin href="../assets/modulepreload-polyfill-B5Qt9EMX.js">
+    <link rel="modulepreload" crossorigin href="../assets/scanGeometry-yTArWseE.js">
+    <link rel="stylesheet" crossorigin href="../assets/doorTracking-BO-kXn0T.css">
+  </head>
+  <body>
+    <main>
+      <a href="../">Back to Room Planner</a>
+      <h1>3D door tracking</h1>
+      <div id="stage" hidden>
+        <canvas id="camera" aria-label="Live camera with a 3D doorway"></canvas>
+        <span id="reticle" aria-hidden="true" hidden></span>
+      </div>
+      <p id="status" role="status">Loading the tracking engine…</p>
+      <p id="error" role="alert" hidden></p>
+      <div class="controls">
+        <button id="start" type="button" disabled>Start camera</button>
+        <button id="place" type="button" hidden>Place test door</button>
+        <button id="measure" type="button" hidden>Measure doorway</button>
+        <button id="mark" type="button" hidden>Mark</button>
+        <button id="retake" type="button" hidden>Retake last mark</button>
+        <button id="stop" type="button" hidden>Stop camera</button>
+      </div>
+      <section id="products" aria-label="Door preview" hidden>
+        <p id="opening"></p>
+        <div id="options" role="group" aria-label="Door products"></div>
+        <p id="details"></p>
+      </section>
+      <footer>
+        8th Wall XR Engine by Niantic Spatial, Inc. Copyright © 2026 Niantic Spatial, Inc. All rights reserved.
+        <a href="https://github.com/8thwall/engine/blob/main/LICENSE">License and warranty disclaimer</a>
+      </footer>
+    </main>
+  </body>
+</html>

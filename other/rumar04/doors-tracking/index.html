@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Room Planner · Camera tracking</title>
-    <script type="module" crossorigin src="../assets/doorTracking-CM9bMbYM.js"></script>
+    <script type="module" crossorigin src="../assets/doorTracking-CG44pLnG.js"></script>
     <link rel="modulepreload" crossorigin href="../assets/modulepreload-polyfill-B5Qt9EMX.js">
-    <link rel="modulepreload" crossorigin href="../assets/scanGeometry-yTArWseE.js">
-    <link rel="stylesheet" crossorigin href="../assets/doorTracking-BO-kXn0T.css">
+    <link rel="modulepreload" crossorigin href="../assets/scanGeometry-BJSKqiJh.js">
+    <link rel="stylesheet" crossorigin href="../assets/doorTracking-AHjSSPBJ.css">
   </head>
   <body>
     <main>
@@ -18,13 +18,20 @@
         <span id="reticle" aria-hidden="true" hidden></span>
       </div>
       <p id="status" role="status">Loading the tracking engine…</p>
+      <p id="reading" hidden></p>
+      <p id="aim-feedback" hidden></p>
       <p id="error" role="alert" hidden></p>
       <div class="controls">
         <button id="start" type="button" disabled>Start camera</button>
         <button id="place" type="button" hidden>Place test door</button>
         <button id="measure" type="button" hidden>Measure doorway</button>
         <button id="mark" type="button" hidden>Mark</button>
-        <button id="retake" type="button" hidden>Retake last mark</button>
+        <button id="confirm" type="button" hidden>Confirm alignment</button>
+        <button id="method" type="button" hidden>Measure from two viewpoints</button>
+        <button id="retake-left" type="button" hidden>Retake left jamb</button>
+        <button id="retake-right" type="button" hidden>Retake right jamb</button>
+        <button id="retake-top" type="button" hidden>Retake top edge</button>
+        <button id="retake-view" type="button" hidden>Retake first view</button>
         <button id="stop" type="button" hidden>Stop camera</button>
       </div>
       <section id="products" aria-label="Door preview" hidden>

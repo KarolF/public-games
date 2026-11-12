@@ -1,0 +1,60 @@
+[
+  {
+    "name": "Artens Imperia White",
+    "leafWidthCm": 84.4,
+    "leafHeightCm": 203,
+    "thicknessMm": 38,
+    "finish": "imperia",
+    "handing": "right",
+    "price": "149 zł",
+    "url": "https://www.leroymerlin.pl/produkty/drzwi-wewnetrzne-pelne-imperia-biale-80-prawe-artens-45365600.html",
+    "color": "#f2eee6",
+    "recesses": [[0.22, 0.13, 0.46, 0.87], [0.54, 0.13, 0.78, 0.87]]
+  },
+  {
+    "name": "Artens Dual Black and Oak",
+    "leafWidthCm": 74.4,
+    "leafHeightCm": 203,
+    "thicknessMm": 38,
+    "finish": "dual",
+    "handing": "right",
+    "price": "239 zł",
+    "url": "https://www.leroymerlin.pl/produkty/drzwi-wewnetrzne-pokojowe-dual-czarny-mat-dab-bawaria-80-prawe-artens-82879362.html",
+    "color": "#9f7952",
+    "glazing": [[0.29, 0.16, 0.40, 0.35], [0.29, 0.40, 0.40, 0.59], [0.29, 0.64, 0.40, 0.83]]
+  },
+  {
+    "name": "Artens Intarsja White and Sand Oak",
+    "leafWidthCm": 84.4,
+    "leafHeightCm": 203,
+    "thicknessMm": 40,
+    "finish": "intarsja",
+    "handing": "right",
+    "price": "259 zł",
+    "url": "https://www.leroymerlin.pl/produkty/drzwi-wewnetrzne-pelne-intarsja-biale-z-dekorem-dab-piaskowy-80-prawe-artens-83247722.html",
+    "color": "#f3f1e9"
+  },
+  {
+    "name": "Artens Napa Nero White",
+    "leafWidthCm": 84.4,
+    "leafHeightCm": 203.3,
+    "thicknessMm": 38,
+    "finish": "napa-nero",
+    "handing": "left",
+    "price": "399 zł",
+    "url": "https://www.leroymerlin.pl/produkty/drzwi-wewnetrzne-80-lewe-pelne-biale-artens-napa-nero-98127280.html",
+    "color": "#eeece7"
+  },
+  {
+    "name": "Artens Etna White",
+    "leafWidthCm": 84.4,
+    "leafHeightCm": 203,
+    "thicknessMm": 38,
+    "finish": "etna",
+    "handing": "left",
+    "price": "439 zł",
+    "url": "https://www.leroymerlin.pl/produkty/drzwi-wewnetrzne-80-lewe-pokojowe-biale-artens-etna-45062822.html",
+    "color": "#ece8dc",
+    "glazing": [[0.16, 0.42, 0.84, 0.456], [0.16, 0.54, 0.84, 0.576], [0.16, 0.66, 0.84, 0.696], [0.16, 0.78, 0.84, 0.816]]
+  }
+]

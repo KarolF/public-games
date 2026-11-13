@@ -56,5 +56,40 @@
     "url": "https://www.leroymerlin.pl/produkty/drzwi-wewnetrzne-80-lewe-pokojowe-biale-artens-etna-45062822.html",
     "color": "#ece8dc",
     "glazing": [[0.16, 0.42, 0.84, 0.456], [0.16, 0.54, 0.84, 0.576], [0.16, 0.66, 0.84, 0.696], [0.16, 0.78, 0.84, 0.816]]
+  },
+  {
+    "name": "ERKADO Baldur 1",
+    "displayName": "Baldur 1",
+    "thicknessMm": 40,
+    "finish": "baldur",
+    "handing": "right",
+    "url": "https://erkado.pl/produkty/baldur-1/",
+    "color": "#a77946",
+    "glazing": [[0.25, 0.10, 0.39, 0.91]],
+    "glassStyle": "black",
+    "woodFrame": true
+  },
+  {
+    "name": "INVADO Arteo",
+    "displayName": "Arteo",
+    "thicknessMm": 40,
+    "finish": "arteo",
+    "handing": "right",
+    "url": "https://www.invado.pl/produkty/drzwi-wewnetrzne-plaskie-arteo/",
+    "color": "#493124",
+    "inlays": [0.24, 0.32, 0.40],
+    "woodFrame": true
+  },
+  {
+    "name": "PORTA Nature Lumia 1",
+    "displayName": "Nature Lumia",
+    "thicknessMm": 40,
+    "finish": "lumia",
+    "handing": "right",
+    "url": "https://portadoors.com/p/interior-doors/nature-lumia-model-1/",
+    "color": "#b79361",
+    "glazing": [[0.17, 0.12, 0.83, 0.9]],
+    "glassStyle": "fluted",
+    "woodFrame": true
   }
 ]

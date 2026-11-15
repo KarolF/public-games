@@ -91,16 +91,5 @@
     "glazing": [[0.17, 0.12, 0.83, 0.9]],
     "glassStyle": "fluted",
     "woodFrame": true
-  },
-  {
-    "name": "PANTOR Hawr Złoty dąb 90 prawe",
-    "displayName": "Hawr Złoty dąb",
-    "thicknessMm": 55,
-    "finish": "hawr-golden-oak",
-    "handing": "right",
-    "price": "1199 zł",
-    "url": "https://www.leroymerlin.pl/produkty/drzwi-stalowe-zewnetrzne-wejsciowe-hawr-zloty-dab-90-prawe-93409020.html",
-    "color": "#9d5e30",
-    "woodFrame": true
   }
 ]
